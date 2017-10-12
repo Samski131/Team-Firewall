@@ -29,6 +29,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
 
+        public GameObject wolf;
+
 
 		void Start()
 		{
@@ -70,8 +72,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				HandleAirborneMovement();
 			}
 
-			ScaleCapsuleForCrouching(crouch);
-			PreventStandingInLowHeadroom();
+			//ScaleCapsuleForCrouching(crouch);
+			//PreventStandingInLowHeadroom();
 
 			// send input and other state parameters to the animator
 			UpdateAnimator(move);
@@ -190,6 +192,21 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		{
 			// we implement this function to override the default root motion.
 			// this allows us to modify the positional speed before it's applied.
+
+            if(wolf.GetComponent<MeshRenderer>().enabled)
+            {
+                //Increase Movespeed when in wolfmode
+                m_MoveSpeedMultiplier =  2;
+                m_JumpPower = 10;
+                m_GravityMultiplier = 1;
+            }
+            else
+            {
+                //Return to standard movespeed when in wolfmode
+                m_MoveSpeedMultiplier = 1;
+                m_JumpPower = 6;
+                m_GravityMultiplier = 2;
+            }
 			if (m_IsGrounded && Time.deltaTime > 0)
 			{
 				Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
