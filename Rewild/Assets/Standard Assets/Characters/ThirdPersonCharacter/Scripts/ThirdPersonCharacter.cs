@@ -28,6 +28,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
+        bool b_Transformed;
 
         public GameObject wolf;
 
@@ -43,6 +44,15 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
 		}
+
+        void Update()
+        {
+
+            if(wolf.GetComponent<MeshRenderer>().enabled == true)
+            {
+                 
+            }
+        }
 
 
 		public void Move(Vector3 move, bool crouch, bool jump)
@@ -196,8 +206,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             if(wolf.GetComponent<MeshRenderer>().enabled)
             {
                 //Increase Movespeed when in wolfmode
-                m_MoveSpeedMultiplier =  2;
-                m_JumpPower = 10;
+                m_MoveSpeedMultiplier =2;
+                m_JumpPower = 8 ;
                 m_GravityMultiplier = 1;
             }
             else
@@ -205,7 +215,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 //Return to standard movespeed when in wolfmode
                 m_MoveSpeedMultiplier = 1;
                 m_JumpPower = 6;
-                m_GravityMultiplier = 2;
+                m_GravityMultiplier = 1;
             }
 			if (m_IsGrounded && Time.deltaTime > 0)
 			{

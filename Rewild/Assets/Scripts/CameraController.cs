@@ -5,12 +5,11 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-    public bool isThirdperson = true;
+    public bool isAnimal = true;
     public bool isTranslating = false;
     public float cameraPanSpeed;
-    public GameObject FirstPersonCameraAnchor;
-    private Camera FirstPersonCamera; //enables the First Person Camera.;
-                                      // Use this for initialization
+    public GameObject animalCamAnchor;
+
     public GameObject Human;
     public GameObject Wolf;
  
@@ -18,32 +17,28 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        FirstPersonCamera = FirstPersonCameraAnchor.transform.Find("FPSCamera").GetComponent<Camera>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Debug.Log("C Key Press");
-        }
 
-            if (Input.GetKeyDown(KeyCode.V))
-        {
-            Debug.Log("v Key Press");
-            if (isThirdperson == true)
-            { // switching from third person to first person
-                Debug.Log("Entering 1st Person");
-                isThirdperson = false; // switches to first person
+      if (Input.GetKeyDown(KeyCode.V))
+		{
+			Debug.Log("Switching Forms (V key press)");
+
+			if (isAnimal == true)
+            { // switching to human
+				isAnimal = false; // switches to human
 
                 isTranslating = true; // starts translating
             }
-            else if (isThirdperson == false)
-            {
-                Debug.Log("Entering 3rd Person");
-                isThirdperson = true; // switches to third person
+			else if (isAnimal == false)
+            { // switching to animal
+				
+				isAnimal = true; // switches to animal
 
                 isTranslating = true; // starts translating
             }
@@ -52,18 +47,15 @@ public class CameraController : MonoBehaviour
         }
 
 
-        if ((isTranslating) && (isThirdperson == false)) //if the camera is translating TO first person
+		if ((isTranslating) && (isAnimal == false)) //if the camera is translating TO animal
         {
-            Debug.Log("Translating to 1st Person");
+            Debug.Log("Translating to animal anchor");
             // Debug.Log("Distance: " + Vector3.Distance(transform.position, FirstPersonCameraAnchor.transform.position));
-            transform.position = Vector3.MoveTowards(transform.position, FirstPersonCameraAnchor.transform.position, (cameraPanSpeed * Time.deltaTime)); //move the camera forwards smoothly based on public speed variable
+			transform.position = Vector3.MoveTowards(transform.position, animalCamAnchor.transform.position, (cameraPanSpeed * Time.deltaTime)); //move the camera forwards smoothly based on public speed variable
 
-            if (Vector3.Distance(transform.position, FirstPersonCameraAnchor.transform.position) < 0.1)
+			if (Vector3.Distance(transform.position, animalCamAnchor.transform.position) < 0.1)
             { //if the Third person camera is roughly where it needs to be
                 isTranslating = false;
-                transform.localPosition = new Vector3(0, 0, 0); //resets the thirdperson camera back to the anchor location for next switch.
-                gameObject.GetComponent < Camera >().enabled = false; //disables Third person camera
-                FirstPersonCameraAnchor.transform.Find("FPSCamera").gameObject.SetActive(true); //enables the First Person Camera.
                 Wolf.GetComponent<MeshRenderer>().enabled = true;
                 Human.GetComponent<SkinnedMeshRenderer>().enabled = false;
                 gameObject.transform.parent.transform.parent.GetComponent<CapsuleCollider>().enabled = false;
@@ -71,18 +63,15 @@ public class CameraController : MonoBehaviour
             }
 
         }
-        else if ((isTranslating) && (isThirdperson == true)) // if camera is translating TO third person
+		else if ((isTranslating) && (isAnimal == true)) // if camera is translating TO human
         {
-            Debug.Log("Translating to 3rd Person");
+            Debug.Log("Translating to human anchor");
             //Debug.Log("Distance: " + Vector3.Distance(transform.position, FirstPersonCameraAnchor.transform.position));
-            FirstPersonCamera.transform.position = Vector3.MoveTowards(FirstPersonCamera.transform.position, transform.parent.position, (cameraPanSpeed * Time.deltaTime)); //move the camera forwards smoothly based on public speed variable
+			transform.parent.transform.position = Vector3.MoveTowards(transform.parent.transform.position, transform.parent.position, (cameraPanSpeed * Time.deltaTime)); //move the camera forwards smoothly based on public speed variable
 
-            if (Vector3.Distance(FirstPersonCamera.transform.position, transform.parent.position) < 0.1)
+			if (Vector3.Distance(transform.parent.transform.position, transform.parent.position) < 0.1)
             { //if the First person camera is roughly where it needs to be
                 isTranslating = false;
-                FirstPersonCamera.transform.gameObject.SetActive(false); //disables the first person camera.
-                gameObject.GetComponent<Camera>().enabled = true; //disables Third person camera
-                FirstPersonCamera.transform.localPosition = new Vector3(0, 0, 0);
                 Wolf.GetComponent<MeshRenderer>().enabled = false;
                 Human.GetComponent<SkinnedMeshRenderer>().enabled = true;
                 gameObject.transform.parent.transform.parent.GetComponent<CapsuleCollider>().enabled = true;
