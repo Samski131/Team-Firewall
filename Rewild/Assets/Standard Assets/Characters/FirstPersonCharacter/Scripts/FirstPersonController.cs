@@ -42,6 +42,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+		public Transform VRCamera;
+
+		public GameObject CameraParent;
+		private Vector3 test = new Vector3(0.0f, 0.0f, 0.0f);
+
+        public bool isAnimal = false;
+        public bool isTranslating = false;
+
+        public float cameraPanSpeed;
+        public GameObject animalCamAnchor;
+        public GameObject mollieCamAnchor;
+
+
         // Use this for initialization
         private void Start()
         {
@@ -55,16 +68,24 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+
+
+            //Little bif of a cheat hack here, the Cameras starting position does not start at the anchor, so a very very quick transform happens
+            isTranslating = true;
+            isAnimal = false;
+            
         }
 
 
         // Update is called once per frame
         private void Update()
-        {
+		{ 
             RotateView();
+
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
             {
+                //Change this to generic input so that it works on other input devices?
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
 
@@ -81,6 +102,66 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
+
+            
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                if (isTranslating == false)
+                {
+                    Debug.Log("Switching Forms (V key press)");
+
+                    if (isAnimal == true)
+                    { // switching to human
+                        isAnimal = false; // switches to human
+
+                        isTranslating = true; // starts translating
+                    }
+                    else if (isAnimal == false)
+                    { // switching to animal
+
+                        isAnimal = true; // switches to animal
+
+                        isTranslating = true; // starts translating
+                    }
+
+                }
+               
+            }
+
+
+            if ((isTranslating) && (isAnimal == true)) //if the camera is translating TO animal
+            {
+                Debug.Log("Translating to animal anchor");
+				// Debug.Log("Distance: " + Vector3.Distance(transform.position, FirstPersonCameraAnchor.transform.position));
+				CameraParent.transform.Translate(new Vector3 (0.0f, -0.05f, 0.0f));
+
+				if (CameraParent.transform.localPosition.y < 0.25f)
+                { //If Translation has finished and now in Animal mode
+                    isTranslating = false;
+					m_CharacterController.height = 0.5f;
+					m_CharacterController.slopeLimit = 60;
+                    //Enable any visual effects
+                }
+
+            }
+            else if ((isTranslating) && (isAnimal == false)) // if camera is translating TO human
+            {
+                Debug.Log("Translating to human anchor");
+				//Debug.Log("Distance: " + Vector3.Distance(transform.position, FirstPersonCameraAnchor.transform.position));
+				CameraParent.transform.Translate(new Vector3 (0.0f, 0.05f, 0.0f));
+
+				if (CameraParent.transform.localPosition.y > 1.25f)
+				{ //If Translation has finished and now in Mollie mode
+                    isTranslating = false;
+                    //Disable any visual effects
+                }
+            }
+
+
+			m_CharacterController.center = m_Camera.transform.localPosition;
+			//m_CharacterController.transform.rotation = m_Camera.transform.rotation;
+
+            
         }
 
 
@@ -96,8 +177,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             float speed;
             GetInput(out speed);
+
+			//VRCamera.TransformDirection (Vector3.forward);
             // always move along the camera forward as it is the direction that it being aimed at
-            Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
+			Vector3 desiredMove = m_Camera.transform.forward*m_Input.y + m_Camera.transform.right*m_Input.x;
+
+
 
             // get a normal for the surface that is being touched to move along it
             RaycastHit hitInfo;
@@ -128,7 +213,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
 
             ProgressStepCycle(speed);
-            UpdateCameraPosition(speed);
+            //UpdateCameraPosition(speed);
 
             m_MouseLook.UpdateCursorLock();
         }
@@ -198,6 +283,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset();
             }
             m_Camera.transform.localPosition = newCameraPosition;
+
         }
 
 
