@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
 
     public GameObject Human;
     public GameObject Wolf;
+
  
 
 
@@ -32,14 +33,12 @@ public class CameraController : MonoBehaviour
 			if (isAnimal == true)
             { // switching to human
 				isAnimal = false; // switches to human
-
                 isTranslating = true; // starts translating
             }
 			else if (isAnimal == false)
             { // switching to animal
 				
 				isAnimal = true; // switches to animal
-
                 isTranslating = true; // starts translating
             }
 

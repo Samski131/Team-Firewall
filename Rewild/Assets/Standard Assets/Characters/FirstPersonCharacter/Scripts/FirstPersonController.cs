@@ -54,6 +54,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public GameObject animalCamAnchor;
         public GameObject mollieCamAnchor;
 
+		public Camera scentCamera;
+
 
         // Use this for initialization
         private void Start()
@@ -69,6 +71,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
 
+			scentCamera.enabled = false; //Disable the scent cam initially as player starts as a human
 
             //Little bif of a cheat hack here, the Cameras starting position does not start at the anchor, so a very very quick transform happens
             isTranslating = true;
@@ -113,14 +116,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     if (isAnimal == true)
                     { // switching to human
                         isAnimal = false; // switches to human
-
+						scentCamera.enabled = false;
                         isTranslating = true; // starts translating
                     }
                     else if (isAnimal == false)
                     { // switching to animal
 
                         isAnimal = true; // switches to animal
-
+						scentCamera.enabled = true;
                         isTranslating = true; // starts translating
                     }
 
