@@ -32,7 +32,7 @@ public class AnimalInteraction : MonoBehaviour {
             if (!interactionAchieved) // if its achieved the player doesnt need to do something else. 
             {
                 interaction.value -= 0.01f; // the animal loses trus in a smaller degree when the player is close
-                if (Input.GetKeyDown(KeyCode.H))
+				if (Input.GetButtonDown("Interact"))
                 {
                     interaction.value += 0.1f;
 

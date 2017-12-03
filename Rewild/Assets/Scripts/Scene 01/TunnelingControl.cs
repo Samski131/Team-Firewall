@@ -10,7 +10,7 @@ public class TunnelingControl : MonoBehaviour {
 	public GameObject Body;
 	public VignetteAndChromaticAberration fovLimiter;
     private CharacterController CC;
-    private float speed = 0f;
+    private float speed = 0.0f;
 
 	// Use this for initialization
 	void Start () 

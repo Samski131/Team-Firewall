@@ -36,7 +36,7 @@ public class inGameMenu : MonoBehaviour {
             Canvas.gameObject.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+		if (Input.GetButtonDown("Menu"))
         {
             Canvas.gameObject.SetActive(true);
 
@@ -52,7 +52,7 @@ public class inGameMenu : MonoBehaviour {
         }
 
         // changed everything to be working with buttons
-        if (Input.GetKeyDown(KeyCode.X)&& Animator.GetBool("isTheMenuCalled"))// resume the game
+		if (Input.GetButtonDown("Menu")&& Animator.GetBool("isTheMenuCalled"))// resume the game
         {
             theResumeButtonIsPressed();
         }

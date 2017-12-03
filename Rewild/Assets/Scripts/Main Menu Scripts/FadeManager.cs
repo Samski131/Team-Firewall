@@ -61,8 +61,8 @@ public class FadeManager : MonoBehaviour
             {
                 Debug.Log("05");
                 startFadeIn = false;
-                executeTheIfStatement = true;
-                SceneManager.LoadScene("Scene01");
+				executeTheIfStatement = true;
+				SceneManager.LoadScene("Scene01");
                 
             }
         }
@@ -72,6 +72,7 @@ public class FadeManager : MonoBehaviour
             Debug.Log("06");
             // get the scene which is active right now.
             currentScene = SceneManager.GetActiveScene();
+			Debug.Log (currentScene.name);
             sceneName = currentScene.name;
 
             if(sceneName == "Scene01")
@@ -113,4 +114,4 @@ public class FadeManager : MonoBehaviour
     }
 }
 //Made by Panagiotis Katsiadramis 
-//Modified by: 
+//Modified by:
