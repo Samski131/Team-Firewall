@@ -53,8 +53,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float cameraPanSpeed;
         public GameObject animalCamAnchor;
         public GameObject mollieCamAnchor;
-
 		public Camera scentCamera;
+		public GameObject mollieSoundtrack;
+		public GameObject foxSoundtrack;
+
 
 
         // Use this for initialization
@@ -73,7 +75,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 			scentCamera.enabled = false; //Disable the scent cam initially as player starts as a human
 
-            //Little bif of a cheat hack here, the Cameras starting position does not start at the anchor, so a very very quick transform happens
+            //Little bit of a cheat hack here, the Cameras starting position does not start at the anchor, so a very very quick transform happens
             isTranslating = true;
             isAnimal = false;
             
@@ -144,6 +146,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 					m_CharacterController.height = 0.5f;
 					m_CharacterController.slopeLimit = 60;
                     //Enable any visual effects
+					//Switch sounds
+					mollieSoundtrack.SetActive (false);
+					foxSoundtrack.SetActive(true);
+
                 }
 
             }
@@ -157,6 +163,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				{ //If Translation has finished and now in Mollie mode
                     isTranslating = false;
                     //Disable any visual effects
+					//Switch sounds
+					foxSoundtrack.SetActive(false);
+					mollieSoundtrack.SetActive (true);
+
                 }
             }
 
