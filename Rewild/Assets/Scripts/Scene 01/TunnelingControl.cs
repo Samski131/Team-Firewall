@@ -22,8 +22,8 @@ public class TunnelingControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-        float speed = CC.velocity.magnitude;
-		Debug.Log (speed);
+         speed = CC.velocity.magnitude;
+
 
 		float expectedLimit = maxFOV;
 

@@ -45,7 +45,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		public Transform VRCamera;
 
 		public GameObject CameraParent;
-		private Vector3 test = new Vector3(0.0f, 0.0f, 0.0f);
 
         public bool isAnimal = false;
         public bool isTranslating = false;
