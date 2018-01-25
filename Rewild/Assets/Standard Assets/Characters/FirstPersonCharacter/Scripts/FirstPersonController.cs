@@ -112,7 +112,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 if (isTranslating == false)
                 {
-                    Debug.Log("Switching Forms (V key press)");
+                    Debug.Log("Switching Forms (V key press or Right Trigger)");
 
                     if (isAnimal == true)
                     { // switching to human
@@ -135,7 +135,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             if ((isTranslating) && (isAnimal == true)) //if the camera is translating TO animal
             {
-                Debug.Log("Translating to animal anchor");
+                
 				// Debug.Log("Distance: " + Vector3.Distance(transform.position, FirstPersonCameraAnchor.transform.position));
 				CameraParent.transform.Translate(new Vector3 (0.0f, -0.05f, 0.0f));
 
@@ -154,13 +154,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else if ((isTranslating) && (isAnimal == false)) // if camera is translating TO human
             {
-                Debug.Log("Translating to human anchor");
+                
 				//Debug.Log("Distance: " + Vector3.Distance(transform.position, FirstPersonCameraAnchor.transform.position));
 				CameraParent.transform.Translate(new Vector3 (0.0f, 0.05f, 0.0f));
 
 				if (CameraParent.transform.localPosition.y > 1.25f)
 				{ //If Translation has finished and now in Mollie mode
                     isTranslating = false;
+					m_CharacterController.height = 1.8f;
+					m_CharacterController.slopeLimit = 60;
                     //Disable any visual effects
 					//Switch sounds
 					foxSoundtrack.SetActive(false);
@@ -324,11 +326,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             // handle speed change to give an fov kick
             // only if the player is going to a run, is running and the fovkick is to be used
-            if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
-            {
-                StopAllCoroutines();
-                StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
-            }
+  //          if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
+  //          {
+  //              StopAllCoroutines();
+ //               StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
+ //           }
         }
 
 

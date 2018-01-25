@@ -29,17 +29,19 @@ public class inGameMenu : MonoBehaviour {
         }
 
        // Debug.Log(subtractionResult.ToString());
-
-        if (!Animator.GetBool("isTheMenuCalled") && (Canvas.transform.localPosition.y > 5.17f))
-        {
-            //Debug.Log(Canvas.transform.localPosition.y);
-            Canvas.gameObject.SetActive(false);
-        }
+		if (Canvas.gameObject.activeSelf)
+		{
+	        if (!Animator.GetBool("isTheMenuCalled") && (Canvas.transform.localPosition.y > 5.17f))
+	        {
+	            //Debug.Log(Canvas.transform.localPosition.y);
+	            Canvas.gameObject.SetActive(false);
+	        }
+		}
 
 		if (Input.GetButtonDown("Menu"))
         {
             Canvas.gameObject.SetActive(true);
-
+			Debug.Log("Menu button pressed");
             if(Animator.GetBool("isTheMenuCalled"))
             {
                 Time.timeScale = 1.0f;
@@ -52,7 +54,7 @@ public class inGameMenu : MonoBehaviour {
         }
 
         // changed everything to be working with buttons
-		if (Input.GetButtonDown("Menu")&& Animator.GetBool("isTheMenuCalled"))// resume the game
+		if (Input.GetButtonDown("Resume")&& Animator.GetBool("isTheMenuCalled"))// resume the game
         {
             theResumeButtonIsPressed();
         }

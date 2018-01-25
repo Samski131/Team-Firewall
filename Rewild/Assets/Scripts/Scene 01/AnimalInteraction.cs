@@ -26,35 +26,39 @@ public class AnimalInteraction : MonoBehaviour {
             interactionAchieved = false;
         }
 
-
+	
         if (didThePlayerEnter)
         {
             if (!interactionAchieved) // if its achieved the player doesnt need to do something else. 
             {
-                interaction.value -= 0.01f; // the animal loses trus in a smaller degree when the player is close
+                interaction.value -= 0.01f; // the animal loses trust in a smaller degree when the player is close
 				if (Input.GetButtonDown("Interact"))
                 {
-                    interaction.value += 0.1f;
+                    interaction.value += 0.15f;
 
                 }
             }
         }
         else
         {
-           interaction.value -= 0.1f;
+           interaction.value -= 0.15f;
         }
 	}
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("colision entered");
+		if (collider.gameObject.tag == "Player")
+		{
         didThePlayerEnter = true;
+		}
     }
 
      void OnTriggerExit(Collider collider)
     {
-        Debug.Log("colision stoped");
-        didThePlayerEnter = false;
+		if (collider.gameObject.tag == "Player")
+		{
+			didThePlayerEnter = false;
+		}
     }
 }
 //Made by Panagiotis Katsiadramis
