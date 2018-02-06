@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 namespace UnityStandardAssets.Characters.FirstPerson
@@ -54,13 +55,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public GameObject mollieCamAnchor;
 		public Camera scentCamera;
 		public GameObject mollieSoundtrack;
-		public GameObject foxSoundtrack;
-
-
+        public AudioMixerSnapshot humanMode; // changes the states on the audio mixer depending the state of the player , fox or human.
+        public AudioMixerSnapshot animalMode;
+        public int transitionTime; // controls the rate of change between the 2 soundtracks.
 
         // Use this for initialization
         private void Start()
         {
+            mollieSoundtrack.SetActive(true);
+
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -145,10 +148,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 					m_CharacterController.height = 0.5f;
 					m_CharacterController.slopeLimit = 60;
                     //Enable any visual effects
-					//Switch sounds
-					mollieSoundtrack.SetActive (false);
-					foxSoundtrack.SetActive(true);
-
+                    //Switch sounds
+                    animalMode.TransitionTo(transitionTime);
                 }
 
             }
@@ -164,10 +165,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 					m_CharacterController.height = 1.8f;
 					m_CharacterController.slopeLimit = 60;
                     //Disable any visual effects
-					//Switch sounds
-					foxSoundtrack.SetActive(false);
-					mollieSoundtrack.SetActive (true);
-
+                    //Switch sound
+                    humanMode.TransitionTo(transitionTime);
                 }
             }
 
@@ -357,3 +356,5 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
     }
 }
+
+// modified by: Panagiotis Katsiadramis 6/02/18
