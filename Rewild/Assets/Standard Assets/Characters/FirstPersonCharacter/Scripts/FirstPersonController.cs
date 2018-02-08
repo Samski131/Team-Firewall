@@ -44,15 +44,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private AudioSource m_AudioSource;
 
 		public Transform VRCamera;
-
 		public GameObject CameraParent;
 
         public bool isAnimal = false;
         public bool isTranslating = false;
 
         public float cameraPanSpeed;
-        public GameObject animalCamAnchor;
-        public GameObject mollieCamAnchor;
 		public Camera scentCamera;
 		public GameObject mollieSoundtrack;
         public AudioMixerSnapshot humanMode; // changes the states on the audio mixer depending the state of the player , fox or human.
@@ -139,7 +136,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if ((isTranslating) && (isAnimal == true)) //if the camera is translating TO animal
             {
                 
-				// Debug.Log("Distance: " + Vector3.Distance(transform.position, FirstPersonCameraAnchor.transform.position));
 				CameraParent.transform.Translate(new Vector3 (0.0f, -0.05f, 0.0f));
 
 				if (CameraParent.transform.localPosition.y < 0.25f)
@@ -156,7 +152,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             else if ((isTranslating) && (isAnimal == false)) // if camera is translating TO human
             {
                 
-				//Debug.Log("Distance: " + Vector3.Distance(transform.position, FirstPersonCameraAnchor.transform.position));
 				CameraParent.transform.Translate(new Vector3 (0.0f, 0.05f, 0.0f));
 
 				if (CameraParent.transform.localPosition.y > 1.25f)

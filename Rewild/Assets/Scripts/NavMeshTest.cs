@@ -22,13 +22,18 @@ public class NavMeshTest : MonoBehaviour
 	public Vector3 target;
     public bool moving = false;
 	public int state = 1;
+    public bool triggered;
+    public int framesSinceTriggered;
 
+    private BoxCollider colldier;
 	void Start ()
     {
         //Initiliase the variables
         navMeshAgent = this.GetComponent<NavMeshAgent>();
- 
-		SetDestination(destination);
+        colldier = this.GetComponent<BoxCollider>();
+
+
+        SetDestination(destination);
 
         //Debugging
         if (navMeshAgent == null)
@@ -38,10 +43,21 @@ public class NavMeshTest : MonoBehaviour
 		
 	}
 
+    void OnTriggerEnter()
+    {
+        triggered = true;
+    }
+
+    void OnTriggerExit()
+    {
+        framesSinceTriggered = 0;
+        triggered = false;
+    }
+
     void Update()
     {
-		//Check if the fox is moving fast enough
-        //This is able to tell wether or not the fox is deaccelerating because it's reached its point
+        framesSinceTriggered++;
+		//Check if the fox is currently moving around
 		if ((transform.position - target).magnitude < 1)
         {
             moving = false;
@@ -50,36 +66,54 @@ public class NavMeshTest : MonoBehaviour
         {
             moving = true;
         }
-        
-        //If the fox has reached its destination, set a new destination
-       if(!moving)
+
+       //Switch statement to ove the fox when triggered by player
+       if (triggered && !moving)
         {
-            if (state == 1)
+            switch(state)
             {
-				SetDestination(destination);
-				state = 2;
+                case 1:
+                    SetDestination(destination);
+                    state = 2;
+                    break;
+                case 2:
+                    SetDestination(destination2);
+                    state = 3;
+                    break;
+                case 3:
+                    SetDestination(destination3);
+                    state = 4;
+                    break;
+                case 4:
+                    SetDestination(destination4);
+                    state = 1;
+                    break;
             }
-                
-            else if (state == 2)
-            {
-				SetDestination(destination2);
-				state = 3;
-            }
-            else if (state == 3)
-            {
-				SetDestination(destination3);
-				state = 4;
-			}
-			else if (state == 4)
-			{
-				SetDestination(destination4);
-				state = 1;
-			}
 
             //Moving is now true, debug log the new state
-            moving = true;
-            Debug.Log( "Changed state to state: " + state);
+            triggered = false;
         }
+        else if(!moving && (framesSinceTriggered > 300))
+        {       
+            //Move to a random destinatinon
+
+            //Transform wanderDestination;
+            //wanderDestination = target;
+            //Vector3 rand = UnityEngine.Random.insideUnitSphere;
+            //wanderDestination.position = target.position + rand;
+            //SetWanderDestination(wanderDestination);
+
+            //Debug.Log("Should be wandering aboot");
+
+        }
+
+        if (framesSinceTriggered % 100 == 0)
+        {
+            Debug.Log(framesSinceTriggered);
+        }
+    
+
+
     }
 	
     private void SetDestination(Transform destination)
@@ -88,11 +122,24 @@ public class NavMeshTest : MonoBehaviour
         //Set the new destination in the NavMeshAgent
         if(destination !=null)
         {
+            navMeshAgent.speed = 7;
             Vector3 targetVector = destination.transform.position;
             navMeshAgent.SetDestination(targetVector);
 			target = targetVector;
         }
     }
-    
+    private void SetWanderDestination(Transform destination)
+    {
+
+        //Set the new destination in the NavMeshAgent
+        if (destination != null)
+        {
+            navMeshAgent.speed = 2;
+            Vector3 targetVector = destination.transform.position;
+            navMeshAgent.SetDestination(targetVector);
+            target = targetVector;
+        }
+    }
+
 
 }
