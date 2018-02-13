@@ -57,7 +57,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		public GameObject mollieSoundtrack;
         public AudioMixerSnapshot humanMode; // changes the states on the audio mixer depending the state of the player , fox or human.
         public AudioMixerSnapshot animalMode;
-        public int transitionTime; // controls the rate of change between the 2 soundtracks.
+        [Range(0, 8)]
+        public int transitionTimeInSec; // controls the rate of change between the 2 soundtracks.
+
+       
+
+
 
         // Use this for initialization
         private void Start()
@@ -149,7 +154,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 					m_CharacterController.slopeLimit = 60;
                     //Enable any visual effects
                     //Switch sounds
-                    animalMode.TransitionTo(transitionTime);
+                    animalMode.TransitionTo(transitionTimeInSec);
                 }
 
             }
@@ -166,7 +171,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 					m_CharacterController.slopeLimit = 60;
                     //Disable any visual effects
                     //Switch sound
-                    humanMode.TransitionTo(transitionTime);
+                    humanMode.TransitionTo(transitionTimeInSec);
                 }
             }
 
@@ -357,4 +362,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
     }
 }
 
+
+
 // modified by: Panagiotis Katsiadramis 6/02/18
+// modified by: Panagiotis Katsiadramis 13/02/18
