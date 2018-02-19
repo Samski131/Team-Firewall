@@ -15,17 +15,14 @@ public class AmbientSound : MonoBehaviour {
    
     private void Start()
     {
-        Debug.Log("start 1");  
         if (SoundsToPlay.Length > 0)
         {
-            Debug.Log("start 2");
             audioSource = new AudioSource[SoundsToPlay.Length];
            
             for (int i=0; i < SoundsToPlay.Length; i++ )
             {
                 audioSource[i] = gameObject.AddComponent<AudioSource>();
 
-                Debug.Log("start 3 megetos = " + audioSource.Length);
                 if (LoopTheSong[i])
                 {
                     audioSource[i].loop = true;
@@ -58,7 +55,6 @@ public class AmbientSound : MonoBehaviour {
             for (int i=0; i < soundInsideTheArea.Length; i++ )
             {
                 soundInsideTheArea[i].TransitionTo(transitionTime);
-                Debug.Log("malakia!!"); 
             }
         }
         
