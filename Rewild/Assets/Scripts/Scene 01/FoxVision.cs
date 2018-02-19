@@ -15,14 +15,14 @@ public class FoxVision : MonoBehaviour {
     private int savedIterations;
     private int savedDecreasedResolution;
     private FirstPersonController otherScript;
-    private bool isAnimal;
+    private bool Vision;
 
     private void Start()
     {
         //  initial values 
         savedIterations = 0;
         savedDecreasedResolution = 0;
-        isAnimal = false;
+         Vision = false;
     }
 
 
@@ -32,19 +32,17 @@ public class FoxVision : MonoBehaviour {
     {
 
         otherScript= transform.parent.parent.gameObject.GetComponent<FirstPersonController>();
-        isAnimal = otherScript.isAnimal;
+        Vision = otherScript.foxVision;
 
 
-        if (isAnimal)
+        if (Vision)
         {
             savedIterations = (int) Mathf.Lerp(savedIterations, iterations, 1);
             savedDecreasedResolution = (int)Mathf.Lerp(savedDecreasedResolution, decreasedResolution, 1);
             Debug.Log("animal is true");
         }
         else
-        {
-
-
+        {            
             savedIterations = (int)Mathf.InverseLerp(savedIterations, 0, 1);
             savedDecreasedResolution = (int)Mathf.InverseLerp(savedDecreasedResolution, 0, 1);
             Debug.Log("iterations"+ iterations);
@@ -74,4 +72,5 @@ public class FoxVision : MonoBehaviour {
     }
 }
 
-// modified by: Panagiotis Katsiadramis 13/02/18
+// Created by: Panagiotis Katsiadramis 13/02/18
+// modified by: Panagiotis Katsiadramis 19/02/18

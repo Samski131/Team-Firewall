@@ -59,8 +59,8 @@
 			// dogs cant see red, the same aplies for foxes. put red to zero and make green and blue more intense
 			col = boxBlur(_MainTex, i.uv, _MainTex_TexelSize);
 			col.r =col.r-1.0f;
-			col.g = 0.1f+col.g;
-			col.b = 0.1f+col.b;
+			col.g = 0.010f+col.g;
+			col.b = 0.010f+col.b;
 
 				return col;
 			}
