@@ -20,7 +20,11 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
+<<<<<<< HEAD
   m_MinSize: {x: 950, y: 542}
+=======
+  m_MinSize: {x: 950, y: 300}
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -41,9 +45,15 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
+<<<<<<< HEAD
     width: 1920
     height: 997
   m_MinSize: {x: 950, y: 542}
+=======
+    width: 1680
+    height: 967
+  m_MinSize: {x: 950, y: 300}
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -104,12 +114,19 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 30
+<<<<<<< HEAD
     width: 1920
     height: 947
   m_MinSize: {x: 583, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
+=======
+    width: 1680
+    height: 917
+  m_MinSize: {x: 681, y: 492}
+  m_MaxSize: {x: 14002, y: 14042}
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
   vertical: 0
-  controlID: 9
+  controlID: 55
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -128,12 +145,18 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
+<<<<<<< HEAD
     width: 1344
     height: 947
   m_MinSize: {x: 306, y: 492}
+=======
+    width: 1176
+    height: 917
+  m_MinSize: {x: 406, y: 492}
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 10
+  controlID: 56
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -152,12 +175,18 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
+<<<<<<< HEAD
     width: 1344
     height: 667
   m_MinSize: {x: 306, y: 221}
+=======
+    width: 1176
+    height: 646
+  m_MinSize: {x: 406, y: 221}
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 11
+  controlID: 57
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -174,8 +203,13 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
+<<<<<<< HEAD
     width: 310
     height: 667
+=======
+    width: 271
+    height: 646
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 13}
@@ -199,17 +233,24 @@ MonoBehaviour:
     serializedVersion: 2
     x: 310
     y: 0
+<<<<<<< HEAD
     width: 1034
     height: 667
   m_MinSize: {x: 104, y: 121}
   m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 14}
+=======
+    width: 905
+    height: 646
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 12}
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
   m_Panes:
   - {fileID: 12}
   - {fileID: 14}
-  - {fileID: 15}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -230,11 +271,11 @@ MonoBehaviour:
     height: 280
   m_MinSize: {x: 232, y: 271}
   m_MaxSize: {x: 10002, y: 10021}
-  m_ActualView: {fileID: 16}
+  m_ActualView: {fileID: 15}
   m_Panes:
+  - {fileID: 15}
   - {fileID: 16}
   - {fileID: 17}
-  - {fileID: 18}
   m_Selected: 0
   m_LastSelected: 1
 --- !u!114 &11
@@ -253,15 +294,23 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1344
     y: 0
+<<<<<<< HEAD
     width: 576
     height: 947
   m_MinSize: {x: 277, y: 71}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 20}
+=======
+    width: 504
+    height: 917
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 19}
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
   m_Panes:
+  - {fileID: 18}
   - {fileID: 19}
   - {fileID: 20}
-  - {fileID: 21}
   m_Selected: 1
   m_LastSelected: 0
 --- !u!114 &12
@@ -310,7 +359,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoom: 0
     m_UniformScale: 1
     m_UpDirection: 1
@@ -368,9 +417,15 @@ MonoBehaviour:
     height: 646
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
+<<<<<<< HEAD
     m_SelectedIDs: 
     m_LastClickedID: 0
     m_ExpandedIDs: a6fbffff00000000
+=======
+    m_SelectedIDs: b4340000
+    m_LastClickedID: 13492
+    m_ExpandedIDs: 1afcffff000000002634000036340000c0340000
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -452,7 +507,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.14184152, y: -0.7499571, z: 0.17070879, w: -0.62314034}
     speed: 2
+<<<<<<< HEAD
     m_Value: {x: 0.14184152, y: 0.7499571, z: -0.17070879, w: 0.62314034}
+=======
+    m_Value: {x: -0.24184223, y: 0.19205649, z: -0.048898716, w: -0.9498608}
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
   m_Size:
     m_Target: 2.7572937
     speed: 2
@@ -469,32 +528,6 @@ MonoBehaviour:
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
 --- !u!114 &15
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 1
-  m_Script: {fileID: 12111, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AutoRepaintOnSceneChange: 0
-  m_MinSize: {x: 400, y: 100}
-  m_MaxSize: {x: 2048, y: 2048}
-  m_TitleContent:
-    m_Text: Asset Store
-    m_Image: {fileID: 357073275683767465, guid: 0000000000000000d000000000000000,
-      type: 0}
-    m_Tooltip: 
-  m_DepthBufferBits: 0
-  m_Pos:
-    serializedVersion: 2
-    x: 1887
-    y: 92
-    width: 817
-    height: 468
---- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_PrefabParentObject: {fileID: 0}
@@ -532,19 +565,34 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
+<<<<<<< HEAD
     - Assets/StreamingAssets/PdAssets
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
   - Assets/StreamingAssets/PdAssets
+=======
+    - Assets/Standard Assets/Effects/ImageEffects/Scripts
+  m_ViewMode: 1
+  m_StartGridSize: 64
+  m_LastFolders:
+  - Assets/Standard Assets/Effects/ImageEffects/Scripts
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Declan\Documents\GitHub\Team-Firewall\Rewild
   m_IsLocked: 0
   m_FolderTreeState:
+<<<<<<< HEAD
     scrollPos: {x: 0, y: 162}
     m_SelectedIDs: 18310000
     m_LastClickedID: 12568
     m_ExpandedIDs: 00000000722a0000a02b00006a2d0000302e0000782e0000702f00004030000064300000c430000016310000dc310000f632000004330000de330000063400004441000046410000484100004a4100004c4100004e41000050410000524100005441000056410000584100005a4100005c4100005e410000604100006241000000ca9a3bffffff7f
+=======
+    scrollPos: {x: 0, y: 199}
+    m_SelectedIDs: 5a2a0000
+    m_LastClickedID: 10842
+    m_ExpandedIDs: 0000000022290000dc290000402a0000062c0000c02c0000022d0000042d0000fa2d0000e02e00003c2f00003e2f00008a2f00004430000058310000603100002a3200005232000010400000124000001440000016400000184000001a4000001c4000001e40000020400000224000002440000026400000284000002a4000002c40000000ca9a3bffffff7f
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -572,7 +620,11 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
+<<<<<<< HEAD
     m_ExpandedIDs: 00000000722a0000a02b00006a2d0000302e0000782e0000702f00004030000064300000c430000016310000dc310000f632000004330000de330000063400004441000046410000484100004a4100004c4100004e41000050410000524100005441000056410000584100005a4100005c4100005e4100006041000062410000
+=======
+    m_ExpandedIDs: 0000000022290000dc290000402a0000062c0000c02c0000022d0000042d0000fa2d0000e02e00003c2f00003e2f00008a2f00004430000058310000603100002a3200005232000010400000124000001440000016400000184000001a4000001c4000001e40000020400000224000002440000026400000284000002a4000002c400000
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -624,10 +676,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 366}
     m_GridSize: 64
   m_DirectoriesAreaWidth: 547
---- !u!114 &17
+--- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_PrefabParentObject: {fileID: 0}
@@ -653,7 +705,7 @@ MonoBehaviour:
     y: 727
     width: 1366
     height: 331
---- !u!114 &18
+--- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_PrefabParentObject: {fileID: 0}
@@ -771,7 +823,7 @@ MonoBehaviour:
   m_ShowReferencedBuses: 1
   m_ShowBusConnections: 0
   m_ShowBusConnectionsOfSelection: 0
---- !u!114 &19
+--- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_PrefabParentObject: {fileID: 0}
@@ -793,11 +845,11 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 1370
-    y: 91
-    width: 550
-    height: 927
---- !u!114 &20
+    x: 1178
+    y: 92
+    width: 502
+    height: 896
+--- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_PrefabParentObject: {fileID: 0}
@@ -821,16 +873,22 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1346
     y: 92
+<<<<<<< HEAD
     width: 574
     height: 926
   m_ScrollPosition: {x: 0, y: 0}
+=======
+    width: 502
+    height: 896
+  m_ScrollPosition: {x: 0, y: 277.95508}
+>>>>>>> parent of 36c0076a... Revert "Fixed Tunneling"
   m_InspectorMode: 0
   m_PreviewResizer:
     m_CachedPref: -160
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_PreviewWindow: {fileID: 0}
---- !u!114 &21
+--- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_PrefabParentObject: {fileID: 0}
