@@ -6,31 +6,27 @@ using UnityEngine.AI;
 public class NavMeshTest : MonoBehaviour
 {
 
-    //Fields for storing the different navPoints
     [SerializeField]
     Transform destination;
     [SerializeField]
     Transform destination2;
     [SerializeField]
-	Transform destination3;
-	[SerializeField]
-	Transform destination4;
+    Transform destination3;
 
     NavMeshAgent navMeshAgent;
-    
-    //Public variable to track the foxes movement
-	public Vector3 target;
-    public bool moving = false;
-	public int state = 1;
+
+    private float velocity;
+
+    private bool moving = false;
+    private int state = 1;
+    private Vector3 lastPosition;
 
 	void Start ()
     {
-        //Initiliase the variables
         navMeshAgent = this.GetComponent<NavMeshAgent>();
  
-		SetDestination(destination);
+        lastPosition = transform.position;
 
-        //Debugging
         if (navMeshAgent == null)
         {
             Debug.Log("No Nav Mesh Agent");
@@ -40,59 +36,68 @@ public class NavMeshTest : MonoBehaviour
 
     void Update()
     {
-		//Check if the fox is moving fast enough
-        //This is able to tell wether or not the fox is deaccelerating because it's reached its point
-		if ((transform.position - target).magnitude < 1)
-        {
-            moving = false;
-        }
-		else
+
+        if (transform.position != lastPosition)
         {
             moving = true;
+            lastPosition = transform.position;
+        }
+        else
+        {
+            moving = false;
+            lastPosition = transform.position;
         }
         
-        //If the fox has reached its destination, set a new destination
        if(!moving)
         {
             if (state == 1)
             {
-				SetDestination(destination);
-				state = 2;
+                state = 2;
+            SetDestination1();
             }
                 
             else if (state == 2)
             {
-				SetDestination(destination2);
-				state = 3;
+                state = 3;
+                SetDestination2();
             }
             else if (state == 3)
             {
-				SetDestination(destination3);
-				state = 4;
-			}
-			else if (state == 4)
-			{
-				SetDestination(destination4);
-				state = 1;
-			}
+                state = 1;
+                SetDestination3();
+            }
 
-            //Moving is now true, debug log the new state
             moving = true;
-            Debug.Log( "Changed state to state: " + state);
+            Debug.Log(state);
         }
     }
 	
-    private void SetDestination(Transform destination)
+    private void SetDestination1()
     {
 
-        //Set the new destination in the NavMeshAgent
         if(destination !=null)
         {
             Vector3 targetVector = destination.transform.position;
             navMeshAgent.SetDestination(targetVector);
-			target = targetVector;
         }
     }
-    
+    private void SetDestination2()
+    {
+
+        if (destination2 != null)
+        {
+            Vector3 targetVector = destination2.transform.position;
+            navMeshAgent.SetDestination(targetVector);
+        }
+    }
+    private void SetDestination3()
+    {
+
+        if (destination3 != null)
+        {
+            Vector3 targetVector = destination3.transform.position;
+            navMeshAgent.SetDestination(targetVector);
+        }
+    }
 
 }

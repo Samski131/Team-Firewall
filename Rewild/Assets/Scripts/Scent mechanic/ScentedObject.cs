@@ -11,7 +11,7 @@ public class ScentedObject : MonoBehaviour {
 
 	void Start () {
 		InvokeRepeating ("checkMovement", 0.5f, 1f);
-		InvokeRepeating ("spawnScent", 0.3f, 0.3f);
+		InvokeRepeating ("spawnScent", 1f, 1f);
 	}
 	
 

@@ -57,11 +57,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		public GameObject mollieSoundtrack;
         public AudioMixerSnapshot humanMode; // changes the states on the audio mixer depending the state of the player , fox or human.
         public AudioMixerSnapshot animalMode;
-        public int transitionTime; // controls the rate of change between the 2 soundtracks.
-
+        [Range(0, 8)]
+        public int transitionTimeInSec; // controls the rate of change between the 2 soundtracks.
+        public bool startTransformation;
+        public bool foxVision;
+    
+        private void SetTranslatingToTrue()
+        {
+            isTranslating = true;
+        }
+        
         // Use this for initialization
         private void Start()
         {
+            foxVision = false;
+            startTransformation = false;
             mollieSoundtrack.SetActive(true);
 
             m_CharacterController = GetComponent<CharacterController>();
@@ -82,11 +92,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             isAnimal = false;
             
         }
-
-
+        
         // Update is called once per frame
         private void Update()
-		{ 
+		{
+            
             RotateView();
 
             // the jump state needs to read here to make sure it is not missed
@@ -109,8 +119,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
-
-            
+                        
 			if (Input.GetButtonDown("Transform"))
             {
                 if (isTranslating == false)
@@ -121,21 +130,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     { // switching to human
                         isAnimal = false; // switches to human
 						scentCamera.enabled = false;
-                        isTranslating = true; // starts translating
+                        startTransformation = true;
+                        Invoke("SetTranslatingToTrue", 5.0f);                        
                     }
                     else if (isAnimal == false)
                     { // switching to animal
-
                         isAnimal = true; // switches to animal
 						scentCamera.enabled = true;
-                        isTranslating = true; // starts translating
+                        startTransformation = true;
+                        Invoke("SetTranslatingToTrue", 5.0f);
                     }
 
                 }
                
             }
-
-
+            
             if ((isTranslating) && (isAnimal == true)) //if the camera is translating TO animal
             {
                 
@@ -145,11 +154,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				if (CameraParent.transform.localPosition.y < 0.25f)
                 { //If Translation has finished and now in Animal mode
                     isTranslating = false;
-					m_CharacterController.height = 0.5f;
+                    startTransformation = false;
+                    foxVision = true;
+                    m_CharacterController.height = 0.5f;
 					m_CharacterController.slopeLimit = 60;
                     //Enable any visual effects
                     //Switch sounds
-                    animalMode.TransitionTo(transitionTime);
+                    animalMode.TransitionTo(transitionTimeInSec);
                 }
 
             }
@@ -162,30 +173,28 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				if (CameraParent.transform.localPosition.y > 1.25f)
 				{ //If Translation has finished and now in Mollie mode
                     isTranslating = false;
-					m_CharacterController.height = 1.8f;
+                    startTransformation = false;
+                    foxVision = false;
+                    m_CharacterController.height = 1.8f;
 					m_CharacterController.slopeLimit = 60;
                     //Disable any visual effects
                     //Switch sound
-                    humanMode.TransitionTo(transitionTime);
+                    humanMode.TransitionTo(transitionTimeInSec);
                 }
             }
-
-
+            
 			m_CharacterController.center = m_Camera.transform.localPosition;
 			//m_CharacterController.transform.rotation = m_Camera.transform.rotation;
-
-            
+                        
         }
-
-
+        
         private void PlayLandingSound()
         {
             m_AudioSource.clip = m_LandSound;
             m_AudioSource.Play();
             m_NextStep = m_StepCycle + .5f;
         }
-
-
+        
         private void FixedUpdate()
         {
             float speed;
@@ -194,9 +203,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			//VRCamera.TransformDirection (Vector3.forward);
             // always move along the camera forward as it is the direction that it being aimed at
 			Vector3 desiredMove = m_Camera.transform.forward*m_Input.y + m_Camera.transform.right*m_Input.x;
-
-
-
+            
             // get a normal for the surface that is being touched to move along it
             RaycastHit hitInfo;
             Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
@@ -230,15 +237,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_MouseLook.UpdateCursorLock();
         }
-
-
+        
         private void PlayJumpSound()
         {
             m_AudioSource.clip = m_JumpSound;
             m_AudioSource.Play();
         }
-
-
+        
         private void ProgressStepCycle(float speed)
         {
             if (m_CharacterController.velocity.sqrMagnitude > 0 && (m_Input.x != 0 || m_Input.y != 0))
@@ -256,8 +261,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             PlayFootStepAudio();
         }
-
-
+        
         private void PlayFootStepAudio()
         {
             if (!m_CharacterController.isGrounded)
@@ -273,8 +277,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_FootstepSounds[n] = m_FootstepSounds[0];
             m_FootstepSounds[0] = m_AudioSource.clip;
         }
-
-
+        
         private void UpdateCameraPosition(float speed)
         {
             Vector3 newCameraPosition;
@@ -298,8 +301,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Camera.transform.localPosition = newCameraPosition;
 
         }
-
-
+        
         private void GetInput(out float speed)
         {
             // Read input
@@ -331,14 +333,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
  //               StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
  //           }
         }
-
-
+        
         private void RotateView()
         {
             m_MouseLook.LookRotation (transform, m_Camera.transform);
         }
-
-
+              
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
             Rigidbody body = hit.collider.attachedRigidbody;
@@ -354,7 +354,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
-    }
+    }    
 }
 
 // modified by: Panagiotis Katsiadramis 6/02/18
+// modified by: Panagiotis Katsiadramis 13/02/18
+// modified by: Panagiotis Katsiadramis 19/02/18
