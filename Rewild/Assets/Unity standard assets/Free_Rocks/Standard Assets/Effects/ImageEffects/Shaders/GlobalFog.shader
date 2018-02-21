@@ -145,8 +145,8 @@ CGINCLUDE
 		// Compute fog amount
 		half fogFac = ComputeFogFactor (max(0.0,g));
 		// Do not fog skybox
-		if (dpth == _DistanceParams.y)
-			fogFac = 1.0;
+		//if (dpth == _DistanceParams.y)
+		//	fogFac = 1.0;
 		//return fogFac; // for debugging
 		
 		// Lerp between fog color & original scene color
