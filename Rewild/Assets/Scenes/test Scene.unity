@@ -8090,7 +8090,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1887782590
 MonoBehaviour:
@@ -8113,6 +8113,8 @@ MonoBehaviour:
   triggered: 0
   framesSinceTriggered: 0
   lastPosition: {x: 0, y: 0, z: 0}
+  currentState: 0
+  flag: 1
 --- !u!1 &1890017480
 GameObject:
   m_ObjectHideFlags: 0

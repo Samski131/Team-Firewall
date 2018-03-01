@@ -1,0 +1,73 @@
+Left held down is sprint
+Left quick press when behind back is food
+
+Right held down is transform 
+Right quick press toggles flashlight(?)
+
+
+
+Toggle on press
+
+on release
+if release > 3s then something else
+
+
+
+
+
+Torch in the left hand
+Right hand for food
+
+Left Trigger - Sprint
+Left Touchpad  - Press at same time is transform
+
+Right Trigger - Spawn food when in deadzone
+Right Touchpad - Press at same time is transform
+
+
+Fox must have different states
+Wander/Idle State (DONE)
+-Moving between random points (DONE)
+-Doing cute little idle animations
+-Idle State must transition into Runnin State when the player is too close/moving too fast
+-Idle State must transition into curious state when not triggered by the player and food is nearby
+
+
+Running State (DONE)
+-Moving between pre-marked points on the game map in response to the player (DONE)
+-These points will be hard coded and the fox will eventually lead the player to the fox 
+cubs once Mollie has transformed
+
+
+
+Curious Mode
+
+Get a list of all the objects in the collider of the fox
+if the player head (Camera (eyes)) is moving faster than we want AND in the foxes zone THEN run away
+
+else
+{
+	//Player both not moving too fast and not in the foxes trigger zone
+	
+Draw a vector between the fox and the food
+	Have the fox move along this vector a set amount
+Show cutes-y animation for the fox
+Repeat 
+}
+
+If the fox is near the food (eating range) 
+	Destroy the food, move the Fox onto the next checkpoint
+	Remove some of the fog
+	Play some cute sound FX
+	Play the next piece of voiceover work once all those changes have happened
+
+Advance the Foxes happy state to next level
+
+If the foxes happy state is the level to transform
+	Remove the controls from the player
+	Begin the players transformation
+	Play Voiceover as needed
+	Activate smell vision
+
+once transformation is over
+	Re-enable controls
