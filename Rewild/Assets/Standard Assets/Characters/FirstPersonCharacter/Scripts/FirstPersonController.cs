@@ -120,7 +120,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
                         
-			if (Input.GetButtonDown("Transform"))
+			if (Input.GetButtonDown("Transform 1") && Input.GetButtonDown("Transform 2"))
             {
                 if (isTranslating == false)
                 {

@@ -8,7 +8,7 @@ public class TunnelingControl : MonoBehaviour {
 	public float maxVelocity = 6f;
 	public float maxFOV = 0.7f;
 	public GameObject Body;
-	public VignetteAndChromaticAberration fovLimiter;
+//	public VignetteAndChromaticAberration fovLimiter;
     private CharacterController CC;
     private float speed = 0.0f;
 
@@ -16,7 +16,7 @@ public class TunnelingControl : MonoBehaviour {
 	void Start () 
 	{
         CC = Body.GetComponent<CharacterController>();
-		fovLimiter = GetComponent<VignetteAndChromaticAberration> ();
+		//fovLimiter = this.GetComponentInParent<VignetteAndChromaticAberration>();
 	}
 
 	// Update is called once per frame
@@ -30,7 +30,7 @@ public class TunnelingControl : MonoBehaviour {
 		if (speed < maxVelocity)
 		{
 			expectedLimit = ( (speed / maxVelocity) * maxFOV);
-			fovLimiter.intensity = Mathf.Lerp (fovLimiter.intensity, expectedLimit, 0.1f);
+			this.GetComponentInParent<VignetteAndChromaticAberration>().intensity = Mathf.Lerp (this.GetComponentInParent<VignetteAndChromaticAberration>().intensity, expectedLimit, 0.1f);
 		}
 	}
 }

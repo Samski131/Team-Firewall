@@ -21,6 +21,14 @@ public class SteamVR_TestThrow : MonoBehaviour
 		var device = SteamVR_Controller.Input((int)trackedObj.index);
 		if (joint == null && device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger))
 		{
+			Debug.Log("Button touch");
+			if (GameObject.FindGameObjectWithTag("Food"))
+			{
+				Destroy(GameObject.FindGameObjectWithTag("Food"));
+				Debug.Log("Destroyed Food");
+			}
+
+			Debug.Log("Create Food");
 			var go = GameObject.Instantiate(prefab);
 			go.transform.position = attachPoint.transform.position;
 

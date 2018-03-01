@@ -45,7 +45,7 @@ public class FoxVision : MonoBehaviour {
         {            
             savedIterations = (int)Mathf.InverseLerp(savedIterations, 0, 1);
             savedDecreasedResolution = (int)Mathf.InverseLerp(savedDecreasedResolution, 0, 1);
-            Debug.Log("iterations"+ iterations);
+          //  Debug.Log("iterations"+ iterations);
         }
     }
 
