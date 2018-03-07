@@ -31,7 +31,7 @@ public class FoxVision : MonoBehaviour {
     private void Update()
     {
 
-        otherScript= transform.parent.parent.gameObject.GetComponent<FirstPersonController>();
+        otherScript= transform.parent.parent.parent.gameObject.GetComponent<FirstPersonController>();
         Vision = otherScript.foxVision;
 
 
@@ -74,3 +74,4 @@ public class FoxVision : MonoBehaviour {
 
 // Created by: Panagiotis Katsiadramis 13/02/18
 // modified by: Panagiotis Katsiadramis 19/02/18
+// modified by: Panagiotis Katsiadramis 07/03/18

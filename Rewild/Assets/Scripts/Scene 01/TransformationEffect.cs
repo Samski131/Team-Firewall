@@ -22,7 +22,7 @@ public class TransformationEffect : MonoBehaviour {
 
     private void Update()
     {
-        otherScript = transform.parent.parent.gameObject.GetComponent<FirstPersonController>();
+        otherScript = transform.parent.parent.parent.gameObject.GetComponent<FirstPersonController>();
         StartTransformation= otherScript.startTransformation;
 
         if (StartTransformation)
@@ -61,3 +61,4 @@ public class TransformationEffect : MonoBehaviour {
 
 }
 // Created by: Panagiotis Katsiadramis 18/02/18
+// modified by: Panagiotis Katsiadramis 07/03/18
