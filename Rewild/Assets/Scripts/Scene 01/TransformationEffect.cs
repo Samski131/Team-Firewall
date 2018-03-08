@@ -14,15 +14,25 @@ public class TransformationEffect : MonoBehaviour {
 
     private void Start()
     {
+		
         StartTransformation = false;
-        // set the value at zero for the begining.
+		// set the value at zero for the begining.
+		otherScript = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
+
+		if(otherScript)
+		{
+			Debug.Log("Found it");
+		}
+		else
+		{
+			Debug.Log("Help me");
+		}
         EffectStrenght = 0.0f;
         Transformation.SetFloat("_EffectStrength", EffectStrenght);        
     }
 
     private void Update()
     {
-        otherScript = transform.parent.parent.parent.gameObject.GetComponent<FirstPersonController>();
         StartTransformation= otherScript.startTransformation;
 
         if (StartTransformation)
