@@ -610,8 +610,8 @@ GameObject:
   - component: {fileID: 79326476}
   - component: {fileID: 79326484}
   - component: {fileID: 79326483}
-  - component: {fileID: 79326482}
   - component: {fileID: 79326481}
+  - component: {fileID: 79326482}
   - component: {fileID: 79326480}
   - component: {fileID: 79326479}
   - component: {fileID: 79326478}
@@ -665,6 +665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Transformation: {fileID: 2100000, guid: 3ad9323d57dd8e24a8ef82ce35e529de, type: 2}
+  EffectStrength: 0
   RateOfChange: 0.0416
 --- !u!114 &79326479
 MonoBehaviour:
@@ -715,8 +716,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVelocity: 10
-  maxFOV: 0.75
+  maxFOV: 0.7
   Body: {fileID: 1483337863}
+  CameraEye: {fileID: 79326475}
+  fovLimiter: {fileID: 0}
 --- !u!114 &79326482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,10 +733,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  intensity: 0
+  intensity: 0.7
   chromaticAberration: 0
   axialAberration: 0
-  blur: 4.27
+  blur: 0
   blurSpread: 0
   luminanceDependency: 0
   blurDistance: 0
@@ -3192,7 +3195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &629467122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4680,8 +4683,6 @@ GameObject:
   - component: {fileID: 1135146747}
   - component: {fileID: 1135146751}
   - component: {fileID: 1135146750}
-  - component: {fileID: 1135146749}
-  - component: {fileID: 1135146748}
   m_Layer: 0
   m_Name: Scent_Camera
   m_TagString: Untagged
@@ -4703,44 +4704,6 @@ Transform:
   m_Father: {fileID: 623352426}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1135146748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114765399842808442, guid: 1750173e16d5a874b9bf14e8d4d2ceab,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1135146746}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6e140c07f9040e48b58570c73c3ac56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mode: 0
-  intensity: 0.036
-  chromaticAberration: 0.2
-  axialAberration: 0.5
-  blur: 0
-  blurSpread: 0.75
-  luminanceDependency: 0.25
-  blurDistance: 2.5
-  vignetteShader: {fileID: 0}
-  separableBlurShader: {fileID: 0}
-  chromAberrationShader: {fileID: 0}
---- !u!114 &1135146749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114950313329833346, guid: 1750173e16d5a874b9bf14e8d4d2ceab,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1135146746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cae15a7f6ec9e244a07cbf17895458b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxVelocity: 10
-  maxFOV: 0.75
-  Body: {fileID: 1483337863}
 --- !u!124 &1135146750
 Behaviour:
   m_ObjectHideFlags: 0
@@ -6226,7 +6189,6 @@ MonoBehaviour:
   m_WalkSpeed: 5
   m_RunSpeed: 10
   m_RunstepLenghten: 0.7
-  m_JumpSpeed: 10
   m_StickToGroundForce: 10
   m_GravityMultiplier: 2
   m_MouseLook:
@@ -6238,88 +6200,18 @@ MonoBehaviour:
     smooth: 0
     smoothTime: 5
     lockCursor: 1
-  m_UseFovKick: 1
-  m_FovKick:
-    Camera: {fileID: 0}
-    originalFov: 0
-    FOVIncrease: 3
-    TimeToIncrease: 1
-    TimeToDecrease: 1
-    IncreaseCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1
-        value: 1
-        inSlope: 2
-        outSlope: 2
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  m_UseHeadBob: 1
-  m_HeadBob:
-    HorizontalBobRange: 0.1
-    VerticalBobRange: 0.1
-    Bobcurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 0.5
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1.5
-        value: -1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 2
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    VerticaltoHorizontalRatio: 2
-  m_JumpBob:
-    BobDuration: 0.2
-    BobAmount: 0.1
   m_StepInterval: 5
   m_FootstepSounds:
   - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
   - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
-  m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+  handLeft: {fileID: 629467121}
+  handRight: {fileID: 894120878}
   VRCamera: {fileID: 623352426}
   CameraParent: {fileID: 623352425}
   isAnimal: 0
   isTranslating: 0
   cameraPanSpeed: 1
-  animalCamAnchor: {fileID: 0}
-  mollieCamAnchor: {fileID: 0}
   scentCamera: {fileID: 1135146751}
   mollieSoundtrack: {fileID: 1352146862}
   humanMode: {fileID: 24500006, guid: c122813662b331b49a5d30573e28859b, type: 2}
@@ -8802,8 +8694,8 @@ Transform:
   m_PrefabParentObject: {fileID: 478542, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2011289143}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -10.57786, y: -1.25, z: 9.59}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2128930208}

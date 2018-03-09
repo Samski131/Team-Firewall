@@ -8,7 +8,7 @@ public class TransformationEffect : MonoBehaviour {
     private FirstPersonController otherScript;
     public Material Transformation;
     private bool StartTransformation;
-    private float EffectStrenght;
+	public float EffectStrength;
     [Range(0.00f, 0.09f)]
     public float RateOfChange;
 
@@ -27,8 +27,8 @@ public class TransformationEffect : MonoBehaviour {
 		{
 			Debug.Log("Help me");
 		}
-        EffectStrenght = 0.0f;
-        Transformation.SetFloat("_EffectStrength", EffectStrenght);        
+		EffectStrength= 0.0f;
+		Transformation.SetFloat("_EffectStrength", EffectStrength);        
     }
 
     private void Update()
@@ -38,33 +38,36 @@ public class TransformationEffect : MonoBehaviour {
         if (StartTransformation)
         {
            
-            if (EffectStrenght<0.1f)
+			if (EffectStrength<0.1f)
             {
-                EffectStrenght += RateOfChange * Time.deltaTime;
-                Transformation.SetFloat("_EffectStrength", EffectStrenght);
+				EffectStrength += RateOfChange * Time.deltaTime;
+				Transformation.SetFloat("_EffectStrength", EffectStrength);
             }
         }
        
         if(!StartTransformation)
         {
-            if (EffectStrenght>0.0f )
+			if (EffectStrength>0.0f )
             {
-                EffectStrenght -= RateOfChange * Time.deltaTime;
-                Transformation.SetFloat("_EffectStrength", EffectStrenght);
+				EffectStrength -= RateOfChange * Time.deltaTime;
+
+				if(EffectStrength < 0.0001f)
+				{
+					EffectStrength = 0.0f;
+				}
+
+				Transformation.SetFloat("_EffectStrength", EffectStrength);
+			
             }
         }
           
-
-        
-
-    
-
+	
 
     }
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-                        Graphics.Blit(source, destination, Transformation);
+		Graphics.Blit(source, destination, Transformation);
     }
 
 

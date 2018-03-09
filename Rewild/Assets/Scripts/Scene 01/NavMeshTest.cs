@@ -123,8 +123,6 @@ public class NavMeshTest : MonoBehaviour
 				wanderState();
 				break;
 		}
-
-        
     }
 
 	private void curiousState()
@@ -157,7 +155,7 @@ public class NavMeshTest : MonoBehaviour
 		//Debug.Log("This is Running State");
 
 
-		if(!moving && flag)
+		if(flag)
 		{
 			//Move Nav onto the next waypoint
 			switch(state)
