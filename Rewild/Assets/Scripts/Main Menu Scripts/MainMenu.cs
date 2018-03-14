@@ -11,11 +11,15 @@ public class MainMenu : MonoBehaviour
     public Scrollbar scrollbarMusic;
     public Scrollbar scrollbarEffects;
     public FadeManager fadeManager;
+    
+
 
     private void Start()
     {
-        audioMusic = GameObject.Find("Music/Audio Source").GetComponent<AudioSource>();
+        
 
+        audioMusic = GameObject.Find("Music/Audio Source").GetComponent<AudioSource>();
+        
         animator.SetBool("startTheGame", false);
         animator.SetBool("fromMenuToOptions", false);
         animator.SetBool("fromOptionsToMenu", false);

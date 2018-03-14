@@ -62,7 +62,7 @@ public class FadeManager : MonoBehaviour
                 Debug.Log("05");
                 startFadeIn = false;
 				executeTheIfStatement = true;
-				SceneManager.LoadScene("Scene01");
+				SceneManager.LoadScene("test Scene");
                 
             }
         }
@@ -75,7 +75,7 @@ public class FadeManager : MonoBehaviour
 			Debug.Log (currentScene.name);
             sceneName = currentScene.name;
 
-            if(sceneName == "Scene01")
+            if(sceneName == "test Scene")
             {
                 Debug.Log("07");
                 startFadeOut = true;
