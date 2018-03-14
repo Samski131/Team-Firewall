@@ -1,0 +1,60 @@
+Dark lots of fog (Initially)
+
+Slightly lighter, less fog (Scent?) (1st Feeding)
+
+Slightly Lighter again, Less fog again (Scent) (No Torch) (2nd Feeding)
+
+Fully Light, No fog, No torch, Happy Place yay (3rd Feeding)
+
+Transformed 
+
+
+
+-------------------------
+Darkness
+
+Fog RGB = 6,6,6
+Light RGB = 6,6,6
+Fog Density = 0.5
+
+-------------------------
+Feed 1
+
+
+Fog RGB = 12,12,12
+Light RGB = 12,12,14
+Fog Density = 0.4
+
+-------------------------
+Feed 2
+
+Fog RGB = 18,18,18
+Light RGB = 18,18,21
+Fog Density = 0.2
+
+-------------------------
+
+Feed 3
+
+FOG RGB = 24,24,24
+Light RGB = 25,25,30
+Fog Density = 0.1
+-------------------------
+
+Fox Mode
+
+FOG RGB = 24,24,24
+Light RGB = 25,25, 30
+Fog Density = 0.1
+
+Fox Shaders
+
+
+
+
+
+
+FlashLight Values
+Range = 14
+Spot Angle = 40
+Colour RGB 150, 150, 100

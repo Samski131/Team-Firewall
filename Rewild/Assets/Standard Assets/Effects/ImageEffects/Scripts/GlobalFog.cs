@@ -27,6 +27,7 @@ namespace UnityStandardAssets.ImageEffects
         public Shader fogShader = null;
         private Material fogMaterial = null;
 
+		public GameObject light;
         public bool fogChanging = false;
         public int fogDirection = -1;
 
@@ -43,6 +44,22 @@ namespace UnityStandardAssets.ImageEffects
                 heightDensity = 0.5f;
                 fogChanging = false;
             }
+
+
+			if(Input.GetButtonDown("Light Increase"))
+			{
+				
+				light.GetComponent<Light>().intensity += 0.1f;
+				Debug.Log("Increasing");
+
+			}
+
+			if(Input.GetButtonDown("Light Decrease"))
+			{
+
+				light.GetComponent<Light>().intensity -= 0.1f;
+				Debug.Log("Decreasing");
+			}
 
             //If the fog is meant to be changing, alter the values of the density based on the direction
             if (fogChanging == true)
