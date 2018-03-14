@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 116734123}
   - component: {fileID: 116734125}
   - component: {fileID: 116734124}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,9 +191,10 @@ GameObject:
   - component: {fileID: 207415142}
   - component: {fileID: 207415141}
   - component: {fileID: 207415140}
-  m_Layer: 0
+  - component: {fileID: 207415143}
+  m_Layer: 5
   m_Name: Start The Game/Button
-  m_TagString: Untagged
+  m_TagString: Start
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -224,7 +225,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 207415138}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -303,6 +304,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 207415138}
+--- !u!65 &207415143
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 207415138}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 250, y: 40, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &209160854
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +394,7 @@ GameObject:
   - component: {fileID: 262294550}
   - component: {fileID: 262294552}
   - component: {fileID: 262294551}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -599,7 +612,7 @@ GameObject:
   - component: {fileID: 387900947}
   - component: {fileID: 387900949}
   - component: {fileID: 387900948}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -819,7 +832,7 @@ GameObject:
   - component: {fileID: 573910526}
   - component: {fileID: 573910528}
   - component: {fileID: 573910527}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -887,7 +900,7 @@ GameObject:
   - component: {fileID: 590839512}
   - component: {fileID: 590839514}
   - component: {fileID: 590839513}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -965,7 +978,7 @@ GameObject:
   - component: {fileID: 633287289}
   - component: {fileID: 633287288}
   - component: {fileID: 633287287}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Music Volume/Scrollbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1084,7 +1097,7 @@ GameObject:
   - component: {fileID: 658942791}
   - component: {fileID: 658942793}
   - component: {fileID: 658942792}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1160,7 +1173,7 @@ GameObject:
   - component: {fileID: 708867016}
   - component: {fileID: 708867018}
   - component: {fileID: 708867017}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1325,9 +1338,10 @@ GameObject:
   - component: {fileID: 763485565}
   - component: {fileID: 763485564}
   - component: {fileID: 763485563}
-  m_Layer: 0
+  - component: {fileID: 763485566}
+  m_Layer: 5
   m_Name: Back To Main Menu/ Button
-  m_TagString: Untagged
+  m_TagString: Back
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1358,7 +1372,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 763485561}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -1437,6 +1451,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 763485561}
+--- !u!65 &763485566
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 763485561}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 250, y: 40, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &827882746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,7 +1599,7 @@ GameObject:
   - component: {fileID: 863870824}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1607,7 +1633,7 @@ Camera:
   m_GameObject: {fileID: 863870818}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -1623,7 +1649,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967291
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1743,7 +1769,7 @@ GameObject:
   - component: {fileID: 929980469}
   - component: {fileID: 929980471}
   - component: {fileID: 929980470}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1880,7 +1906,7 @@ GameObject:
   - component: {fileID: 986909893}
   - component: {fileID: 986909895}
   - component: {fileID: 986909894}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2088,7 +2114,7 @@ GameObject:
   - component: {fileID: 1218392994}
   - component: {fileID: 1218392996}
   - component: {fileID: 1218392995}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2163,7 +2189,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1306892744}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2200,7 +2226,7 @@ GameObject:
   - component: {fileID: 1322328650}
   - component: {fileID: 1322328652}
   - component: {fileID: 1322328651}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2269,9 +2295,9 @@ GameObject:
   - component: {fileID: 1331434596}
   - component: {fileID: 1331434595}
   - component: {fileID: 1331434594}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Effects Volume/Text
-  m_TagString: Untagged
+  m_TagString: SoundEffects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2296,47 +2322,18 @@ RectTransform:
   m_AnchoredPosition: {x: 10, y: -38}
   m_SizeDelta: {x: 228.2, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1331434594
-MonoBehaviour:
+--- !u!65 &1331434594
+BoxCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1331434592}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.3795132, g: 1, b: 0.022058845, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1331434595}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  serializedVersion: 2
+  m_Size: {x: 228.2, y: 40, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1331434595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2479,7 +2476,7 @@ GameObject:
   - component: {fileID: 1449962730}
   - component: {fileID: 1449962732}
   - component: {fileID: 1449962731}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2710,8 +2707,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 507, y: 125.4}
-  m_SizeDelta: {x: 1014, y: 255}
+  m_AnchoredPosition: {x: 456, y: 287.5}
+  m_SizeDelta: {x: 912, y: 575}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1483870217
 MonoBehaviour:
@@ -2814,7 +2811,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1550955017}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77c18e08cd112ad4a966cbf49a84d469, type: 3}
   m_Name: 
@@ -2923,9 +2920,10 @@ GameObject:
   - component: {fileID: 1585829683}
   - component: {fileID: 1585829682}
   - component: {fileID: 1585829681}
-  m_Layer: 0
+  - component: {fileID: 1585829684}
+  m_Layer: 5
   m_Name: Options/Button
-  m_TagString: Untagged
+  m_TagString: Options
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2956,7 +2954,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1585829679}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -3035,6 +3033,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1585829679}
+--- !u!65 &1585829684
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1585829679}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 250, y: 40, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1628473942
 GameObject:
   m_ObjectHideFlags: 0
@@ -3045,7 +3055,7 @@ GameObject:
   - component: {fileID: 1628473943}
   - component: {fileID: 1628473945}
   - component: {fileID: 1628473944}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3193,9 +3203,10 @@ GameObject:
   - component: {fileID: 1751895467}
   - component: {fileID: 1751895466}
   - component: {fileID: 1751895465}
-  m_Layer: 0
+  - component: {fileID: 1751895468}
+  m_Layer: 5
   m_Name: Quit /Button
-  m_TagString: Untagged
+  m_TagString: Quit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3226,7 +3237,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1751895463}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -3305,6 +3316,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1751895463}
+--- !u!65 &1751895468
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1751895463}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 250, y: 40, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1770044312
 GameObject:
   m_ObjectHideFlags: 0
@@ -3315,7 +3338,7 @@ GameObject:
   - component: {fileID: 1770044313}
   - component: {fileID: 1770044315}
   - component: {fileID: 1770044314}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3458,7 +3481,7 @@ GameObject:
   - component: {fileID: 1810273761}
   - component: {fileID: 1810273760}
   - component: {fileID: 1810273759}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: 'Sound Effects/Scrollbar '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3643,7 +3666,7 @@ GameObject:
   - component: {fileID: 1843901826}
   - component: {fileID: 1843901828}
   - component: {fileID: 1843901827}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3835,7 +3858,7 @@ GameObject:
   - component: {fileID: 1958369297}
   - component: {fileID: 1958369299}
   - component: {fileID: 1958369298}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3904,9 +3927,10 @@ GameObject:
   - component: {fileID: 2016199558}
   - component: {fileID: 2016199557}
   - component: {fileID: 2016199556}
-  m_Layer: 0
+  - component: {fileID: 2016199559}
+  m_Layer: 5
   m_Name: Sound Volume/ Button
-  m_TagString: Untagged
+  m_TagString: SoundOptions
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3937,7 +3961,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2016199554}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -4016,6 +4040,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2016199554}
+--- !u!65 &2016199559
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2016199554}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 250, y: 40, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2026263171
 GameObject:
   m_ObjectHideFlags: 0
@@ -4026,7 +4062,7 @@ GameObject:
   - component: {fileID: 2026263172}
   - component: {fileID: 2026263174}
   - component: {fileID: 2026263173}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4092,7 +4128,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2032317609}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4129,9 +4165,10 @@ GameObject:
   - component: {fileID: 2037640938}
   - component: {fileID: 2037640937}
   - component: {fileID: 2037640936}
-  m_Layer: 0
+  - component: {fileID: 2037640939}
+  m_Layer: 5
   m_Name: 'Back to Options Menu/ Button '
-  m_TagString: Untagged
+  m_TagString: BackToOptions
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4162,7 +4199,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2037640934}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -4241,6 +4278,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2037640934}
+--- !u!65 &2037640939
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2037640934}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 400, y: 40, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2082492177
 GameObject:
   m_ObjectHideFlags: 0
@@ -4251,9 +4300,10 @@ GameObject:
   - component: {fileID: 2082492178}
   - component: {fileID: 2082492180}
   - component: {fileID: 2082492179}
-  m_Layer: 0
+  - component: {fileID: 2082492181}
+  m_Layer: 5
   m_Name: Music Volume/ Text
-  m_TagString: Untagged
+  m_TagString: MusicVolume
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4311,6 +4361,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2082492177}
+--- !u!65 &2082492181
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2082492177}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 213.6, y: 40, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2137810273
 GameObject:
   m_ObjectHideFlags: 0
@@ -4321,7 +4383,7 @@ GameObject:
   - component: {fileID: 2137810274}
   - component: {fileID: 2137810276}
   - component: {fileID: 2137810275}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}

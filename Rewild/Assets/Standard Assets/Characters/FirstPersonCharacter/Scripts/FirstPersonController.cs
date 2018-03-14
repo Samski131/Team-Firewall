@@ -106,7 +106,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 if (isTranslating == false)
                 {
-                    Debug.Log("Switching Forms (Both Triggers)");
+                    Debug.Log("Switching Forms (V key press or Right Trigger)");
 
                     if (isAnimal == true)
                     { // switching to human
@@ -153,6 +153,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             else if ((isTranslating) && (isAnimal == false)) // if camera is translating TO human
             {
                 
+				//Debug.Log("Distance: " + Vector3.Distance(transform.position, FirstPersonCameraAnchor.transform.position));
 				CameraParent.transform.Translate(new Vector3 (0.0f, 0.05f, 0.0f));
 
 				if (CameraParent.transform.localPosition.y > 1.25f)

@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Food
+  - Options
+  - Quit
+  - Start
+  - Back
+  - MusicVolume
+  - SoundOptions
+  - BackToOptions
+  - SoundEffects
   layers:
   - Default
   - TransparentFX
