@@ -11,14 +11,14 @@ Transformed
 
 
 -------------------------
-Darkness
+Darkness STATE 1
 
 Fog RGB = 6,6,6
 Light RGB = 6,6,6
 Fog Density = 0.5
 
 -------------------------
-Feed 1
+Feed 1 STATE 2
 
 
 Fog RGB = 12,12,12
@@ -26,7 +26,7 @@ Light RGB = 12,12,14
 Fog Density = 0.4
 
 -------------------------
-Feed 2
+Feed 2 STATE 3
 
 Fog RGB = 18,18,18
 Light RGB = 18,18,21
@@ -34,14 +34,14 @@ Fog Density = 0.2
 
 -------------------------
 
-Feed 3
+Feed 3 STATE 4
 
 FOG RGB = 24,24,24
 Light RGB = 25,25,30
 Fog Density = 0.1
 -------------------------
 
-Fox Mode
+Fox Mode STATE 5
 
 FOG RGB = 24,24,24
 Light RGB = 25,25, 30
