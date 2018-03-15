@@ -11,13 +11,11 @@ public class MainMenu : MonoBehaviour
     public Scrollbar scrollbarMusic;
     public Scrollbar scrollbarEffects;
     public FadeManager fadeManager;
-   
+    private LineRenderer lineRenderer;
 
 
     private void Start()
     {
-        
-
         audioMusic = GameObject.Find("Music/Audio Source").GetComponent<AudioSource>();
         
         animator.SetBool("startTheGame", false);
@@ -27,6 +25,11 @@ public class MainMenu : MonoBehaviour
         animator.SetBool("fromSoundVolumeToOptions", false);
         scrollbarEffects.value = 1.0f;
         scrollbarMusic.value = 0.3f;  // The range is between 0.0-1.0  , i set up the volume to 0.3 since 1.0 is too loud.
+
+        //  used to draw the ray in the game 
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = true;
+        lineRenderer.useWorldSpace = true;
     }
 
 
@@ -39,6 +42,11 @@ public class MainMenu : MonoBehaviour
 
         //  make the ray visible in debug mode in the scene, need to find something else to make the ray visible in the game 
         Debug.DrawRay(ray.origin, ray.direction * 1000000.0f , Color.red);
+        //  make the ray visible in game mode
+        lineRenderer.SetPosition(0, ray.origin + new Vector3(1.0f,0.0f,0.0f));
+        lineRenderer.SetPosition(1, ray.origin+ ray.direction * 1000000.0f);
+
+
 
         if(Physics.Raycast(ray, out hit))
         {
@@ -98,13 +106,8 @@ public class MainMenu : MonoBehaviour
                 {
                     scrollbarEffects.value -= 0.1f;
                 }
-
-
             }
         }
-
-
-
         scrollbarSoundEffectsVolume();
         scrollbarMusicVolume();
     }
