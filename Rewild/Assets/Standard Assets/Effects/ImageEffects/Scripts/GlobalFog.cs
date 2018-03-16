@@ -6,7 +6,7 @@ namespace UnityStandardAssets.ImageEffects
     [ExecuteInEditMode]
     [RequireComponent (typeof(Camera))]
     [AddComponentMenu ("Image Effects/Rendering/Global Fog")]
-    class GlobalFog : PostEffectsBase
+   public class GlobalFog : PostEffectsBase
 	{
         //Obsolete, Removed
 		//[Tooltip("Apply distance-based fog?")]
