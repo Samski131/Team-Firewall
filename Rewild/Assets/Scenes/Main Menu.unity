@@ -3714,6 +3714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: 5
+  sceneToLoad: test Scene
 --- !u!224 &1821465847
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3738,7 +3739,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1821465844}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87d0bcfd7f3069e44a00cae965aa6708, type: 3}
   m_Name: 

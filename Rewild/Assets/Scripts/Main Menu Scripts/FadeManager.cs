@@ -19,6 +19,7 @@ public class FadeManager : MonoBehaviour
     private Scene currentScene; // used to check which scene is active
     private string sceneName;
     public float fadeTime;
+    public string sceneToLoad;
 
     // Use this for initialization
     void Start ()
@@ -62,7 +63,7 @@ public class FadeManager : MonoBehaviour
                 Debug.Log("05");
                 startFadeIn = false;
 				executeTheIfStatement = true;
-				SceneManager.LoadScene("test Scene");
+				SceneManager.LoadScene(sceneToLoad);
                 
             }
         }
@@ -75,7 +76,7 @@ public class FadeManager : MonoBehaviour
 			Debug.Log (currentScene.name);
             sceneName = currentScene.name;
 
-            if(sceneName == "test Scene")
+            if(sceneName == sceneToLoad)
             {
                 Debug.Log("07");
                 startFadeOut = true;
