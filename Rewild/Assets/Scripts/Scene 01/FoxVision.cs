@@ -16,6 +16,7 @@ public class FoxVision : MonoBehaviour {
     private int savedDecreasedResolution;
     private FirstPersonController otherScript;
     private bool Vision;
+   
 
     private void Start()
     {
@@ -30,12 +31,8 @@ public class FoxVision : MonoBehaviour {
 
     private void Update()
     {
-
-        otherScript= transform.parent.parent.gameObject.GetComponent<FirstPersonController>();
+        otherScript = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
         Vision = otherScript.foxVision;
-
-
-
 
         if (Vision)
         {
