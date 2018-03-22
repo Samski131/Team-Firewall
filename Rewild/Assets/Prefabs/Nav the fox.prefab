@@ -73,6 +73,8 @@ GameObject:
   - component: {fileID: 4661408070982086}
   - component: {fileID: 195691698811512830}
   - component: {fileID: 114168655121292040}
+  - component: {fileID: 135511504155087206}
+  - component: {fileID: 114428201459231882}
   m_Layer: 0
   m_Name: Nav the fox
   m_TagString: Untagged
@@ -160,7 +162,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1555609832103850}
   m_LocalRotation: {x: -0, y: -0.8791664, z: -0, w: 0.47651482}
-  m_LocalPosition: {x: 12.230057, y: 0.51, z: 28.319733}
+  m_LocalPosition: {x: 12.230057, y: 0.32, z: 28.319733}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4167010241569580}
@@ -327,12 +329,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger: {fileID: 0}
   part: {fileID: 0}
+--- !u!114 &114428201459231882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1555609832103850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d84801f7cabf6144c84cb8bff9e66030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destination: {fileID: 0}
+  destination2: {fileID: 0}
+  destination3: {fileID: 0}
+  destination4: {fileID: 0}
+  target: {x: 0, y: 0, z: 0}
+  moving: 0
+  state: 1
+  triggered: 0
+  framesSinceTriggered: 0
+  lastPosition: {x: 0, y: 0, z: 0}
+  currentState: 0
+  flag: 1
 --- !u!135 &135112388011096586
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1917568405942540}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 8
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135511504155087206
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1555609832103850}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
