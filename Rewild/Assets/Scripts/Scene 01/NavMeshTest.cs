@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +17,7 @@ public class NavMeshTest : MonoBehaviour
 	[SerializeField]
 	Transform destination4;
 
+    scr_AmbianceControl ambianceControl;
     NavMeshAgent navMeshAgent;
 
     //Public variable to track the foxes movement
@@ -25,7 +27,8 @@ public class NavMeshTest : MonoBehaviour
 		FLEEING,
 		IDLE,
 		CURIOUS,
-		EATING
+		EATING,
+        GROWL
 	}
 
     Transform AiDestination;
@@ -34,9 +37,19 @@ public class NavMeshTest : MonoBehaviour
 	public int state = 1;
     public bool triggered;
 	public int framesSinceTriggered;
+
 	public Vector3 lastPosition;
-	private BoxCollider colldier;
+	private SphereCollider colldier;
 	private GameObject food;
+    private float handMovement = 0.0f;
+
+    public float limit = 20.0f;
+
+    public float noticeDistance = 8.0f;
+    public float grownDistance  = 5.0f;
+
+
+    private GameObject player;
 	public STATE currentState;
 
 	public bool flag = true;
@@ -46,13 +59,17 @@ public class NavMeshTest : MonoBehaviour
     {
         //Initiliase the variables
         navMeshAgent = this.GetComponent<NavMeshAgent>();
-        colldier = this.GetComponent<BoxCollider>();
+        colldier = this.GetComponent<SphereCollider>();
+        ambianceControl = GameObject.FindGameObjectWithTag("GameController").GetComponent<scr_AmbianceControl>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        
 
         lastPosition = this.transform.position;
 
         AiDestination = destination;
         SetDestination(AiDestination, 5);
         state = 2;
+        
 
 		currentState = STATE.IDLE;
 
@@ -63,27 +80,7 @@ public class NavMeshTest : MonoBehaviour
         }
 		
 	}
-
-	void OnTriggerEnter(Collider other)
-    {
-		if(other.tag == "Player")
-		{
-			Debug.Log("Moving to Running State");
-			currentState = STATE.FLEEING;
-		}
-		else if ((currentState == STATE.IDLE) && (other.tag == "Food"))
-		{
-			Debug.Log("Moving to CURIOUS State");
-			currentState = STATE.CURIOUS;
-			food = GameObject.FindGameObjectWithTag("Food");
-		}
-
-    }
-
-	void OnTriggerExit(Collider other)
-    {
-        framesSinceTriggered = 0;
-    }
+    
 
     void Update()
     {
@@ -101,10 +98,41 @@ public class NavMeshTest : MonoBehaviour
             framesSinceTriggered = 0;
         }
 
+        food = GameObject.FindGameObjectWithTag("Food");
 
-		//MASTER STATE MACHINE
+        handMovement = player.GetComponent<FirstPersonController>().handMovement;
+        float distanceToPlayer = (this.transform.position - player.transform.position).magnitude;
+        if(currentState != STATE.FLEEING)
+        {
+            if (distanceToPlayer < noticeDistance)
+            {
+                currentState = STATE.GROWL;
 
-		switch(currentState)
+               
+            }
+        }
+       
+        //Check the distance between the player and the fox
+        //if between notice_distance & growl_distance, we in the bone zone boys
+
+        //If in the bone zone
+
+        // Turn the fox towards to the player and play the growl sound fx
+        // if the noise fx is not playing then play it
+
+            // if the player_distance < growl
+            // Run away
+        
+        // check the hand movement thing and if less than the amount begin the curious mode state
+        // if the hand movement is above the amount 
+            //run away
+        //else
+            //Move slightly closer
+
+
+
+        //MASTER STATE MACHINE
+        switch (currentState)
 		{
 
 			case STATE.CURIOUS:
@@ -122,6 +150,10 @@ public class NavMeshTest : MonoBehaviour
 			case STATE.IDLE:
 				wanderState();
 				break;
+
+            case STATE.GROWL:
+                growlState();
+                break;
 		}
     }
 
@@ -130,26 +162,60 @@ public class NavMeshTest : MonoBehaviour
 		Transform target;
 		target = food.transform;
 
-		SetDestination(target, 2);
+        if (handMovement < limit)
+        {
+            //eat the food
+            SetDestination(target, 1);
 
-		if(checkDestination(target.position))
-			{
-				//eat the food
-				currentState = STATE.FLEEING;
-				DestroyObject(food);
-			}
-		//Get the location of the food
-		//Check that the player isnt around
-		//Move the fox slowly towards the food
-	}
+            if ((this.transform.position - food.transform.position).magnitude < 1.0f)
+            {
+                //This is for if the fox is close enought to the food
+                currentState = STATE.EATING;
+            }
+        }
+        else
+        {
+            //The player has moved there hand too much and the fox must not flee
+            currentState = STATE.FLEEING;
+        }
+        //Get the location of the food
+        //Check that the player isnt around
+        //Move the fox slowly towards the food
+    }
 
 	private void eatingState()
 	{
-		//Debug.Log("This is Eating State");
+        //Debug.Log("This is Eating State");
+        ambianceControl.increaseAmbianceState();
+        DestroyObject(food);
 
-	}
+    }
 
-	private void runningState()
+    private void growlState()
+    {
+
+        //If not barking && player does not have food
+        //Bark
+
+        float distanceToPlayer = (this.transform.position - player.transform.position).magnitude;
+        if (distanceToPlayer < grownDistance)
+        {
+            //Run Away
+            currentState = STATE.FLEEING;
+        }
+        if (handMovement < limit && ((food.transform.position - this.transform.position).magnitude < noticeDistance))
+        {
+            currentState = STATE.CURIOUS;
+        }
+
+        if(distanceToPlayer > noticeDistance)
+        {
+            currentState = STATE.IDLE;
+        }
+
+    }
+
+    private void runningState()
 	{
 
 		//Debug.Log("This is Running State");
