@@ -67,9 +67,15 @@ public class scr_AmbianceControl : MonoBehaviour {
     {
 
         //this is a temporary control. It should be controlled by another script calling the increaseAmbianceState() function once a "trust" value reaches a certain threshold
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.Period))
         {
+            Debug.Log("Increase state");
             increaseAmbianceState();
+        }
+        else if (Input.GetKeyDown(KeyCode.Comma))
+        {
+            Debug.Log("Decrease state");
+            decreaseAmbianceState();
         }
 
 
@@ -107,6 +113,19 @@ public class scr_AmbianceControl : MonoBehaviour {
         else
         {
             Debug.Log("Player already in Fox state");
+        }
+    }
+
+    void decreaseAmbianceState()
+    {
+        if (state != STATE.Isolation)
+        {
+            state--;
+            t = 0;
+        }
+        else
+        {
+            Debug.Log("Player already in Isolation state");
         }
     }
 

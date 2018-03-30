@@ -113,14 +113,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                         isAnimal = false; // switches to human
 						scentCamera.enabled = false;
                         startTransformation = true;
-                        Invoke("SetTranslatingToTrue", 5.0f);                        
+                        Invoke("SetTranslatingToTrue", 3.0f);                        
                     }
                     else if (isAnimal == false)
                     { // switching to animal
                         isAnimal = true; // switches to animal
 						scentCamera.enabled = true;
                         startTransformation = true;
-                        Invoke("SetTranslatingToTrue", 5.0f);
+                        Invoke("SetTranslatingToTrue", 3.0f);
                     }
 
                 }
