@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{76129172-43b1-4612-a9f4-aff36bfc8eeb}">
+        <property name="assetPath">
+            <value>Trees Rustling.wav</value>
+        </property>
+        <property name="isStreaming">
+            <value>true</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>48</value>
+        </property>
+        <property name="channelCount">
+            <value>1</value>
+        </property>
+        <property name="length">
+            <value>81.026687499999994</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{457a8feb-9d3e-4302-b159-c436d578a3fb}</destination>
+        </relationship>
+    </object>
+</objects>
