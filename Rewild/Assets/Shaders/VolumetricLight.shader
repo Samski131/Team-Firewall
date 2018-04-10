@@ -37,7 +37,7 @@ Shader "Sandbox/VolumetricLight"
 	{
 		[HideInInspector]_MainTex ("Texture", 2D) = "white" {}
 		[HideInInspector]_ZTest ("ZTest", Float) = 0
-		[HideInInspector]_LightColor("_LightColor", Color) = (1,1,1,1)
+		[HideInInspector]_LightColor("_LightColor", Color) = (1,0,0,1)
 	}
 	SubShader
 	{

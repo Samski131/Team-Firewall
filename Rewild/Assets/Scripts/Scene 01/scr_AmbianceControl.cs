@@ -139,6 +139,10 @@ public class scr_AmbianceControl : MonoBehaviour {
         {
             state--;
             t = 0;
+			if(state <= STATE.FirstInteraction)
+			{
+				torchHand.SetActive(true);
+			}
         }
         else
         {

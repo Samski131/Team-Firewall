@@ -78,8 +78,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
 
-			handLeft = GameObject.FindGameObjectWithTag("Left Hand");
-			handRight = GameObject.FindGameObjectWithTag("Right Hand");
+			//handLeft = GameObject.FindGameObjectWithTag("Left Hand");
+			//handRight = GameObject.FindGameObjectWithTag("Right Hand");
 
             lastRightHandPosition = handRight.transform.position;
             lastLeftHandPosition = handLeft.transform.position;
