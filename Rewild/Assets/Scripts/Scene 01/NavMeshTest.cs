@@ -34,11 +34,11 @@ public class NavMeshTest : MonoBehaviour
 	}
 
     Transform AiDestination;
-    public Vector3 target;
-    public bool moving = false;
-	public int state = 1;
-    public bool triggered;
-	public int framesSinceTriggered;
+	public Vector3 target;
+	private bool moving = false;
+	private int state = 1;
+	private bool triggered;
+	private int framesSinceTriggered;
 
 	public float DistanceToDestination;
 
@@ -49,8 +49,8 @@ public class NavMeshTest : MonoBehaviour
 
     public float limit = 20.0f;
 
-    public float noticeDistance = 8.0f;
-    public float growlDistance  = 5.0f;
+	private float noticeDistance = 8.0f;
+	private float growlDistance  = 5.0f;
 
 
     private GameObject player;
@@ -60,6 +60,8 @@ public class NavMeshTest : MonoBehaviour
 	public AudioClip growlSound; //barking for the moment.
     private float eatTime;
 
+	public float distanceToPlayer;
+	public float distanceToFood;
 
 	void Start ()
     {
@@ -72,6 +74,16 @@ public class NavMeshTest : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         food = null;
 
+		distanceToPlayer = (this.transform.position - player.transform.position).magnitude;
+		if(food != null)
+		{
+			distanceToFood = (this.transform.position - food.transform.position).magnitude;
+		}
+		else
+		{
+			distanceToFood = 9999990.0f;
+		}
+
         lastPosition = this.transform.position;
 
         AiDestination = destination;
@@ -79,7 +91,7 @@ public class NavMeshTest : MonoBehaviour
         state = 2;
         
 
-		currentState = STATE.IDLE;
+		currentState = STATE.FLEEING;
 
         //Debugging
         if (navMeshAgent == null)
@@ -93,8 +105,19 @@ public class NavMeshTest : MonoBehaviour
     void Update()
     {
         framesSinceTriggered++;
-        //anim.SetInteger("State", (int)currentState); //update the animator
-       
+        //anim.SetInteger("State", (int)currentState);
+		//update the animator
+		food = GameObject.FindGameObjectWithTag("Food");
+
+		distanceToPlayer = (this.transform.position - player.transform.position).magnitude;
+		if(food != null)
+		{
+			distanceToFood = (this.transform.position - food.transform.position).magnitude;
+		}
+		else
+		{
+			distanceToFood = 9999990.0f;
+		}
        
 
 		//Check if the fox is currently moving around
@@ -118,148 +141,130 @@ public class NavMeshTest : MonoBehaviour
             anim.SetBool("isWalking", false);
         }
 
-
-        handMovement = player.GetComponent<FirstPersonController>().handMovement;
-        float distanceToPlayer = (this.transform.position - player.transform.position).magnitude;
-        food = GameObject.FindGameObjectWithTag("Food");
-        if (currentState != STATE.FLEEING && currentState != STATE.EATING) // can't interupt if fleeing or eating
-        {
-            if (distanceToPlayer >= noticeDistance)
-            {
-                Debug.Log("IDLE");
-                anim.SetBool("isGrowling", false);
-                anim.SetBool("isFleeing", false);
-                anim.SetBool("isCurious", false);
-                currentState = STATE.IDLE;
-            }
-
-            if (distanceToPlayer < noticeDistance && distanceToPlayer >= growlDistance && food == null) //only triggers if in the notice zone when there is no food in the level
-            {
-                Debug.Log("Growling");
-                anim.SetBool("isGrowling", true);
-                currentState = STATE.GROWL;
-            }
-            else if (food != null)
-            {
-                Debug.Log("There is food!");
-                float distanceToFood = (this.transform.position - food.transform.position).magnitude;
-                if (distanceToFood < noticeDistance)
-                {
-                    Debug.Log("Curious");
-                    anim.SetBool("isGrowling", false);
-                    anim.SetBool("isCurious", true);
-                    anim.SetBool("isWalking", false);
-                    currentState = STATE.CURIOUS;
-                }
-            }
-
-
-
-            if ((distanceToPlayer < growlDistance) && (currentState != STATE.CURIOUS)) // if the player is too close to the fox, the fox flees, unless the fox is curious
-            {
-                Debug.Log("Fleeing");
-                anim.SetBool("isGrowling", false);
-                anim.SetBool("isCurious", false);
-                anim.SetBool("isEating", false);
-                anim.SetBool("isFleeing", true);
-                currentState = STATE.FLEEING;
-            }
-        }
-
-
-
-       
-        //Check the distance between the player and the fox
-        //if between notice_distance & growl_distance, we in the bone zone boys
-
-        //If in the bone zone
-
-        // Turn the fox towards to the player and play the growl sound fx
-        // if the noise fx is not playing then play it
-
-            // if the player_distance < growl
-            // Run away
-        
-        // check the hand movement thing and if less than the amount begin the curious mode state
-        // if the hand movement is above the amount 
-            //run away
-        //else
-            //Move slightly closer
-
-
-
-        //MASTER STATE MACHINE
-        switch (currentState)
+		//MASTER STATE MACHINE
+		switch (currentState)
 		{
 
-			case STATE.CURIOUS:
-				curiousState();
-				break;
+		case STATE.CURIOUS:
+			Debug.Log("STATE MACHINE = CURIOUS");
+			curiousState();
+			break;
 
-			case STATE.EATING:
-				eatingState();
-				break;
+		case STATE.EATING:
+			Debug.Log("STATE MACHINE = EATING");
+			eatingState();
+			break;
 
-			case STATE.FLEEING:
-				runningState();
-				break;
+		case STATE.FLEEING:
+			Debug.Log("STATE MACHINE = FLEEING");
+			runningState();
+			break;
 
-			case STATE.IDLE:
-				idleState();
-				break;
+		case STATE.IDLE:
+			Debug.Log("STATE MACHINE = IDLE");
+			idleState();
+			break;
 
-            case STATE.GROWL:
-                growlState();
-                break;
-            case STATE.WANDER:
-                wanderState();
-                break;
+		case STATE.GROWL:
+			Debug.Log("STATE MACHINE = GROWL");
+			growlState();
+			break;
+
+		case STATE.WANDER:
+			Debug.Log("STATE MACHINE = WANDER");
+			wanderState();
+			break;
 		}
+
     }
 
 	private void curiousState()
 	{
 		Transform target;
-		target = food.transform;
+		if(food != null)
+		{
+			target = food.transform;
 
-		if (handMovement < limit && (this.transform.position - player.transform.position).magnitude < noticeDistance)
-        {
-            //eat the food
-            SetDestination(target.position, 1);
-			Debug.Log ((this.transform.position - food.transform.position).magnitude);
-            if ((this.transform.position - food.transform.position).magnitude < 1.0f)
-            {
-				Debug.Log("Actually moving to eating state");
-                //This is for if the fox is close enought to the food
-                anim.SetBool("isCurious", false);
-                anim.SetBool("isEating", true);
-                currentState = STATE.EATING;
-            }
-        }
-        else
-        {
-            //The player has moved their hand too much and the fox must flee
-            anim.SetBool("isCurious", false);
-            anim.SetBool("isFleeing", true);
-            currentState = STATE.FLEEING;
-        }
-        //Get the location of the food
-        //Check that the player isnt around
-        //Move the fox slowly towards the food
+			//eat the food
+			NavMeshHit hit;
+			if (NavMesh.SamplePosition(target.position, out hit, 50.0f, NavMesh.AllAreas))
+			{
+				SetDestination(hit.position, 6);
+				framesSinceTriggered = 0;
+			}
+
+			SetDestination(target.position, 1);
+
+			if (distanceToFood < 2.0f)
+			{
+				//This is for if the fox is close enought to the food
+				Debug.Log("CURIOUS: Actually moving to EATING state");
+				anim.SetBool("isCurious", false);
+				anim.SetBool("isEating", true);
+
+				eatTime = Time.time + 4.0f; //eat animation is 4 seconds long
+				currentState = STATE.EATING;
+			}
+
+			if (distanceToPlayer < noticeDistance)
+			{
+				if(handMovement > limit)
+				{
+					//The player has moved their hand too much and the fox must flee
+					Debug.Log("CURIOUS: FLEEING because Hands moved too quick");
+					anim.SetBool("isCurious", false);
+					anim.SetBool("isFleeing", true);
+					currentState = STATE.FLEEING;
+				}
+			}
+		}
+		else
+		{
+			Debug.Log("CURIOUS: The foods gone, fuck, changing state to IDLE");
+			anim.SetBool("isCurious", false);
+			currentState = STATE.IDLE;
+		}
     }
 
 	private void eatingState()
 	{
-        Debug.Log("This is Eating State");
-        ambianceControl.increaseAmbianceState();
+		Debug.Log("This is Eating State");
+		//this.transform.rotation.Set(food.transform.position.x, 0.0f, food.transform.position.z, 0.0f);
+		Transform temp;
 
-        eatTime = Time.time + 4.0f; //eat animation is 4 seconds long
+		temp = food.transform;
+		temp.transform.position.Set(food.transform.position.x, this.transform.position.y + (this.GetComponent<NavMeshAgent>().height/2), food.transform.position.z);
+		this.transform.LookAt(food.transform);
 
-        Destroy(food);
-        anim.SetBool("isFleeing", true);
-        anim.SetBool("isEating", false);
-        currentState = STATE.FLEEING; //move to fleeing state once eating is finished.
-            
+		if(distanceToFood < 2.0f)
+		{
+			if(Time.time > eatTime)
+			{
+				Debug.Log("EATING: The fox is eating the food, changed to FLEEING");
+				Destroy(food);
+				anim.SetBool("isEating", false);
+				anim.SetBool("isFleeing", true);
+				ambianceControl.increaseAmbianceState();
+				currentState = STATE.FLEEING; //move to fleeing state once eating is finished.
+			}
+			else
+			{
+				if(handMovement > limit)
+				{
+					Debug.Log("EATING: Player has gotten too close and moved too much, changed to fleeing");
+					anim.SetBool("isEating", false);
+					anim.SetBool("isFleeing", true);
+					currentState = STATE.FLEEING;
+				}
+			}
+		}
+		else
+		{
+			Debug.Log("EATING: Food has moved away from nav, re-entering CURIOUS state");
+			anim.SetBool("isEating", false);
+			anim.SetBool("isCurious", true);
+			currentState = STATE.CURIOUS;
+		}
 
     }
 
@@ -268,6 +273,7 @@ public class NavMeshTest : MonoBehaviour
 
         //If not barking && player does not have food
         //Bark
+
 		transform.LookAt(player.transform); //rotate towards the player
 
 		if (!audioSource.isPlaying) 
@@ -275,18 +281,21 @@ public class NavMeshTest : MonoBehaviour
 			audioSource.PlayOneShot (growlSound, 1.0f);
 		}
 
-        float distanceToPlayer = (this.transform.position - player.transform.position).magnitude;
-        if (distanceToPlayer < growlDistance)
+		if ((distanceToPlayer < growlDistance) && (distanceToFood > noticeDistance))
         {
-            //Run Away
+			Debug.Log("GROWL: Player has made the fox Flee");
+            //Run Away if the Player gets too close without there being food
             anim.SetBool("isGrowling", false);
             anim.SetBool("isFleeing", true);
             currentState = STATE.FLEEING;
         }
+
         if (food != null)
         {
-            if (handMovement < limit && ((food.transform.position - this.transform.position).magnitude < noticeDistance))
-            {
+			if ((handMovement < limit) && (distanceToFood < noticeDistance))
+			{
+				Debug.Log("GROWL: Player has made the fox Curious");
+				//If food exists and is close AND the hands aren't moving too fast, enter curious state
                 anim.SetBool("isGrowling", false);
                 anim.SetBool("isCurious", true);
                 currentState = STATE.CURIOUS;
@@ -294,7 +303,9 @@ public class NavMeshTest : MonoBehaviour
         }
 
         if(distanceToPlayer > noticeDistance)
-        {
+		{
+			Debug.Log("GROWL: Player has left the notice area");
+			//If the player leaves the notice zone, re-enter the idle state
             anim.SetBool("isGrowling", false);
             currentState = STATE.IDLE;
         }
@@ -303,12 +314,12 @@ public class NavMeshTest : MonoBehaviour
 
     private void runningState()
 	{
+		Debug.Log("Entering the RUNNING state Function");
 
-		//Debug.Log("This is Running State");
-
-
+		SetDestination(AiDestination.position, 7);
 		if(flag)
 		{
+			Debug.Log("RUNNING: State is changing");
 			//Move Nav onto the next waypoint
 			switch(state)
 			{
@@ -338,6 +349,7 @@ public class NavMeshTest : MonoBehaviour
 		{
 			if(checkDestination(AiDestination.position) == true)
 			{
+				Debug.Log("RUNNING: Reached the Destination");
                 anim.SetBool("isFleeing", false);
 				currentState = STATE.IDLE;
 				framesSinceTriggered = 0;
@@ -365,10 +377,23 @@ public class NavMeshTest : MonoBehaviour
     private void idleState()
     {
         Debug.Log("This is the idle state"); 
-        if (!moving && (framesSinceTriggered > 150))
+		if ( distanceToPlayer < noticeDistance)
+		{
+			//If the player moves within range, begin growling
+			anim.SetBool("isGrowling", true);
+			currentState = STATE.GROWL;
+		}
+		else if (distanceToFood < noticeDistance)
+		{
+			//Else, if there is food within range, become curious
+			anim.SetBool("isCurious", true);
+			currentState = STATE.CURIOUS;
+		}
+        else if (!moving && (framesSinceTriggered > 150))
         {   
+			//Else, check for wandering idley around the map
+			anim.SetBool("isWalking", true);
             currentState = STATE.WANDER;
-            anim.SetBool("isWalking", true);
             //Move to a random destinatinon
             Transform wanderDestination = AiDestination;
 

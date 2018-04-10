@@ -31,17 +31,18 @@ public class SteamVR_TestThrow : MonoBehaviour
 			Debug.Log("Create Food");
 			var go = GameObject.Instantiate(prefab);
 			go.transform.position = attachPoint.transform.position;
-
+			go.GetComponent<BoxCollider>().enabled = false;
 			joint = go.AddComponent<FixedJoint>();
 			joint.connectedBody = attachPoint;
 		}
 		else if (joint != null && device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
 		{
 			var go = joint.gameObject;
+			go.GetComponent<BoxCollider>().enabled = true;
 			var rigidbody = go.GetComponent<Rigidbody>();
 			Object.DestroyImmediate(joint);
 			joint = null;
-			Object.Destroy(go, 15.0f);
+			//Object.Destroy(go, 15.0f); //destroy thrown object after 15s
 
 			// We should probably apply the offset between trackedObj.transform.position
 			// and device.transform.pos to insert into the physics sim at the correct
