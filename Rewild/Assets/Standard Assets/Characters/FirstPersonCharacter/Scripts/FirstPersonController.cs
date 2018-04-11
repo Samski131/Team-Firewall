@@ -34,6 +34,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private AudioSource m_AudioSource;
 
+        public float handMovement = 0.0f;
+        private Vector3 lastRightHandPosition;
+        private Vector3 lastLeftHandPosition;
 
 		public GameObject handLeft;
 		public GameObject handRight;
@@ -66,11 +69,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             foxVision = false;
             startTransformation = false;
             mollieSoundtrack.SetActive(true);
-
+           
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
-            m_StepCycle = 0f;
+            m_StepCycle = 0.0f;
             m_NextStep = m_StepCycle/2f;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
@@ -78,7 +81,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			//handLeft = GameObject.FindGameObjectWithTag("Left Hand");
 			//handRight = GameObject.FindGameObjectWithTag("Right Hand");
 
-			scentCamera.enabled = false; //Disable the scent cam initially as player starts as a human
+            lastRightHandPosition = handRight.transform.position;
+            lastLeftHandPosition = handLeft.transform.position;
+
+            scentCamera.enabled = false; //Disable the scent cam initially as player starts as a human
 
             //Little bit of a cheat hack here, the Cameras starting position does not start at the anchor, so a very very quick transform happens
             isTranslating = true;
@@ -91,6 +97,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		{
             
             RotateView();
+            //DEBUG KILLME EVENTUALLY
+
+            float currentFrameMovement = ((handRight.transform.position - lastRightHandPosition).magnitude + (handLeft.transform.position - lastLeftHandPosition).magnitude)*100.0f;
+
+            handMovement = ((handMovement + currentFrameMovement) - (handMovement/5));
+            lastRightHandPosition = handRight.transform.position;
+            lastLeftHandPosition = handLeft.transform.position;
+           // Debug.Log(handMovement);
 
             // the jump state needs to read here to make sure it is not missed
 
@@ -113,14 +127,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                         isAnimal = false; // switches to human
 						scentCamera.enabled = false;
                         startTransformation = true;
-                        Invoke("SetTranslatingToTrue", 5.0f);                        
+                        Invoke("SetTranslatingToTrue", 3.0f);                        
                     }
                     else if (isAnimal == false)
                     { // switching to animal
                         isAnimal = true; // switches to animal
 						scentCamera.enabled = true;
                         startTransformation = true;
-                        Invoke("SetTranslatingToTrue", 5.0f);
+                        Invoke("SetTranslatingToTrue", 3.0f);
                     }
 
                 }
