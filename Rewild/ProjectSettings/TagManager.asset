@@ -19,6 +19,7 @@ TagManager:
   - InGameMenuExit
   - Torch
   - Left Hand
+  - RightHand
   layers:
   - Default
   - TransparentFX

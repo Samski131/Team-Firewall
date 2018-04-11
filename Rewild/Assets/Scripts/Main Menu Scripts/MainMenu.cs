@@ -12,8 +12,10 @@ public class MainMenu : MonoBehaviour
     public Scrollbar scrollbarEffects;
     public FadeManager fadeManager;
     private LineRenderer lineRenderer;
-
-
+    private GameObject rightController;
+    private Camera rightControllerCamera;
+    private Vector3 rightControllerPosition;
+    private Transform rightControllerTransform;
     private void Start()
     {
         audioMusic = GameObject.Find("Music/Audio Source").GetComponent<AudioSource>();
@@ -27,7 +29,12 @@ public class MainMenu : MonoBehaviour
         scrollbarMusic.value = 0.3f;  // The range is between 0.0-1.0  , i set up the volume to 0.3 since 1.0 is too loud.
 
         //  used to draw the ray in the game 
-        lineRenderer = GetComponent<LineRenderer>();
+        rightController = GameObject.FindGameObjectWithTag("RightHand");
+        rightControllerPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        rightControllerCamera = rightController.GetComponent<Camera>();
+        lineRenderer= rightController.GetComponent<LineRenderer>();
+        rightControllerTransform = rightController.transform;
+       // lineRenderer = GetComponent<LineRenderer>(); // nt used any more
         lineRenderer.enabled = true;
         lineRenderer.useWorldSpace = true;
     }
@@ -38,8 +45,10 @@ public class MainMenu : MonoBehaviour
         //  used for raycasting 
         RaycastHit hit;
         //  create a ray from the camera to where the mouse points to , should be replaced with the controller??
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+       // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        rightControllerTransform = rightController.transform;
+        rightControllerPosition = rightControllerTransform.position;
+        Ray ray = rightControllerCamera.ScreenPointToRay(rightControllerPosition);
         //  make the ray visible in debug mode in the scene, need to find something else to make the ray visible in the game 
         Debug.DrawRay(ray.origin, ray.direction * 1000000.0f , Color.red);
         //  make the ray visible in game mode
@@ -51,7 +60,7 @@ public class MainMenu : MonoBehaviour
         if(Physics.Raycast(ray, out hit))
         {
 
-            if (Input.GetMouseButtonDown(0))   //check if we have collision only if the maouse is clicked for eficiency // should br replaced with the controller button.
+            if (Input.GetButtonDown("Fire1"))   //check if we have collision only if the maouse is clicked for eficiency // should br replaced with the controller button.
             {
                 //  if we have an intersection 
                 if (hit.collider.CompareTag("Start"))
@@ -95,7 +104,7 @@ public class MainMenu : MonoBehaviour
                 }
             }
             // decrease the sound 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetButtonDown("Fire1"))
             {
                 if (hit.collider.CompareTag("MusicVolume")) // increase the sound volume
                 {
