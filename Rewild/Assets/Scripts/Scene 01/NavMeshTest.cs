@@ -229,14 +229,35 @@ public class NavMeshTest : MonoBehaviour
 	private void eatingState()
 	{
 		Debug.Log("This is Eating State");
-		//this.transform.rotation.Set(food.transform.position.x, 0.0f, food.transform.position.z, 0.0f);
-		Transform temp;
 
-		temp = food.transform;
-		temp.transform.position.Set(food.transform.position.x, this.transform.position.y + (this.GetComponent<NavMeshAgent>().height/2), food.transform.position.z);
-		this.transform.LookAt(food.transform);
+        //Transform foodLocation;
 
-		if(distanceToFood < 2.0f)
+        //foodLocation = food.transform;
+        //foodLocation.SetPositionAndRotation(new Vector3(foodLocation.position.x, foodLocation.position.y + 0.5f, foodLocation.position.z), foodLocation.localRotation);
+        //this.transform.LookAt(foodLocation);
+
+
+        Transform target;
+        target = food.transform;
+
+        NavMeshHit hit;
+        if((target.position - transform.position).magnitude > 0.6f)
+        {
+            if (NavMesh.SamplePosition(target.position, out hit, 50.0f, NavMesh.AllAreas))
+            {
+                 SetDestination(target.position, 1);
+                 framesSinceTriggered = 0;
+            }
+        }
+        else
+        {
+            SetDestination(transform.position, 1);
+            //Play any eating animation here
+            //The fox is now close enough that ducking down his head should make it look like he's eating
+        }
+
+        
+        if (distanceToFood < 2.0f)
 		{
 			if(Time.time > eatTime)
 			{
@@ -278,6 +299,7 @@ public class NavMeshTest : MonoBehaviour
 
 		if (!audioSource.isPlaying) 
 		{
+            //Play the Growl Sound FX
 			audioSource.PlayOneShot (growlSound, 1.0f);
 		}
 
@@ -360,20 +382,6 @@ public class NavMeshTest : MonoBehaviour
 
 	}
 
-	private bool checkDestination(Vector3 destination)
-	{
-		if(Mathf.Abs(this.transform.position.magnitude - destination.magnitude) < 1.0f)
-		{
-			DistanceToDestination = (Mathf.Abs(this.transform.position.magnitude - destination.magnitude));
-			return true;
-		}
-		else
-		{
-			DistanceToDestination = (Mathf.Abs(this.transform.position.magnitude - destination.magnitude));
-			return false;
-		}
-	}
-
     private void idleState()
     {
         Debug.Log("This is the idle state"); 
@@ -419,7 +427,21 @@ public class NavMeshTest : MonoBehaviour
 		
 	}
 
-	
+
+	private bool checkDestination(Vector3 destination)
+	{
+		if(Mathf.Abs(this.transform.position.magnitude - destination.magnitude) < 1.0f)
+		{
+			DistanceToDestination = (Mathf.Abs(this.transform.position.magnitude - destination.magnitude));
+			return true;
+		}
+		else
+		{
+			DistanceToDestination = (Mathf.Abs(this.transform.position.magnitude - destination.magnitude));
+			return false;
+		}
+	}
+
     private void SetDestination(Vector3 destination, int speed)
     {
         //Set the new destination in the NavMeshAgent
@@ -431,10 +453,12 @@ public class NavMeshTest : MonoBehaviour
         }
     }
 
-   private bool AnimatorIsPlaying()
+
+    private bool AnimatorIsPlaying()
     {
         return anim.GetCurrentAnimatorStateInfo(0).length > anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
     }
+
     private bool AnimatorIsPlaying(string statename)
     {
         return AnimatorIsPlaying() && anim.GetCurrentAnimatorStateInfo(0).IsName(statename);
