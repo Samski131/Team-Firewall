@@ -12,10 +12,12 @@ public class MainMenu : MonoBehaviour
     public Scrollbar scrollbarEffects;
     public FadeManager fadeManager;
     private LineRenderer lineRenderer;
-    private GameObject rightController;
+    public GameObject rightController;
     private Camera rightControllerCamera;
     private Vector3 rightControllerPosition;
     private Transform rightControllerTransform;
+
+	public Vector3 originOffset;
     private void Start()
     {
         audioMusic = GameObject.Find("Music/Audio Source").GetComponent<AudioSource>();
@@ -27,10 +29,10 @@ public class MainMenu : MonoBehaviour
         animator.SetBool("fromSoundVolumeToOptions", false);
         scrollbarEffects.value = 1.0f;
         scrollbarMusic.value = 0.3f;  // The range is between 0.0-1.0  , i set up the volume to 0.3 since 1.0 is too loud.
-
+		originOffset = new Vector3(0.0f, 0.0f, 0.0f);
         //  used to draw the ray in the game 
-        rightController = GameObject.FindGameObjectWithTag("RightHand");
-        rightControllerPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        //rightController = GameObject.FindGameObjectWithTag("RightHand");
+		rightControllerPosition = rightController.transform.position;
         rightControllerCamera = rightController.GetComponent<Camera>();
         lineRenderer= rightController.GetComponent<LineRenderer>();
         rightControllerTransform = rightController.transform;
@@ -52,29 +54,32 @@ public class MainMenu : MonoBehaviour
         //  make the ray visible in debug mode in the scene, need to find something else to make the ray visible in the game 
         Debug.DrawRay(ray.origin, ray.direction * 1000000.0f , Color.red);
         //  make the ray visible in game mode
-        lineRenderer.SetPosition(0, ray.origin + new Vector3(1.0f,0.0f,0.0f));
-        lineRenderer.SetPosition(1, ray.origin+ ray.direction * 1000000.0f);
+		lineRenderer.SetPosition(0, ray.origin + new Vector3(0.27f, -1.85f, 0.0f));
+		lineRenderer.SetPosition(1, ray.origin + new Vector3(0.27f, -1.85f, 0.0f) + ray.direction * 1000000.0f);
 
 
-
+		// 0.27  -1.85
         if(Physics.Raycast(ray, out hit))
         {
 
-            if (Input.GetButtonDown("Fire1"))   //check if we have collision only if the maouse is clicked for eficiency // should br replaced with the controller button.
-            {
+           // if (Input.GetButtonDown("Fire1"))   //check if we have collision only if the maouse is clicked for eficiency // should br replaced with the controller button.
+           // {
                 //  if we have an intersection 
                 if (hit.collider.CompareTag("Start"))
                 {
+				Debug.Log("Hit Start");
                     startTheGameButtonIsPressed();
                 }
 
                 if (hit.collider.CompareTag("Options"))
-                {
+			{
+				Debug.Log("Hit Option");
                     optionsButtonIsPressed();
                 }
 
                 if (hit.collider.CompareTag("Quit"))
-                {
+			{
+				Debug.Log("Hit Quit");
                     quitTheGameButtonIsPressed();
                 }
 
@@ -102,7 +107,7 @@ public class MainMenu : MonoBehaviour
                 {
                     scrollbarEffects.value += 0.1f;
                 }
-            }
+           //}
             // decrease the sound 
             if (Input.GetButtonDown("Fire1"))
             {
