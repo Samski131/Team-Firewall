@@ -7422,7 +7422,7 @@ GameObject:
   - component: {fileID: 1286108801}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -8163,6 +8163,7 @@ GameObject:
   - component: {fileID: 1518927413}
   - component: {fileID: 1518927412}
   - component: {fileID: 1518927411}
+  - component: {fileID: 1518927416}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -8367,6 +8368,24 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.18, z: 0}
+--- !u!114 &1518927416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1518927409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5380064ab444b8f449addb05fc030d56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leavePrints: 1
+  isFox: 0
+  foxPrints: {fileID: 1465916850234886, guid: d4a60b5a1493bff4797b6fda13d6b6ad, type: 2}
+  bootPrints: {fileID: 1594607792387294, guid: c99368343f838da4ea0be39b0b914450, type: 2}
+  trailColor: {r: 0.74264705, g: 0, b: 0, a: 0}
+  StrideDistance: 1.2
+  TrailLength: 100
 --- !u!1 &1523865795
 GameObject:
   m_ObjectHideFlags: 0
@@ -9468,6 +9487,7 @@ GameObject:
   - component: {fileID: 1883305610}
   - component: {fileID: 1883305611}
   - component: {fileID: 1883305615}
+  - component: {fileID: 1883305616}
   m_Layer: 0
   m_Name: Nav the fox
   m_TagString: Untagged
@@ -9624,7 +9644,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1883305609}
   m_LocalRotation: {x: -0, y: -0.8791664, z: -0, w: 0.47651482}
-  m_LocalPosition: {x: 25.208, y: 0, z: 11.066}
+  m_LocalPosition: {x: 26.408, y: 0, z: 11.848}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 78481297}
@@ -9647,6 +9667,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &1883305616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1883305609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5380064ab444b8f449addb05fc030d56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leavePrints: 1
+  isFox: 1
+  foxPrints: {fileID: 1465916850234886, guid: d4a60b5a1493bff4797b6fda13d6b6ad, type: 2}
+  bootPrints: {fileID: 1594607792387294, guid: c99368343f838da4ea0be39b0b914450, type: 2}
+  trailColor: {r: 0.8088235, g: 0.5522312, b: 0, a: 0}
+  StrideDistance: 1
+  TrailLength: 50
 --- !u!1001 &1887330991
 Prefab:
   m_ObjectHideFlags: 0
@@ -9729,6 +9767,10 @@ Prefab:
     - target: {fileID: 100000, guid: 2fb689f9809ee5447b8659dfaf3dc52d, type: 2}
       propertyPath: m_Name
       value: Birds
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2fb689f9809ee5447b8659dfaf3dc52d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2fb689f9809ee5447b8659dfaf3dc52d, type: 2}
