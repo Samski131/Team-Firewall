@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.ImageEffects;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class scr_AmbianceControl : MonoBehaviour {
 
@@ -37,18 +38,23 @@ public class scr_AmbianceControl : MonoBehaviour {
     private GlobalFog globalFogScript;
     private Light dirLight;
     public GameObject torchHand;
+    public GameObject player;
     private STATE state;
+    public int CurrentState;
     private float[] curFogRGB;
     private float[] curlightRGB;
     private float curFogDensity;
     public float transitionSpeed ;//0.05
     static float t = 0.0f;
-    // Use this for initialization
+
+
     void Start ()
     {
 		globalFogScript = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<GlobalFog>();
         dirLight = GameObject.FindGameObjectWithTag("DirLight").GetComponent<Light>();
-       // torchHand = GameObject.FindGameObjectWithTag("torch");
+        // torchHand = GameObject.FindGameObjectWithTag("torch");
+        // player = GameObject.FindGameObjectWithTag("Player");
+
 
         //setup initial values using the isolation values
         state = STATE.Isolation;
@@ -67,7 +73,7 @@ public class scr_AmbianceControl : MonoBehaviour {
     // Update is called once per frame
 	void Update ()
     {
-        
+        CurrentState = (int)state;
         //this is a temporary control. It should be controlled by another script calling the increaseAmbianceState() function once a "trust" value reaches a certain threshold
         if (Input.GetKeyDown(KeyCode.Period))
         {
@@ -121,6 +127,7 @@ public class scr_AmbianceControl : MonoBehaviour {
             }
             else if (state == STATE.ThirdInteraction)
             {
+                player.GetComponent<FirstPersonController>().triggerTransformation = true;
             }
             else if (state == STATE.Fox)
             {

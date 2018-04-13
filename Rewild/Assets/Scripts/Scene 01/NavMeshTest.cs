@@ -195,7 +195,18 @@ public class NavMeshTest : MonoBehaviour
 
 			SetDestination(target.position, 1);
 
-			if (distanceToFood < 2.0f)
+            if (distanceToPlayer < noticeDistance)
+            {
+                if (handMovement > limit)
+                {
+                    //The player has moved their hand too much and the fox must flee
+                    Debug.Log("CURIOUS: FLEEING because Hands moved too quick");
+                    anim.SetBool("isCurious", false);
+                    anim.SetBool("isFleeing", true);
+                    currentState = STATE.FLEEING;
+                }
+            }
+            else if (distanceToFood < 2.0f)
 			{
 				//This is for if the fox is close enought to the food
 				Debug.Log("CURIOUS: Actually moving to EATING state");
@@ -205,22 +216,18 @@ public class NavMeshTest : MonoBehaviour
 				eatTime = Time.time + 4.0f; //eat animation is 4 seconds long
 				currentState = STATE.EATING;
 			}
-
-			if (distanceToPlayer < noticeDistance)
-			{
-				if(handMovement > limit)
-				{
-					//The player has moved their hand too much and the fox must flee
-					Debug.Log("CURIOUS: FLEEING because Hands moved too quick");
-					anim.SetBool("isCurious", false);
-					anim.SetBool("isFleeing", true);
-					currentState = STATE.FLEEING;
-				}
-			}
+            else if(distanceToFood > noticeDistance)
+            {
+                Debug.Log("CURIOUS: Food has left the notice distance, moving to IDLE mode");
+                anim.SetBool("isCurious", false);
+                currentState = STATE.IDLE;
+            }
+            
+            
 		}
 		else
 		{
-			Debug.Log("CURIOUS: The foods gone, fuck, changing state to IDLE");
+			Debug.Log("CURIOUS: The foods gone, changing state to IDLE");
 			anim.SetBool("isCurious", false);
 			currentState = STATE.IDLE;
 		}
@@ -229,14 +236,12 @@ public class NavMeshTest : MonoBehaviour
 	private void eatingState()
 	{
 		Debug.Log("This is Eating State");
+        
+        if(food == null)
+        {
+            currentState = STATE.CURIOUS;
 
-        //Transform foodLocation;
-
-        //foodLocation = food.transform;
-        //foodLocation.SetPositionAndRotation(new Vector3(foodLocation.position.x, foodLocation.position.y + 0.5f, foodLocation.position.z), foodLocation.localRotation);
-        //this.transform.LookAt(foodLocation);
-
-
+        }
         Transform target;
         target = food.transform;
 
