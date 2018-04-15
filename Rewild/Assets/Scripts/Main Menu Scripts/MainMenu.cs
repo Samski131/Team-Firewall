@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public Animator animator;
+   // public Animator animator;
     public AudioSource audioEffects;
     private AudioSource audioMusic;
     public Scrollbar scrollbarMusic;
@@ -22,11 +22,11 @@ public class MainMenu : MonoBehaviour
     {
         audioMusic = GameObject.Find("Music/Audio Source").GetComponent<AudioSource>();
         
-        animator.SetBool("startTheGame", false);
-        animator.SetBool("fromMenuToOptions", false);
-        animator.SetBool("fromOptionsToMenu", false);
-        animator.SetBool("fromOptionsToSoundVolume", false);
-        animator.SetBool("fromSoundVolumeToOptions", false);
+       // animator.SetBool("startTheGame", false);
+      //  animator.SetBool("fromMenuToOptions", false);
+       // animator.SetBool("fromOptionsToMenu", false);
+       // animator.SetBool("fromOptionsToSoundVolume", false);
+      //  animator.SetBool("fromSoundVolumeToOptions", false);
         scrollbarEffects.value = 1.0f;
         scrollbarMusic.value = 0.3f;  // The range is between 0.0-1.0  , i set up the volume to 0.3 since 1.0 is too loud.
 		originOffset = new Vector3(0.0f, 0.0f, 0.0f);
@@ -131,9 +131,9 @@ public class MainMenu : MonoBehaviour
 
     public void startTheGameButtonIsPressed()
     {
-        fadeManager.isTheCameraMoving = true;
-        audioEffects.Play();
-        animator.SetBool("startTheGame", true);
+     //  fadeManager.
+      //  audioEffects.Play();
+       // animator.SetBool("startTheGame", true);
         //Debug.Log("The Scene loaded successfully");
     }
 
@@ -152,47 +152,47 @@ public class MainMenu : MonoBehaviour
 
 
 
-    public void optionsButtonIsPressed()
-    {
-        animator.SetBool("startTheGame", false); // not necessary, just to be sure.
+   // public void optionsButtonIsPressed()
+  //  {
+        //animator.SetBool("startTheGame", false); // not necessary, just to be sure.
 
 
-        animator.SetBool("fromMenuToOptions", true);
-        animator.SetBool("fromOptionsToMenu", false);
-        animator.SetBool("fromOptionsToSoundVolume", false);
-        animator.SetBool("fromSoundVolumeToOptions", false);
-        audioEffects.Play();
-    }
+       // animator.SetBool("fromMenuToOptions", true);
+        //animator.SetBool("fromOptionsToMenu", false);
+       // animator.SetBool("fromOptionsToSoundVolume", false);
+       // animator.SetBool("fromSoundVolumeToOptions", false);
+     //   audioEffects.Play();
+   // }
 
-    public void backToMainMenuButtonIsPressed()
-    {
-        animator.SetBool("startTheGame", false); // not necessary, just to be sure.
-        animator.SetBool("fromMenuToOptions", false);
-        animator.SetBool("fromOptionsToMenu", true);
-        animator.SetBool("fromOptionsToSoundVolume", false);
-        animator.SetBool("fromSoundVolumeToOptions", false);
-        audioEffects.Play();
-    }
+    //public void backToMainMenuButtonIsPressed()
+   // {
+      //  animator.SetBool("startTheGame", false); // not necessary, just to be sure.
+      //  animator.SetBool("fromMenuToOptions", false);
+       // animator.SetBool("fromOptionsToMenu", true);
+       // animator.SetBool("fromOptionsToSoundVolume", false);
+      //  animator.SetBool("fromSoundVolumeToOptions", false);
+     //   audioEffects.Play();
+  //  }
 
-    public void soundVolumeButtonIsPressed()
-    {
-        animator.SetBool("startTheGame", false); // not necessary, just to be sure.
-        animator.SetBool("fromMenuToOptions", false);
-        animator.SetBool("fromOptionsToMenu", false);
-        animator.SetBool("fromOptionsToSoundVolume", true);
-        animator.SetBool("fromSoundVolumeToOptions", false);
-        audioEffects.Play();
-    }
+   // public void soundVolumeButtonIsPressed()
+  //  {
+       // animator.SetBool("startTheGame", false); // not necessary, just to be sure.
+       // animator.SetBool("fromMenuToOptions", false);
+       // animator.SetBool("fromOptionsToMenu", false);
+       // animator.SetBool("fromOptionsToSoundVolume", true);
+       // animator.SetBool("fromSoundVolumeToOptions", false);
+   //     audioEffects.Play();
+ //   }
 
-    public void backToOptionsButtonIsPressed() // from the Volume Options
-    {
-        animator.SetBool("startTheGame", false); // not necessary, just to be sure.
-        animator.SetBool("fromMenuToOptions", false);
-        animator.SetBool("fromOptionsToMenu", false);
-        animator.SetBool("fromOptionsToSoundVolume", false);
-        animator.SetBool("fromSoundVolumeToOptions", true);
-        audioEffects.Play();
-    }
+   // public void backToOptionsButtonIsPressed() // from the Volume Options
+  //  {
+      //  animator.SetBool("startTheGame", false); // not necessary, just to be sure.
+      //  animator.SetBool("fromMenuToOptions", false);
+      //  animator.SetBool("fromOptionsToMenu", false);
+      //  animator.SetBool("fromOptionsToSoundVolume", false);
+      //  animator.SetBool("fromSoundVolumeToOptions", true);
+      //  audioEffects.Play();
+   // }
 
     public void quitTheGameButtonIsPressed()
     {
@@ -203,4 +203,5 @@ public class MainMenu : MonoBehaviour
 }
 //Made by Panagiotis Katsiadramis 
 //Modified by:  Panagiotis Katsiadramis 14/03/18
+//Modified by:  Panagiotis Katsiadramis 21/03/18
 //Modified by:  Panagiotis Katsiadramis 21/03/18

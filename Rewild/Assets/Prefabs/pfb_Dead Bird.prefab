@@ -205,7 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4928181067447398}
   m_Layer: 0
-  m_Name: Dead Bird
+  m_Name: pfb_Dead Bird
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -7,14 +7,14 @@ using UnityEngine.SceneManagement;
 public class FadeManager : MonoBehaviour
 {    
     private Image loadingScreen;
-    private GameObject myCamera;
+  //  private GameObject myCamera;
     private float transaction;
-    private bool startFadeIn;
+    public bool startFadeIn;
     private bool startFadeOut;
     private bool executeTheIfStatement;
-    private Vector3 cameraPosition;
-    private Vector3 requiredPosition; // The position that when the camera will reach , will trigger the fade in function.
-    private float zDifference;
+   // private Vector3 cameraPosition;
+   // private Vector3 requiredPosition; // The position that when the camera will reach , will trigger the fade in function.
+   // private float zDifference;
     public bool isTheCameraMoving { get; set; } // this bool is set to true in the MainMenu script , in order not to consume cpu resources without reason on math operations.
     private Scene currentScene; // used to check which scene is active
     private string sceneName;
@@ -25,11 +25,11 @@ public class FadeManager : MonoBehaviour
     void Start ()
     {
         isTheCameraMoving = false;
-        startFadeIn = false;
-        requiredPosition = new Vector3(653.0f, 105.0f, 592.0f);  // on this coordinates the Z compoment is the one that interests us
-        myCamera = GameObject.Find("Camera");
-        cameraPosition = myCamera.transform.position;
-        zDifference = 1.0f;
+       // startFadeIn = false;
+      //  requiredPosition = new Vector3(653.0f, 105.0f, 592.0f);  // on this coordinates the Z compoment is the one that interests us
+      //  myCamera = GameObject.Find("Camera");
+       // cameraPosition = myCamera.transform.position;
+      //  zDifference = 1.0f;
         transaction = 0.0f;
         executeTheIfStatement = false;
         startFadeOut = false;
@@ -41,17 +41,17 @@ public class FadeManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (isTheCameraMoving)  
-        {
-            Debug.Log("02");
-            cameraPosition = myCamera.transform.position;
-            if((cameraPosition.z - requiredPosition.z) >= zDifference)
-            {
-                Debug.Log("03");
-                startFadeIn = true;
-                isTheCameraMoving = false;
-            }
-        }
+      //  if (isTheCameraMoving)  
+      //  {
+       //     Debug.Log("02");
+           // cameraPosition = myCamera.transform.position;
+           // if((cameraPosition.z - requiredPosition.z) >= zDifference)
+            //{
+               // Debug.Log("03");
+              //  startFadeIn = true;
+              //  isTheCameraMoving = false;
+           // }
+       // }
 
       if(startFadeIn)
         {
