@@ -74,7 +74,7 @@ public class MainMenu : MonoBehaviour
                 if (hit.collider.CompareTag("Options"))
 			{
 				Debug.Log("Hit Option");
-                    optionsButtonIsPressed();
+                  //  optionsButtonIsPressed();
                 }
 
                 if (hit.collider.CompareTag("Quit"))
@@ -85,17 +85,17 @@ public class MainMenu : MonoBehaviour
 
                 if (hit.collider.CompareTag("Back"))
                 {
-                    backToMainMenuButtonIsPressed();
+                    //backToMainMenuButtonIsPressed();
                 }
 
                 if (hit.collider.CompareTag("SoundOptions"))
                 {
-                    soundVolumeButtonIsPressed();
+                  //  soundVolumeButtonIsPressed();
                 }
 
                 if (hit.collider.CompareTag("BackToOptions"))
                 {
-                    backToOptionsButtonIsPressed();
+                   // backToOptionsButtonIsPressed();
                 }
 
                 if (hit.collider.CompareTag("MusicVolume")) // increase the sound volume
