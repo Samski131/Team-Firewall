@@ -35,14 +35,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private AudioSource m_AudioSource;
 
 
-        public GameObject CameraParent;
-        public Transform VRCamera;
-        public GameObject handLeft;
-        public GameObject handRight;
+		public GameObject handLeft;
+		public GameObject handRight;
 
-        public float handMovement = 0.0f;
-        private Vector3 lastRightHandPosition;
-        private Vector3 lastLeftHandPosition;
+		public Transform VRCamera;
+
+		public GameObject CameraParent;
 
         public bool isAnimal = false;
         public bool isTranslating = false;
@@ -56,9 +54,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public int transitionTimeInSec; // controls the rate of change between the 2 soundtracks.
         public bool startTransformation;
         public bool foxVision;
-        public bool triggerTransformation = false;
     
-        public void SetTranslatingToTrue()
+        private void SetTranslatingToTrue()
         {
             isTranslating = true;
         }
@@ -69,23 +66,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
             foxVision = false;
             startTransformation = false;
             mollieSoundtrack.SetActive(true);
-           
+
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
-            m_StepCycle = 0.0f;
+            m_StepCycle = 0f;
             m_NextStep = m_StepCycle/2f;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
 
-            handLeft.SetActive(true);
-            handRight.SetActive(true);
+			//handLeft = GameObject.FindGameObjectWithTag("Left Hand");
+			//handRight = GameObject.FindGameObjectWithTag("Right Hand");
 
-            lastRightHandPosition = handRight.transform.position;
-            lastLeftHandPosition = handLeft.transform.position;
-
-
-            scentCamera.enabled = false; //Disable the scent cam initially as player starts as a human
+			scentCamera.enabled = false; //Disable the scent cam initially as player starts as a human
 
             //Little bit of a cheat hack here, the Cameras starting position does not start at the anchor, so a very very quick transform happens
             isTranslating = true;
@@ -96,13 +89,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         private void Update()
 		{
+            
             RotateView();
-
-            float currentFrameMovement = ((handRight.transform.position - lastRightHandPosition).magnitude + (handLeft.transform.position - lastLeftHandPosition).magnitude)*100.0f;
-
-            handMovement = ((handMovement + currentFrameMovement) - (handMovement/5));
-            lastRightHandPosition = handRight.transform.position;
-            lastLeftHandPosition = handLeft.transform.position;
 
             // the jump state needs to read here to make sure it is not missed
 
@@ -114,7 +102,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
                         
-			if ((Input.GetButtonDown("Transform 1") && Input.GetButtonDown("Transform 2")) || triggerTransformation)
+			if (Input.GetButtonDown("Transform 1") && Input.GetButtonDown("Transform 2"))
             {
                 if (isTranslating == false)
                 {
@@ -125,72 +113,67 @@ namespace UnityStandardAssets.Characters.FirstPerson
                         isAnimal = false; // switches to human
 						scentCamera.enabled = false;
                         startTransformation = true;
-                        triggerTransformation = false;
-                        Invoke("SetTranslatingToTrue", 3.0f);
+                        Invoke("SetTranslatingToTrue", 5.0f);                        
                     }
                     else if (isAnimal == false)
                     { // switching to animal
                         isAnimal = true; // switches to animal
 						scentCamera.enabled = true;
                         startTransformation = true;
-                        triggerTransformation = false;
-                        Invoke("SetTranslatingToTrue", 3.0f);
+                        Invoke("SetTranslatingToTrue", 5.0f);
                     }
 
                 }
                
             }
-
-            if ((isTranslating) && (isAnimal == true)) //if transforming TO animal
+            
+            if ((isTranslating) && (isAnimal == true)) //if the camera is translating TO animal
             {
+                
+				// Debug.Log("Distance: " + Vector3.Distance(transform.position, FirstPersonCameraAnchor.transform.position));
+				CameraParent.transform.Translate(new Vector3 (0.0f, -0.05f, 0.0f));
 
-                CameraParent.transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
-
-                Debug.Log("Toggle Transformation");
-                if (CameraParent.transform.localPosition.y < 0.25f)
+				if (CameraParent.transform.localPosition.y < 0.25f)
                 { //If Translation has finished and now in Animal mode
                     isTranslating = false;
                     startTransformation = false;
                     foxVision = true;
-                    triggerTransformation = false;
 
-                    handLeft.SetActive(false);
-                    handRight.SetActive(false);
+					handLeft.SetActive(false);
+					handRight.SetActive(false);
 
                     m_CharacterController.height = 0.5f;
-                    m_CharacterController.slopeLimit = 60;
+					m_CharacterController.slopeLimit = 60;
                     //Enable any visual effects
                     //Switch sounds
                     animalMode.TransitionTo(transitionTimeInSec);
                 }
 
             }
-            else if ((isTranslating) && (isAnimal == false)) // if transforming TO human
+            else if ((isTranslating) && (isAnimal == false)) // if camera is translating TO human
             {
+                
+				//Debug.Log("Distance: " + Vector3.Distance(transform.position, FirstPersonCameraAnchor.transform.position));
+				CameraParent.transform.Translate(new Vector3 (0.0f, 0.05f, 0.0f));
 
-                CameraParent.transform.Translate(new Vector3(0.0f, 0.05f, 0.0f));
-
-                if (CameraParent.transform.localPosition.y > 1.25f)
-                { //If Translation has finished and now in Mollie mode
+				if (CameraParent.transform.localPosition.y > 1.25f)
+				{ //If Translation has finished and now in Mollie mode
                     isTranslating = false;
                     startTransformation = false;
                     foxVision = false;
-                    triggerTransformation = false;
 
-                    handLeft.SetActive(true);
-                    handRight.SetActive(true);
+					handLeft.SetActive(true);
+					handRight.SetActive(true);
 
                     m_CharacterController.height = 1.8f;
-                    m_CharacterController.slopeLimit = 60;
+					m_CharacterController.slopeLimit = 60;
                     //Disable any visual effects
                     //Switch sound
                     humanMode.TransitionTo(transitionTimeInSec);
                 }
             }
-
-
-
-            m_CharacterController.center = m_Camera.transform.localPosition;
+            
+			m_CharacterController.center = m_Camera.transform.localPosition;
 			//m_CharacterController.transform.rotation = m_Camera.transform.rotation;
                         
         }
@@ -241,7 +224,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_MouseLook.UpdateCursorLock();
         }
-        
         
         private void ProgressStepCycle(float speed)
         {
@@ -299,7 +281,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_Input.Normalize();
             }
-            
+
+            // handle speed change to give an fov kick
+            // only if the player is going to a run, is running and the fovkick is to be used
+  //          if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
+  //          {
+  //              StopAllCoroutines();
+ //               StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
+ //           }
         }
         
         private void RotateView()

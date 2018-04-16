@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.ImageEffects;
-using UnityStandardAssets.Characters.FirstPerson;
 
 public class scr_AmbianceControl : MonoBehaviour {
 
@@ -29,32 +28,25 @@ public class scr_AmbianceControl : MonoBehaviour {
     private enum STATE
     {
         Isolation,
-        FirstInteraction, //Scent Mechanic
-        SecondInteraction, //Drop the torch
-        ThirdInteraction, 
+        FirstInteraction,
+        SecondInteraction,
+        ThirdInteraction,
         Fox
     };
 
     private GlobalFog globalFogScript;
     private Light dirLight;
-    public GameObject torchHand;
-    public GameObject player;
     private STATE state;
-    public int CurrentState;
     private float[] curFogRGB;
     private float[] curlightRGB;
     private float curFogDensity;
     public float transitionSpeed ;//0.05
     static float t = 0.0f;
-
-
+    // Use this for initialization
     void Start ()
     {
 		globalFogScript = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<GlobalFog>();
         dirLight = GameObject.FindGameObjectWithTag("DirLight").GetComponent<Light>();
-        // torchHand = GameObject.FindGameObjectWithTag("torch");
-        // player = GameObject.FindGameObjectWithTag("Player");
-
 
         //setup initial values using the isolation values
         state = STATE.Isolation;
@@ -73,17 +65,11 @@ public class scr_AmbianceControl : MonoBehaviour {
     // Update is called once per frame
 	void Update ()
     {
-        CurrentState = (int)state;
+
         //this is a temporary control. It should be controlled by another script calling the increaseAmbianceState() function once a "trust" value reaches a certain threshold
-        if (Input.GetKeyDown(KeyCode.Period))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("Increase state");
             increaseAmbianceState();
-        }
-        else if (Input.GetKeyDown(KeyCode.Comma))
-        {
-            Debug.Log("Decrease state");
-            decreaseAmbianceState();
         }
 
 
@@ -107,53 +93,20 @@ public class scr_AmbianceControl : MonoBehaviour {
             //Debug.Log("Fog Color: " + new Color(curFogRGB[0], curFogRGB[1], curFogRGB[2], 1) + " Actual Fog Colour: " + RenderSettings.fogColor);
             //Debug.Log("Light Color: " + new Color(curlightRGB[0], curlightRGB[1], curlightRGB[2], 1) + " Actual Light Colour: " + dirLight.color);
             //Debug.Log("Fog Density: " + curFogDensity);
-            //Debug.Log("STATE: " + state);
+            Debug.Log("STATE: " + state);
         }
 	}
 
-    public void increaseAmbianceState()
-    { 
+    void increaseAmbianceState()
+    {
         if (state != STATE.Fox)
         {
             state++;
             t = 0;
-
-            if (state == STATE.FirstInteraction)
-            {
-            }
-            else if (state == STATE.SecondInteraction)
-            {
-                torchHand.SetActive(false);
-            }
-            else if (state == STATE.ThirdInteraction)
-            {
-                player.GetComponent<FirstPersonController>().triggerTransformation = true;
-            }
-            else if (state == STATE.Fox)
-            {
-            }
-
         }
         else
         {
             Debug.Log("Player already in Fox state");
-        }
-    }
-
-    public void decreaseAmbianceState()
-    {
-        if (state != STATE.Isolation)
-        {
-            state--;
-            t = 0;
-			if(state <= STATE.FirstInteraction)
-			{
-				torchHand.SetActive(true);
-			}
-        }
-        else
-        {
-            Debug.Log("Player already in Isolation state");
         }
     }
 

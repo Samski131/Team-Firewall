@@ -21,11 +21,11 @@ public class TransformationEffect : MonoBehaviour {
 
 		if(otherScript)
 		{
-			Debug.Log("Transformation Script has found FPSController Component");
+			Debug.Log("Found it");
 		}
 		else
 		{
-			Debug.Log("Transformation Script has failed to find FPSController Component");
+			Debug.Log("Help me");
 		}
 		EffectStrength= 0.0f;
 		Transformation.SetFloat("_EffectStrength", EffectStrength);        

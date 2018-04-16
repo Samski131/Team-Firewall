@@ -17,10 +17,6 @@ TagManager:
   - InGameMenuResume
   - InGameMenuBackToMainMenu
   - InGameMenuExit
-  - Torch
-  - Left Hand
-  - Right Hand
-  - Terrain
   layers:
   - Default
   - TransparentFX
