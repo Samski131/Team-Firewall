@@ -2722,7 +2722,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830b6e116aa675a40858b244a19b08e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 863870824}
   audioEffects: {fileID: 827882747}
   scrollbarMusic: {fileID: 633287287}
   scrollbarEffects: {fileID: 1810273759}
@@ -3713,6 +3712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff9d84a02df0d74e95a7fe56cb295cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startFadeIn: 0
   fadeTime: 5
   sceneToLoad: test Scene
 --- !u!224 &1821465847
