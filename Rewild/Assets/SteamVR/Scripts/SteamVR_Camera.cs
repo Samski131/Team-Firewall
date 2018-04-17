@@ -7,6 +7,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Reflection;
+using UnityStandardAssets.Characters.FirstPerson;
 using Valve.VR;
 
 [RequireComponent(typeof(Camera))]

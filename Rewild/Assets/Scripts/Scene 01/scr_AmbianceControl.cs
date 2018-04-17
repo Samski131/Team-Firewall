@@ -97,7 +97,7 @@ public class scr_AmbianceControl : MonoBehaviour {
         }
 	}
 
-    void increaseAmbianceState()
+    public void increaseAmbianceState()
     {
         if (state != STATE.Fox)
         {

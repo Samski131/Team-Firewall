@@ -1369,7 +1369,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1555609832103850}
   m_LocalRotation: {x: -0, y: -0.8791664, z: -0, w: 0.47651482}
-  m_LocalPosition: {x: 26.408, y: 0, z: 11.848}
+  m_LocalPosition: {x: 12.230057, y: 0.32, z: 28.319733}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 4287995548977324}
@@ -1821,10 +1821,11 @@ MonoBehaviour:
   DistanceToDestination: 0
   lastPosition: {x: 0, y: 0, z: 0}
   food: {fileID: 0}
+  handMovement: 0
   limit: 20
   currentState: 0
   flag: 0
-  growlSound: {fileID: 8300000, guid: c443ba9d0e089104ab91e2bf82f8f41b, type: 3}
+  growlSound: {fileID: 0}
   distanceToPlayer: 0
   distanceToFood: 0
 --- !u!135 &135112388011096586

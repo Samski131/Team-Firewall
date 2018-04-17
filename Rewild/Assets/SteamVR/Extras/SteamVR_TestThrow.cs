@@ -39,6 +39,7 @@ public class SteamVR_TestThrow : MonoBehaviour
 		{
 			var go = joint.gameObject;
 			var rigidbody = go.GetComponent<Rigidbody>();
+			prefab.GetComponent<BoxCollider>().enabled = true;
 			Object.DestroyImmediate(joint);
 			joint = null;
 			Object.Destroy(go, 15.0f);
