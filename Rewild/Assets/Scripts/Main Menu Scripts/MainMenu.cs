@@ -60,14 +60,14 @@ public class MainMenu : MonoBehaviour
                 }
 
                 if (hit.collider.CompareTag("Options"))
-<<<<<<< HEAD
+//<<<<<<< HEAD
                 {
                     optionsButtonIsPressed();
-=======
+//=======
 			{
 				Debug.Log("Hit Option");
                   //  optionsButtonIsPressed();
->>>>>>> d753a227c739e2a23c964303fbbf0cc979711d8c
+//>>>>>>> d753a227c739e2a23c964303fbbf0cc979711d8c
                 }
 
                 if (hit.collider.CompareTag("Quit"))
@@ -117,6 +117,7 @@ public class MainMenu : MonoBehaviour
         scrollbarSoundEffectsVolume();
         scrollbarMusicVolume();
     }
+	}
 
 
 
