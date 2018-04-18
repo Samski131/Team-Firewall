@@ -5382,7 +5382,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff9d84a02df0d74e95a7fe56cb295cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startFadeIn: 0
   fadeTime: 5
   sceneToLoad: test Scene
 --- !u!224 &799418285
@@ -6755,7 +6754,7 @@ AudioSource:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1101642823}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243043833478466798, guid: c122813662b331b49a5d30573e28859b,
     type: 2}
@@ -9101,12 +9100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830b6e116aa675a40858b244a19b08e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioEffects: {fileID: 0}
   scrollbarMusic: {fileID: 351394899}
   scrollbarEffects: {fileID: 559716125}
   fadeManager: {fileID: 799418284}
-  rightController: {fileID: 0}
-  originOffset: {x: 0, y: 0, z: 0}
 --- !u!120 &1536005516
 LineRenderer:
   m_ObjectHideFlags: 0
