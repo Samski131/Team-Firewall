@@ -17,6 +17,7 @@ TagManager:
   - InGameMenuResume
   - InGameMenuBackToMainMenu
   - InGameMenuExit
+  - Terrain
   layers:
   - Default
   - TransparentFX

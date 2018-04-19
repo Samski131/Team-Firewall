@@ -1,0 +1,173 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: 114107149811199866}
+  - {fileID: 114885707415011180}
+  EditorEvents:
+  - {fileID: 114880184380226070}
+  - {fileID: 114306272919219362}
+  - {fileID: 114630990491644156}
+  - {fileID: 114102628793315364}
+  - {fileID: 114803011510494198}
+  MasterBankRef: {fileID: 114885707415011180}
+  StringsBankRef: {fileID: 114107149811199866}
+  stringsBankWriteTime: 636597518594265677
+  cacheVersion: 2
+--- !u!114 &114102628793315364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Fox Bark
+  guid: f3262d0c95a1ef4597e0474383d8ebec
+  Banks:
+  - {fileID: 114885707415011180}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 7.8499994
+  MaxDistance: 35
+  Length: 375
+--- !u!114 &114107149811199866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Rewild! FMOD Session\FMOD Session\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636597518594265677
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 908
+  Exists: 1
+--- !u!114 &114306272919219362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Mollie music
+  guid: 9fb31f5198532644bbaaedcccaf30952
+  Banks:
+  - {fileID: 114885707415011180}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 95164
+--- !u!114 &114630990491644156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Trees Rustling
+  guid: ded5e3d88c41f4438a2568c2d9ab2396
+  Banks:
+  - {fileID: 114885707415011180}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 39.5
+  MaxDistance: 250
+  Length: 81026
+--- !u!114 &114803011510494198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Wind Ambience
+  guid: f9ab74035bf0ea4d9b655dce7fb40d72
+  Banks:
+  - {fileID: 114885707415011180}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 39540
+--- !u!114 &114880184380226070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Bushes Rustling
+  guid: 25a382ec1d8a0741882ba4ac7c0055fc
+  Banks:
+  - {fileID: 114885707415011180}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 3242
+--- !u!114 &114885707415011180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: \\StuHome\HomeDrive7$\1500967\Desktop\Team Firewall\Rewild\Assets\Rewild!
+    FMOD Session\FMOD Session\Build\Desktop\Master Bank.bank
+  lastModified: 636597518594109420
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2488224
+  Exists: 1
