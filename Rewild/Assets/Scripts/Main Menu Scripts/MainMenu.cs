@@ -19,15 +19,19 @@ public class MainMenu : MonoBehaviour
         FadeManagerScrypt = GameObject.Find("FadeManager").GetComponent<FadeManager>();
         audioMusic = GameObject.Find("Music/Audio Source").GetComponent<AudioSource>();
         
-        scrollbarEffects.value = 1.0f;
-        scrollbarMusic.value = 0.3f;  // The range is between 0.0-1.0  , i set up the volume to 0.3 since 1.0 is too loud.
+        //scrollbarEffects.value = 1.0f;
+      //  scrollbarMusic.value = 0.3f;  // The range is between 0.0-1.0  , i set up the volume to 0.3 since 1.0 is too loud.
     }
 
 
     public void Update()
     {
 
-        if(Input.GetKeyDown(KeyCode.X)) // start the game 
+
+
+
+      /*  
+       * if(Input.GetKeyDown(KeyCode.X)) // start the game 
             {
             startTheGameButtonIsPressed();
             }
@@ -49,16 +53,17 @@ public class MainMenu : MonoBehaviour
             scrollbarMusicVolume();
         }
 
+	
+	*/
 	}
-
     public void startTheGameButtonIsPressed()
     {
-       
+		Debug.Log("START");
         FadeManagerScrypt.SetFadeInTrue();
         //Debug.Log("The Scene loaded successfully");
     }
 
-    private void scrollbarMusicVolume() // this changes the volume of the music 
+    private void setScrollbarMusicVolume() // this changes the volume of the music 
     {
         audioMusic.volume = scrollbarMusic.value;
     }

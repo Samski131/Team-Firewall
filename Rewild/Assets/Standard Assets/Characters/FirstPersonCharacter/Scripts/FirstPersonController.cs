@@ -110,6 +110,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 			m_CharacterController.height = GameObject.FindGameObjectWithTag("MainCamera").transform.localPosition.y;
 
+			//CameraParent.transform.position.x += GameObject.FindGameObjectWithTag("MainCamera").transform.localPosition.x;
+			//CameraParent.transform.position.z += GameObject.FindGameObjectWithTag("MainCamera").transform.localPosition.z;
+
             float currentFrameMovement = ((handRight.transform.position - lastRightHandPosition).magnitude + (handLeft.transform.position - lastLeftHandPosition).magnitude)*100.0f;
 
             handMovement = ((handMovement + currentFrameMovement) - (handMovement/5));

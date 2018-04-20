@@ -17,6 +17,14 @@ TagManager:
   - InGameMenuResume
   - InGameMenuBackToMainMenu
   - InGameMenuExit
+  - FxTemporaire
+  - Right Hand
+  - projectile
+  - Left Hand
+  - Torch
+  - Music Scrollbar
+  - Effects Scrollbar
+  - Main Menu
   layers:
   - Default
   - TransparentFX

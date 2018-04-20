@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.VR;
 
 public class FadeManager : MonoBehaviour
 {    
@@ -43,8 +44,8 @@ public class FadeManager : MonoBehaviour
                 Debug.Log("05");
                 startFadeIn = false;
 				executeTheIfStatement = true;
-				SceneManager.LoadScene(sceneToLoad);
-                
+				//SceneManager.LoadScene(sceneToLoad);
+				SteamVR_LoadLevel.Begin(sceneToLoad, false, 0.5f, 0,0,0,1);
             }
         }
 
