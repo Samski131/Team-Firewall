@@ -2,7 +2,7 @@ Shader "Hidden/Nature/Tree Creator Leaves Optimized" {
 Properties {
 	_Color ("Main Color", Color) = (1,1,1,1)
 	_TranslucencyColor ("Translucency Color", Color) = (0.73,0.85,0.41,1) // (187,219,106,255)
-	_Cutoff ("Alpha cutoff", Range(0,1)) = 0.3
+	_Cutoff("Alpha cutoff", Range(0.000000,1.000000)) = 0.500000
 	_TranslucencyViewDependency ("View dependency", Range(0,1)) = 0.7
 	_ShadowStrength("Shadow Strength", Range(0,1)) = 0.8
 	_ShadowOffsetScale ("Shadow Offset Scale", Float) = 1
