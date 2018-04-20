@@ -20,8 +20,8 @@ public class scr_Footprints : MonoBehaviour {
     {
       terrain = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Terrain>();
       lastFootprint = new Vector2(this.transform.position.x, this.transform.position.z); // just to get a 2d representation
-     printQueue = new Queue<GameObject>();
-        TrailLength++; // as counting from 0 makes the length slightly shorter than expected.
+      printQueue = new Queue<GameObject>();
+      TrailLength++; // as counting from 0 makes the length slightly shorter than expected.
 	}
 	
 

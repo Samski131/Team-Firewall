@@ -47,8 +47,8 @@ public class inGameMenu : MonoBehaviour {
         //  make the ray visible in debug mode in the scene, need to find something else to make the ray visible in the game 
         Debug.DrawRay(ray.origin, ray.direction * 1000000.0f, Color.red);
         //  make the ray visible in game mode
-        lineRenderer.SetPosition(0, ray.origin + new Vector3(1.0f, 0.0f, 0.0f));
-        lineRenderer.SetPosition(1, ray.origin + ray.direction * 1000000.0f);
+        //lineRenderer.SetPosition(0, ray.origin + new Vector3(1.0f, 0.0f, 0.0f));
+        //lineRenderer.SetPosition(1, ray.origin + ray.direction * 1000000.0f);
 
 
         realCanvasPosition = Canvas.transform.position;
@@ -119,7 +119,7 @@ public class inGameMenu : MonoBehaviour {
 
     public void theResumeButtonIsPressed()
     {
-		Debug.Log("START");
+
         Time.timeScale = 1.0f;
         Animator.SetBool("isTheMenuCalled", false);
     }

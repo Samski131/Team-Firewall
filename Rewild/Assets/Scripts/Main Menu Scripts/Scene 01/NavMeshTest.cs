@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine;
 using UnityEngine.AI;
+using FMOD.Studio;
 
 public class NavMeshTest : MonoBehaviour
 {
@@ -17,9 +18,20 @@ public class NavMeshTest : MonoBehaviour
 	[SerializeField]
 	Transform destination4;
 
+
+	[FMODUnity.EventRef]
+	public string BarkingSoundEffect;
+
+	[FMODUnity.EventRef]
+	public string EatingSoundEffect;
+
+	[FMODUnity.EventRef]
+	public string FoxWalkSoundEffect;
+	private float walkSoundTime =0.0f;
+
 	scr_AmbianceControl ambianceControl;
 	NavMeshAgent navMeshAgent;
-	AudioSource audioSource;
+	//AudioSource audioSource;
 	static Animator anim;
 	//Public variable to track the foxes movement
 
@@ -51,6 +63,7 @@ public class NavMeshTest : MonoBehaviour
 
 	private float noticeDistance = 8.0f;
 	private float growlDistance  = 5.0f;
+	private float frameCounter = 0.0f;
 
 
 	private GameObject player;
@@ -70,9 +83,10 @@ public class NavMeshTest : MonoBehaviour
 		colldier = this.GetComponent<SphereCollider>();
 		ambianceControl = GameObject.FindGameObjectWithTag("GameController").GetComponent<scr_AmbianceControl>();
 		player = GameObject.FindGameObjectWithTag("Player");
-		audioSource = GetComponent<AudioSource>();
+		//audioSource = GetComponent<AudioSource>();
 		anim = GetComponentInChildren<Animator>();
 		food = null;
+
 
 		distanceToPlayer = (this.transform.position - player.transform.position).magnitude;
 		if(food != null)
@@ -109,7 +123,6 @@ public class NavMeshTest : MonoBehaviour
 		//update the animator
 		food = GameObject.FindGameObjectWithTag("Food");
 		handMovement = player.GetComponent<FirstPersonController>().handMovement;
-
 		distanceToPlayer = (this.transform.position - player.transform.position).magnitude;
 		if(food != null)
 		{
@@ -120,6 +133,7 @@ public class NavMeshTest : MonoBehaviour
 			distanceToFood = 9999990.0f;
 		}
 
+		frameCounter++;
 
 		//Check if the fox is currently moving around
 		if (this.transform.position == lastPosition)
@@ -136,6 +150,11 @@ public class NavMeshTest : MonoBehaviour
 		if (moving)
 		{
 			anim.SetBool("isWalking", true);
+			if (Time.time >= walkSoundTime)
+			{
+				FMODUnity.RuntimeManager.PlayOneShot(FoxWalkSoundEffect);
+				walkSoundTime += 0.2f;
+			}
 		}
 		else
 		{
@@ -182,6 +201,7 @@ public class NavMeshTest : MonoBehaviour
 	private void curiousState()
 	{
 		Transform target;
+
 		if(food != null)
 		{
 			target = food.transform;
@@ -270,6 +290,7 @@ public class NavMeshTest : MonoBehaviour
 			if(Time.time > eatTime)
 			{
 				Debug.Log("EATING: The fox is eating the food, changed to FLEEING");
+				FMODUnity.RuntimeManager.PlayOneShot(EatingSoundEffect);
 				Destroy(food);
 				anim.SetBool("isEating", false);
 				anim.SetBool("isFleeing", true);
@@ -302,14 +323,20 @@ public class NavMeshTest : MonoBehaviour
 
 		//If not barking && player does not have food
 		//Bark
+	
+		if(frameCounter > 120.0f)
+		{
+			FMODUnity.RuntimeManager.PlayOneShot(BarkingSoundEffect);
+			frameCounter = 0.0f;
+		}
 
 		transform.LookAt(player.transform); //rotate towards the player
 
-		if (!audioSource.isPlaying) 
-		{
+		//if (!audioSource.isPlaying) 
+		//{
 			//Play the Growl Sound FX
-			audioSource.PlayOneShot (growlSound, 1.0f);
-		}
+		//	audioSource.PlayOneShot (growlSound, 1.0f);
+		//}
 
 		if ((distanceToPlayer < growlDistance) && (distanceToFood > noticeDistance))
 		{

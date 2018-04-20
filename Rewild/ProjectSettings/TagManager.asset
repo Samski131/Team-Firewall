@@ -25,6 +25,7 @@ TagManager:
   - Music Scrollbar
   - Effects Scrollbar
   - Main Menu
+  - Terrain
   layers:
   - Default
   - TransparentFX

@@ -1,0 +1,105 @@
+[LOG] System::create                           : Header version = 1.10.04. Current version = 1.10.04.
+[LOG] SystemI::setOutputInternal               : Setting output to 'FMOD WASAPI Output'
+[LOG] Manager::init                            : maxchannels = 1024 studioflags = 00000009 flags 00000000 extradriverdata 0000000000000000.
+[LOG] SystemI::init                            : Initialize version=11004 (93853), maxchannels=1024, flags=0x00030000
+[LOG] OutputWASAPI::init                       : Mix Format (WAVEFORMATEX): wFormatTag=0xFFFE, nChannels=6, nSamplesPerSec=48000, nAvgBytesPerSec=1152000, nBlockAlign=24, wBitsPerSample=32, cbSize=22.
+[LOG] OutputWASAPI::init                       : Mix Format (WAVEFORMATEXTENSIBLE): wValidBitsPerSample=32, dwChannelMask=0x0000003F, SubFormat=00000003-0000-0010-8000-00AA00389B71.
+[LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 13.33ms, period: 10.00ms, DSP buffer: 1024 * 4
+[LOG] DownMix::init                            : dspbuffersize: 1024  rate: 48000. output speaker mode: 6, input speaker mode 3
+[LOG] DownMix::init                            : done.
+[LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 65536, Semaphore: No, Sleep Time: 10, Looping: Yes.
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 49152, Semaphore: No, Sleep Time: 0, Looping: Yes.
+[LOG] AsyncManager::init                       : manager 00000000003C4B18 isAsync 1 updatePeriod 0.02
+[LOG] Thread::initThread                       : Init FMOD Studio update thread. Priority: 0, Stack Size: 65536, Semaphore: No, Sleep Time: 1, Looping: No.
+[LOG] AsyncManager::init                       : done
+[LOG] PlaybackSystem::init                     : 
+[LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Priority: 0, Stack Size: 65536, Semaphore: No, Sleep Time: 1, Looping: No.
+[LOG] PlaybackSystem::init                     : done
+[LOG] LiveUpdate::init                         : 
+[LOG] Thread::initThread                       : Init FMOD Studio bank load thread. Priority: 0, Stack Size: 65536, Semaphore: No, Sleep Time: 1, Looping: No.
+[LOG] Manager::init                            : done.
+[LOG] Profile::init                            : Profiler listening on port: 9264
+[LOG] Manager::readBank                        : fileversion = 100, compatVersion = 99 (oldest = 44, newest = 100)
+[LOG] Manager::readBank                        : fileversion = 100, compatVersion = 99 (oldest = 44, newest = 100)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 5624288
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 69536
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000000071F0F5FC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFF21CBE310
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFF21CBE2E0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFF21CBE3E0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFF21CBE490
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000000053CC49C8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Fox Grass Footstep_6', format=2, channels=1, frequency=48000, lengthbytes=8032, lengthpcm=44032, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.021513.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 5624288
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 69536
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000000071F0F5FC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFF21CBE310
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFF21CBE2E0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFF21CBE3E0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFF21CBE490
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000000053CC49C8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Fox Grass Footstep_7', format=2, channels=1, frequency=48000, lengthbytes=8288, lengthpcm=44928, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.033706.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 5624288
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 69536
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000000071F0F5FC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFF21CBE310
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFF21CBE2E0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFF21CBE3E0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFF21CBE490
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000000053CC49C8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Fox Grass Footstep_5', format=2, channels=1, frequency=48000, lengthbytes=6208, lengthpcm=34688, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.109174.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 5624288
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 69536
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000000071F0F5FC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFF21CBE310
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFF21CBE2E0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFF21CBE3E0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFF21CBE490
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000000053CC49C8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Fox Grass Footstep_4', format=2, channels=1, frequency=48000, lengthbytes=5504, lengthpcm=30848, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.142037.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 5624288
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 69536
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000000071F0F5FC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFF21CBE310
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFF21CBE2E0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFF21CBE3E0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFF21CBE490
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000000053CC49C8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Fox Grass Footstep_8', format=2, channels=1, frequency=48000, lengthbytes=8928, lengthpcm=48768, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.022654.
