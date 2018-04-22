@@ -45,7 +45,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 126
+  controlID: 61
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 75
+  controlID: 62
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 76
+  controlID: 63
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -352,19 +352,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/SkythianCat/Hand_Painted_Nature_Kit_LITE/Prefabs
+    - Assets/Fox/textures
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/SkythianCat/Hand_Painted_Nature_Kit_LITE/Prefabs
+  - Assets/Fox/textures
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\AC\Documents\GitHub\Team-Firewall\Rewild
+  m_LastProjectPath: X:\blog stuff\propro\game\Rewild
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 542}
-    m_SelectedIDs: be330000
-    m_LastClickedID: 13246
-    m_ExpandedIDs: 00000000ee2a0000442b0000722b0000ee2c0000742d0000b82e000018320000f2320000043300002434000062340000fc340000b8350000ba350000cc3500000c370000863700008c37000082380000b8380000c8380000a6390000e8390000de3b0000023d0000fe3d00008c3e0000904000007c4100009c410000aa410000524200007c420000d8420000f84200000243000068430000984c00009a4c00009c4c00009e4c0000a04c0000a24c0000a44c0000a64c0000a84c0000aa4c0000ac4c0000ae4c0000b04c0000b24c0000b44c0000b64c0000b84c0000ba4c0000bc4c000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 110}
+    m_SelectedIDs: b2530000
+    m_LastClickedID: 21426
+    m_ExpandedIDs: 00000000d64200002c43000058430000d4440000584500009c460000fc490000d64a0000e84a0000084c0000464c0000de4c0000984d00009a4d0000ac4d0000ec4e0000644f00006a4f0000e04f00001650000026500000945000000451000046510000365300005a54000056550000e4550000e8570000d2580000f258000000590000a8590000d25900002e5a00004e5a0000585a0000be5a00002a6200002c6200002e62000030620000326200003462000036620000386200003a6200003c6200003e62000040620000426200004462000046620000486200004a6200004c6200004e62000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -392,7 +392,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ee2a0000442b0000722b0000ee2c0000742d0000b82e000018320000f2320000043300002434000062340000fc340000b8350000ba350000cc3500000c370000863700008c37000082380000b8380000c8380000a6390000e8390000de3b0000023d0000fe3d00008c3e0000904000007c4100009c410000aa410000524200007c420000d8420000f84200000243000068430000984c00009a4c00009c4c00009e4c0000a04c0000a24c0000a44c0000a64c0000a84c0000aa4c0000ac4c0000ae4c0000b04c0000b24c0000b44c0000b64c0000b84c0000ba4c0000bc4c0000
+    m_ExpandedIDs: 00000000d64200002c43000058430000d4440000584500009c460000fc490000d64a0000e84a0000084c0000464c0000de4c0000984d00009a4d0000ac4d0000ec4e0000644f00006a4f0000e04f000016500000265000000451000046510000365300005a54000056550000e4550000e8570000d2580000f258000000590000a8590000d25900002e5a00004e5a0000585a0000be5a00002a6200002c6200002e62000030620000326200003462000036620000386200003a6200003c6200003e62000040620000426200004462000046620000486200004a6200004c6200004e620000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000f4450000be700000ec300000262b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -508,9 +508,9 @@ MonoBehaviour:
     height: 646
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: 1afcffff00000000
+    m_SelectedIDs: 26f5ffff
+    m_LastClickedID: -2778
+    m_ExpandedIDs: 4cf5ffff1af8ffff00000000605d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -565,9 +565,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 460.35742, y: 13.149923, z: 384.56937}
+    m_Target: {x: 414.93655, y: 6.1486998, z: 396.73175}
     speed: 2
-    m_Value: {x: 460.35742, y: 13.149923, z: 384.56937}
+    m_Value: {x: 414.93655, y: 6.1486998, z: 396.73175}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -590,9 +590,9 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.18072684, y: 0.74858755, z: -0.22691745, w: -0.5962074}
+    m_Target: {x: 0.20549281, y: 0.6557397, z: -0.19234683, w: 0.7005575}
     speed: 2
-    m_Value: {x: -0.18072683, y: 0.7485875, z: -0.22691742, w: -0.5962073}
+    m_Value: {x: 0.20549282, y: 0.6557398, z: -0.19234684, w: 0.70055753}
   m_Size:
     m_Target: 4.7844753
     speed: 2
