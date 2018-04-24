@@ -50,7 +50,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public float cameraPanSpeed;
 		public Camera scentCamera;
-		public GameObject mollieSoundtrack;
         public AudioMixerSnapshot humanMode; // changes the states on the audio mixer depending the state of the player , fox or human.
         public AudioMixerSnapshot animalMode;
         [Range(0, 8)]
@@ -70,7 +69,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             foxVision = false;
             startTransformation = false;
-            mollieSoundtrack.SetActive(true);
            
             m_CharacterController = GetComponent<CharacterController>();
 			test = this.transform;

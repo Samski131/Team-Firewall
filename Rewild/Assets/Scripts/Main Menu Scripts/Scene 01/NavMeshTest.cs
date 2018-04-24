@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine;
 using UnityEngine.AI;
-using FMOD.Studio;
 
 public class NavMeshTest : MonoBehaviour
 {
@@ -18,16 +17,11 @@ public class NavMeshTest : MonoBehaviour
 	[SerializeField]
 	Transform destination4;
 
+	[SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
+	[SerializeField] private AudioClip m_Bark;
+	[SerializeField] private AudioClip m_Eating;
 
-	[FMODUnity.EventRef]
-	public string BarkingSoundEffect;
-
-	[FMODUnity.EventRef]
-	public string EatingSoundEffect;
-
-	[FMODUnity.EventRef]
-	public string FoxWalkSoundEffect;
-	private float walkSoundTime =0.0f;
+	private float walkSoundTime = 0.0f;
 
 	scr_AmbianceControl ambianceControl;
 	NavMeshAgent navMeshAgent;
@@ -46,15 +40,17 @@ public class NavMeshTest : MonoBehaviour
 	}
 
 	Transform AiDestination;
-	public Vector3 target;
+	private Vector3 target;
 	private bool moving = false;
 	private int state = 1;
 	private bool triggered;
 	private int framesSinceTriggered;
 
-	public float DistanceToDestination;
+	private AudioSource m_AudioSource;
 
-	public Vector3 lastPosition;
+	private float DistanceToDestination;
+
+	private Vector3 lastPosition;
 	private SphereCollider colldier;
 	public GameObject food;
 	public float handMovement = 0.0f;
@@ -69,8 +65,8 @@ public class NavMeshTest : MonoBehaviour
 	private GameObject player;
 	public STATE currentState;
 
-	public bool flag = true;
-	public AudioClip growlSound; //barking for the moment.
+	private bool flag = true;
+	private AudioClip growlSound; //barking for the moment.
 	private float eatTime;
 
 	public float distanceToPlayer;
@@ -113,6 +109,8 @@ public class NavMeshTest : MonoBehaviour
 			Debug.Log("No Nav Mesh Agent");
 		}
 
+		m_AudioSource = GetComponent<AudioSource>();
+
 	}
 
 
@@ -152,7 +150,6 @@ public class NavMeshTest : MonoBehaviour
 			anim.SetBool("isWalking", true);
 			if (Time.time >= walkSoundTime)
 			{
-				FMODUnity.RuntimeManager.PlayOneShot(FoxWalkSoundEffect);
 				walkSoundTime += 0.2f;
 			}
 		}
@@ -263,7 +260,6 @@ public class NavMeshTest : MonoBehaviour
 		if(food == null)
 		{
 			currentState = STATE.CURIOUS;
-
 		}
 		Transform target;
 		target = food.transform;
@@ -287,10 +283,13 @@ public class NavMeshTest : MonoBehaviour
 
 		if (distanceToFood < 2.0f)
 		{
+
+			if(!m_AudioSource.isPlaying)
+				m_AudioSource.PlayOneShot(m_Eating);
+			
 			if(Time.time > eatTime)
 			{
 				Debug.Log("EATING: The fox is eating the food, changed to FLEEING");
-				FMODUnity.RuntimeManager.PlayOneShot(EatingSoundEffect);
 				Destroy(food);
 				anim.SetBool("isEating", false);
 				anim.SetBool("isFleeing", true);
@@ -323,10 +322,11 @@ public class NavMeshTest : MonoBehaviour
 
 		//If not barking && player does not have food
 		//Bark
+		if(!m_AudioSource.isPlaying)
+			m_AudioSource.PlayOneShot(m_Bark);
 	
 		if(frameCounter > 120.0f)
 		{
-			FMODUnity.RuntimeManager.PlayOneShot(BarkingSoundEffect);
 			frameCounter = 0.0f;
 		}
 
@@ -445,8 +445,8 @@ public class NavMeshTest : MonoBehaviour
 			NavMeshHit hit;
 			if (NavMesh.SamplePosition(wanderDestination.position, out hit, 2.0f, NavMesh.AllAreas))
 			{
-				SetDestination(hit.position, 6);
 				framesSinceTriggered = 0;
+				SetDestination(hit.position, 6);
 			}
 		}
 	}
@@ -454,10 +454,14 @@ public class NavMeshTest : MonoBehaviour
 	private void wanderState()
 	{
 		//Debug.Log("This is Wander State");
+		if(!m_AudioSource.isPlaying)
+			PlayFootStepAudio();
+
 		if (navMeshAgent.remainingDistance < 0.1)
 		{
 			anim.SetBool("isWalking", false);
 			currentState = STATE.IDLE;
+
 		}
 
 	}
@@ -497,5 +501,18 @@ public class NavMeshTest : MonoBehaviour
 	private bool AnimatorIsPlaying(string statename)
 	{
 		return AnimatorIsPlaying() && anim.GetCurrentAnimatorStateInfo(0).IsName(statename);
+	}
+
+	private void PlayFootStepAudio()
+	{
+		
+		// pick & play a random footstep sound from the array,
+		// excluding sound at index 0
+		int n = Random.Range(1, m_FootstepSounds.Length);
+		m_AudioSource.clip = m_FootstepSounds[n];
+		m_AudioSource.PlayOneShot(m_AudioSource.clip);
+		// move picked sound to index 0 so it's not picked next time
+		m_FootstepSounds[n] = m_FootstepSounds[0];
+		m_FootstepSounds[0] = m_AudioSource.clip;
 	}
 }
