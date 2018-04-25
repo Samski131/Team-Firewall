@@ -26,6 +26,8 @@ TagManager:
   - Effects Scrollbar
   - Main Menu
   - Terrain
+  - Log Wall
+  - AmbientManager
   layers:
   - Default
   - TransparentFX

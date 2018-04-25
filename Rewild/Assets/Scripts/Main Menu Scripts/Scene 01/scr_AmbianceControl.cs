@@ -25,7 +25,7 @@ public class scr_AmbianceControl : MonoBehaviour {
 
     private float[] fogDensity = new float[5] { 0.5f, 0.4f, 0.2f, 0.1f, 0.1f };
 
-    private enum STATE
+	public enum STATE
     {
         Isolation,
         FirstInteraction,
@@ -34,19 +34,33 @@ public class scr_AmbianceControl : MonoBehaviour {
         Fox
     };
 
-    private GlobalFog globalFogScript;
-    private Light dirLight;
-    private STATE state;
+	private GlobalFog globalFogScript;
+	private Light dirLight;
+	public STATE state;
     private float[] curFogRGB;
     private float[] curlightRGB;
     private float curFogDensity;
     public float transitionSpeed ;//0.05
     static float t = 0.0f;
+	public GameObject LogColliderObject;
+
+
+	private AudioSource musicEmitter;
+
+
+	[SerializeField] AudioClip[] music;
+
     // Use this for initialization
     void Start ()
     {
 		globalFogScript = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<GlobalFog>();
         dirLight = GameObject.FindGameObjectWithTag("DirLight").GetComponent<Light>();
+		musicEmitter = GetComponent<AudioSource>();
+		LogColliderObject = GameObject.FindGameObjectWithTag("Log Wall");
+
+	
+
+
 
         //setup initial values using the isolation values
         state = STATE.Isolation;
@@ -72,6 +86,23 @@ public class scr_AmbianceControl : MonoBehaviour {
             increaseAmbianceState();
         }
 
+		if(state == STATE.Fox)
+		{
+			if(!musicEmitter.isPlaying)
+			{
+				musicEmitter.PlayOneShot(music[1]);
+				LogColliderObject.SetActive(false);
+			}
+			LogColliderObject.SetActive(false);
+		}
+		else
+		{
+			if(!musicEmitter.isPlaying)
+			{
+				musicEmitter.PlayOneShot(music[0]);
+			}
+			LogColliderObject.SetActive(true);
+		}
 
         if (state != STATE.Isolation && curFogRGB[0] != fogRGB[(int)state,0]) //don't try to interpolate if you are in isolation as you can't get values from the previous (non existant) state or you are already in position
         {

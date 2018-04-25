@@ -53,4 +53,12 @@ public class scr_ScarySounds : MonoBehaviour
 		//m_FootstepSounds[n] = m_FootstepSounds[0];
 		//m_FootstepSounds[0] = m_AudioSource.clip;
 	}
+
+	public void PlaySpecificSound(int soundNumber)
+	{
+		int rand_Emitter = Random.Range(1, emitters.Length);
+		emitters[rand_Emitter].GetComponent<AudioSource>().clip = ambientSounds[soundNumber];
+		emitters[rand_Emitter].GetComponent<AudioSource>().PlayOneShot(ambientSounds[soundNumber]);
+		
+	}
 }
