@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 193373882319328338}
   - component: {fileID: 33299687909095432}
   - component: {fileID: 23479357627442468}
+  - component: {fileID: 136807647130273872}
   m_Layer: 0
   m_Name: pfb_OakTree2
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1773452083595956}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 236.71567, y: 7.4068584, z: 463.67755}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -18620,6 +18621,19 @@ MonoBehaviour:
   optimizedSolidMaterial: {fileID: 21897853043735706}
   optimizedCutoutMaterial: {fileID: 21323302882359470}
   isInPreviewMode: 0
+--- !u!136 &136807647130273872
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1773452083595956}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.56
+  m_Height: 23.129374
+  m_Direction: 1
+  m_Center: {x: 0.03, y: 9.98, z: -0.16}
 --- !u!193 &193373882319328338
 Tree:
   m_ObjectHideFlags: 1

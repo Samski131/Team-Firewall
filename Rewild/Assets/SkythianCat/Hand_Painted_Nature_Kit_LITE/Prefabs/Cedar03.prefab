@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4196199969613490}
   - component: {fileID: 33265709180256148}
   - component: {fileID: 23339686187338838}
+  - component: {fileID: 136100703716057214}
   m_Layer: 0
   m_Name: Cedar03
   m_TagString: Untagged
@@ -35,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276113068307054}
   m_LocalRotation: {x: 0.000000021855694, y: -1.1102232e-16, z: 1.1102232e-16, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 340.6944, y: 19.746891, z: 306.10757}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -81,3 +82,16 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276113068307054}
   m_Mesh: {fileID: 4300000, guid: 09014e39046d9634c89e35747d1c6d38, type: 3}
+--- !u!136 &136100703716057214
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276113068307054}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.87
+  m_Height: 12.771143
+  m_Direction: 1
+  m_Center: {x: 0, y: 5.383829, z: 0}

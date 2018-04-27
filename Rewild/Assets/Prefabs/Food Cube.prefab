@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4748050165841732}
   - component: {fileID: 54739178865751474}
   - component: {fileID: 144262938657442424}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftWing3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4678238081076766}
   - component: {fileID: 54610597316827808}
   - component: {fileID: 144960442536366634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightWing3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4317398603125186}
   - component: {fileID: 54696085463085642}
   - component: {fileID: 144406985580244032}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftWing1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4092091489821736}
   - component: {fileID: 54726444554826272}
   - component: {fileID: 144965274412205456}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tail2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4925840057823492}
   - component: {fileID: 54582103330505394}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 4324252668607200}
   - component: {fileID: 54086931049431154}
   - component: {fileID: 144727611172355108}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightWing1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 4263760658484048}
   - component: {fileID: 54793883621596796}
   - component: {fileID: 144223095083139420}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 4123230568763052}
   - component: {fileID: 54979490857468286}
   - component: {fileID: 144367732051438498}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftWing2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4412733287303772}
   - component: {fileID: 65240799454304246}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Food Cube
   m_TagString: Food
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 4028817574671220}
   - component: {fileID: 54324715872762072}
   - component: {fileID: 144089820624057286}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightWing2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4452194343775878}
   - component: {fileID: 137973840102519270}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: birdMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 4009222022692008}
   - component: {fileID: 54784716722706910}
   - component: {fileID: 144617030822569570}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tail1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

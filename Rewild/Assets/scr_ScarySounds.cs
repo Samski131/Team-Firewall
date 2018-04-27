@@ -59,6 +59,5 @@ public class scr_ScarySounds : MonoBehaviour
 		int rand_Emitter = Random.Range(1, emitters.Length);
 		emitters[rand_Emitter].GetComponent<AudioSource>().clip = ambientSounds[soundNumber];
 		emitters[rand_Emitter].GetComponent<AudioSource>().PlayOneShot(ambientSounds[soundNumber]);
-		
 	}
 }

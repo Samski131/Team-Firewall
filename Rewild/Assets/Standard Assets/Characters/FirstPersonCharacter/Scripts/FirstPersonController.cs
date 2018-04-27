@@ -29,6 +29,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		private AudioSource m_AudioSource_vo;
 		private float VOTimeCurrent = 0.0f;
 		private float VOTimeStart = 0.0f;
+		public float rumbleStrength = 0.0f;
 
         private Camera m_Camera;
         private float m_YRotation;
@@ -89,6 +90,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             handLeft.SetActive(true);
             handRight.SetActive(true);
 
+
             lastRightHandPosition = handRight.transform.position;
             lastLeftHandPosition = handLeft.transform.position;
 
@@ -106,7 +108,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		{
             RotateView();
 
-			if(VOCounter < 8)
+
+			if(VOCounter < 7)
 			{
 				IntroDialogue();
 			}
@@ -314,11 +317,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 			if(VOCounter == 7)
 			{
-				Debug.Log("Twig Time");
-				Debug.Log(Time.fixedTime - VOTimeStart);
 				if((Time.fixedTime - VOTimeStart) > 10.5f)
 				{
-						Debug.Log("Playing Twig Noise");
 						m_AudioSource_sfx.PlayOneShot(m_TwigSound);
 						VOTimeStart = 99.000f;
 				}

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 193725681179380214}
   - component: {fileID: 33082574116019156}
   - component: {fileID: 23918160764000668}
+  - component: {fileID: 136953291397330098}
   m_Layer: 0
   m_Name: pfb_Pine_Tree
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1625133322871214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 11.360308, y: 9.998169, z: 11.729356}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -45505,6 +45506,19 @@ MonoBehaviour:
   optimizedSolidMaterial: {fileID: 21569923036543386}
   optimizedCutoutMaterial: {fileID: 21495974199231208}
   isInPreviewMode: 0
+--- !u!136 &136953291397330098
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1625133322871214}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.49
+  m_Height: 10.949851
+  m_Direction: 1
+  m_Center: {x: 0.17, y: 5.4749255, z: 0.02}
 --- !u!193 &193725681179380214
 Tree:
   m_ObjectHideFlags: 1

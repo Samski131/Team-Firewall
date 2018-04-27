@@ -51,6 +51,7 @@ public class NavMeshTest : MonoBehaviour
 	private AudioSource m_AudioSource;
 
 	private float DistanceToDestination;
+	public float rumbleStrength = 0.0f;
 
 	private Vector3 lastPosition;
 	private SphereCollider colldier;
@@ -201,28 +202,7 @@ public class NavMeshTest : MonoBehaviour
 		}
 		else
 		{
-			if(routeCounter < 4)
-			{
-				
-				bool atDen = false;
-				NavMeshHit hit;
-
-				Debug.Log("Going To Den");
-				NavMesh.SamplePosition(denRoute[routeCounter].position, out hit, 2.0f, NavMesh.AllAreas);
-				SetDestination(hit.position, 30);
-
-				if(checkDestination(hit.position))
-				{
-					routeCounter++;
-					Debug.Log("At Position");
-					NavMesh.SamplePosition(denRoute[routeCounter].position, out hit, 2.0f, NavMesh.AllAreas);
-					SetDestination(hit.position, 30);
-				}
-			}
-			else
-			{
-				//Make Nav Disappear here (Hes reached the burrow)
-			}
+			GoToDen();
 		}
 
 	}
@@ -230,6 +210,9 @@ public class NavMeshTest : MonoBehaviour
 	private void curiousState()
 	{
 		Transform target;
+
+		if(!m_AudioSource.isPlaying)
+			PlayFootStepAudio();
 
 		if(food != null)
 		{
@@ -247,6 +230,10 @@ public class NavMeshTest : MonoBehaviour
 
 			if (distanceToPlayer < noticeDistance)
 			{
+
+
+
+
 				if (handMovement > limit)
 				{
 					//The player has moved their hand too much and the fox must flee
@@ -415,6 +402,9 @@ public class NavMeshTest : MonoBehaviour
 	{
 		Debug.Log("Entering the RUNNING state Function");
 
+		if(!m_AudioSource.isPlaying)
+			PlayFootStepAudio();
+
 		SetDestination(AiDestination.position, 7);
 		if(flag)
 		{
@@ -545,23 +535,46 @@ public class NavMeshTest : MonoBehaviour
 		return AnimatorIsPlaying() && anim.GetCurrentAnimatorStateInfo(0).IsName(statename);
 	}
 
+
 	private void PlayFootStepAudio()
 	{
-		
 		// pick & play a random footstep sound from the array,
 		// excluding sound at index 0
 		int n = Random.Range(1, m_FootstepSounds.Length);
 		m_AudioSource.clip = m_FootstepSounds[n];
-		m_AudioSource.volume = (15/distanceToPlayer);
+		m_AudioSource.volume = (25/distanceToPlayer);
 		m_AudioSource.PlayOneShot(m_AudioSource.clip);
 		// move picked sound to index 0 so it's not picked next time
 		m_FootstepSounds[n] = m_FootstepSounds[0];
 		m_FootstepSounds[0] = m_AudioSource.clip;
 	}
 
-
 	private void GoToDen()
 	{
-		
+		if(routeCounter < 4)
+		{
+			
+			if(!m_AudioSource.isPlaying)
+				PlayFootStepAudio();
+
+			bool atDen = false;
+			NavMeshHit hit;
+
+			Debug.Log("Going To Den");
+			NavMesh.SamplePosition(denRoute[routeCounter].position, out hit, 2.0f, NavMesh.AllAreas);
+			SetDestination(hit.position, 6);
+
+			if(checkDestination(hit.position))
+			{
+				routeCounter++;
+				Debug.Log("At Position");
+				NavMesh.SamplePosition(denRoute[routeCounter].position, out hit, 2.0f, NavMesh.AllAreas);
+				SetDestination(hit.position, 6);
+			}
+		}
+		else
+		{
+			//Make Nav Disappear here (Hes reached the burrow)
+		}
 	}
 }
