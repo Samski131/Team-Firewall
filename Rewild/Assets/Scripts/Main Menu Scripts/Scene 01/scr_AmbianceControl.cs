@@ -41,8 +41,10 @@ public class scr_AmbianceControl : MonoBehaviour {
     private float[] curlightRGB;
     private float curFogDensity;
     public float transitionSpeed ;//0.05
-    static float t = 0.0f;
+    public float t = 0.0f;
 	public GameObject LogColliderObject;
+
+	private bool flag = false;
 
 
 	private AudioSource musicEmitter;
@@ -86,14 +88,18 @@ public class scr_AmbianceControl : MonoBehaviour {
             increaseAmbianceState();
         }
 
-		if(state == STATE.Fox)
+		if(state == STATE.ThirdInteraction)
 		{
-			if(!musicEmitter.isPlaying)
+			if( t > 0.5f)
 			{
-				musicEmitter.PlayOneShot(music[1]);
+				if(!flag)
+				{
+					musicEmitter.Stop();
+					musicEmitter.PlayOneShot(music[1]);
+					flag = true;
+				}
 				LogColliderObject.SetActive(false);
 			}
-			LogColliderObject.SetActive(false);
 		}
 		else
 		{

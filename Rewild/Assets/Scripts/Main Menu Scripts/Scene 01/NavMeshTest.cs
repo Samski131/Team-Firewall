@@ -42,16 +42,16 @@ public class NavMeshTest : MonoBehaviour
 	}
 
 	Transform AiDestination;
-	private Vector3 target;
-	private bool moving = false;
+	public Vector3 target;
+	public bool moving = false;
 	private int state = 1;
 	private bool triggered;
 	private int framesSinceTriggered;
 
 	private AudioSource m_AudioSource;
+	private AudioSource m_AudioSource_Mollie;
 
-	private float DistanceToDestination;
-	public float rumbleStrength = 0.0f;
+	public float DistanceToDestination;
 
 	private Vector3 lastPosition;
 	private SphereCollider colldier;
@@ -63,7 +63,7 @@ public class NavMeshTest : MonoBehaviour
 	private float noticeDistance = 8.0f;
 	private float growlDistance  = 5.0f;
 	private float frameCounter = 0.0f;
-	public float feedCounter = 0.0f;
+	public int feedCounter = 0;
 	public int routeCounter = 0;
 
 	private GameObject player;
@@ -76,6 +76,14 @@ public class NavMeshTest : MonoBehaviour
 	public float distanceToPlayer;
 	public float distanceToFood;
 
+
+	private bool[] VOplayed;
+
+
+
+
+
+
 	void Start ()
 	{
 		//Initiliase the variables
@@ -83,10 +91,16 @@ public class NavMeshTest : MonoBehaviour
 		colldier = this.GetComponent<SphereCollider>();
 		ambianceControl = GameObject.FindGameObjectWithTag("GameController").GetComponent<scr_AmbianceControl>();
 		player = GameObject.FindGameObjectWithTag("Player");
+		m_AudioSource_Mollie = player.GetComponents<AudioSource>()[1];
 
 		anim = GetComponentInChildren<Animator>();
 		food = null;
+		VOplayed = new bool[13];
 
+		for(int i = 0; i < 13; i++)
+		{
+			VOplayed[i] = false;
+		}
 
 		distanceToPlayer = (this.transform.position - player.transform.position).magnitude;
 		if(food != null)
@@ -123,12 +137,44 @@ public class NavMeshTest : MonoBehaviour
 		//anim.SetInteger("State", (int)currentState);
 		//update the animator
 
-		if(feedCounter < 4)
+		if(distanceToPlayer < 20)
+		{
+			//oH a FoX
+
+			if(!VOplayed[0])
+				PlayVOLine(0);
+
+			if(!m_AudioSource_Mollie.isPlaying)
+			{
+				PlayVOLine(1);
+
+				if(VOplayed[4] && triggered && currentState == STATE.FLEEING)
+				{
+					PlayVOLine(5);
+				}
+
+				triggered = false;
+			}
+				
+		}
+		Debug.Log(ambianceControl.t);
+
+		if (ambianceControl.t > 0.5f)
+		{
+			if(feedCounter == 1)
+				PlayVOLine(7);
+
+			if(feedCounter == 2)
+				PlayVOLine(9);
+		}
+
+		handMovement = player.GetComponent<FirstPersonController>().handMovement;
+		distanceToPlayer = (this.transform.position - player.transform.position).magnitude;
+
+		if(feedCounter < 3)
 		{
 			
 			food = GameObject.FindGameObjectWithTag("Food");
-			handMovement = player.GetComponent<FirstPersonController>().handMovement;
-			distanceToPlayer = (this.transform.position - player.transform.position).magnitude;
 			if(food != null)
 			{
 				distanceToFood = (this.transform.position - food.transform.position).magnitude;
@@ -211,6 +257,13 @@ public class NavMeshTest : MonoBehaviour
 	{
 		Transform target;
 
+		PlayVOLine(3);
+
+		if(feedCounter == 1)
+		{
+			PlayVOLine(8);
+		}
+
 		if(!m_AudioSource.isPlaying)
 			PlayFootStepAudio();
 
@@ -231,15 +284,15 @@ public class NavMeshTest : MonoBehaviour
 			if (distanceToPlayer < noticeDistance)
 			{
 
-
-
-
 				if (handMovement > limit)
 				{
 					//The player has moved their hand too much and the fox must flee
 					Debug.Log("CURIOUS: FLEEING because Hands moved too quick");
 					anim.SetBool("isCurious", false);
 					anim.SetBool("isFleeing", true);
+					triggered = true;
+
+
 					currentState = STATE.FLEEING;
 				}
 			}
@@ -302,6 +355,13 @@ public class NavMeshTest : MonoBehaviour
 
 		if (distanceToFood < 2.0f)
 		{
+			PlayVOLine(6);
+
+			if(feedCounter == 2)
+			{
+				PlayVOLine(10);
+			}
+
 
 			if(!m_AudioSource.isPlaying)
 				m_AudioSource.PlayOneShot(m_Eating);
@@ -309,6 +369,7 @@ public class NavMeshTest : MonoBehaviour
 			if(Time.time > eatTime)
 			{
 				Debug.Log("EATING: The fox is eating the food, changed to FLEEING");
+
 				Destroy(food);
 				anim.SetBool("isEating", false);
 				anim.SetBool("isFleeing", true);
@@ -349,6 +410,13 @@ public class NavMeshTest : MonoBehaviour
 	private void growlState()
 	{
 
+		PlayVOLine(2);
+
+		if(VOplayed[2] && !m_AudioSource_Mollie.isPlaying)
+		{
+			PlayVOLine(4);
+		}
+
 		//If not barking && player does not have food
 		//Bark
 		if(!m_AudioSource.isPlaying)
@@ -373,6 +441,9 @@ public class NavMeshTest : MonoBehaviour
 			//Run Away if the Player gets too close without there being food
 			anim.SetBool("isGrowling", false);
 			anim.SetBool("isFleeing", true);
+
+			triggered = true;
+
 			currentState = STATE.FLEEING;
 		}
 
@@ -401,6 +472,7 @@ public class NavMeshTest : MonoBehaviour
 	private void runningState()
 	{
 		Debug.Log("Entering the RUNNING state Function");
+
 
 		if(!m_AudioSource.isPlaying)
 			PlayFootStepAudio();
@@ -549,6 +621,23 @@ public class NavMeshTest : MonoBehaviour
 		m_FootstepSounds[0] = m_AudioSource.clip;
 	}
 
+	public void PlayVOLine(int VOElementeNumber)
+	{
+		if(!VOplayed[VOElementeNumber])
+		{
+			if (m_AudioSource_Mollie.isPlaying)
+			{
+					m_AudioSource_Mollie.Stop();
+			}
+
+			m_AudioSource_Mollie.PlayOneShot(player.GetComponent<FirstPersonController>().m_CrucialVoiceLines[VOElementeNumber]);
+
+			VOplayed[VOElementeNumber] = true;
+		}
+
+		player.GetComponent<FirstPersonController>().VOCounter = 99;
+	}
+
 	private void GoToDen()
 	{
 		if(routeCounter < 4)
@@ -574,6 +663,8 @@ public class NavMeshTest : MonoBehaviour
 		}
 		else
 		{
+			if(distanceToPlayer < 10)
+				PlayVOLine(11);
 			//Make Nav Disappear here (Hes reached the burrow)
 		}
 	}

@@ -21,10 +21,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private float m_StepInterval;
 
 
-        [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
-        [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+        [SerializeField] private AudioClip[] m_FootstepSounds;
 		[SerializeField] private AudioClip[] m_IntroLines;
-		[SerializeField] private AudioClip m_TwigSound;  
+		[SerializeField] public AudioClip[] m_CrucialVoiceLines;  
+		[SerializeField] public AudioClip[] m_FillerVoiceLines;  
+
+		[SerializeField] private AudioClip m_TwigSound;   
+		[SerializeField] private AudioClip m_LandSound;     
+
 		private AudioSource m_AudioSource_sfx;
 		private AudioSource m_AudioSource_vo;
 		private float VOTimeCurrent = 0.0f;
@@ -48,6 +52,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public GameObject handLeft;
         public GameObject handRight;
 
+		public GameObject nav;
+		public float distanceToPlayerFPS; 
+
         public float handMovement = 0.0f;
         private Vector3 lastRightHandPosition;
         private Vector3 lastLeftHandPosition;
@@ -64,6 +71,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public bool startTransformation;
         public bool foxVision;
         public bool triggerTransformation = false;
+		private bool foxPowerGained = false;
     
         public void SetTranslatingToTrue()
         {
@@ -107,12 +115,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Update()
 		{
             RotateView();
-
+			distanceToPlayerFPS = (nav.transform.position - transform.position).magnitude;
+		
 
 			if(VOCounter < 7)
 			{
 				IntroDialogue();
 			}
+
 
 			//THis code allows the camera to go much closer to the ground, however it does break the hill climbing stuff, Maybe store the "true" height as another variable? Or move the CameraParent rather than the Player
 			//Vector3 temp = transform.position;
@@ -141,8 +151,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
                         
-			if ((Input.GetButtonDown("Transform 1") && Input.GetButtonDown("Transform 2")) || triggerTransformation)
+			if ((Input.GetButtonDown("Transform 1") && Input.GetButtonDown("Transform 2") && foxPowerGained) || triggerTransformation)
             {
+				foxPowerGained = true;
+				Debug.Log("SAM CAN PRESS BUTTONS");
                 if (isTranslating == false)
                 {
                     Debug.Log("Switching Forms (V key press or Right Trigger)");
@@ -319,12 +331,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			{
 				if((Time.fixedTime - VOTimeStart) > 10.5f)
 				{
+						
 						m_AudioSource_sfx.PlayOneShot(m_TwigSound);
 						VOTimeStart = 99.000f;
 				}
 
 			}
 		}
+
+	
         
         private void GetInput(out float speed)
         {
