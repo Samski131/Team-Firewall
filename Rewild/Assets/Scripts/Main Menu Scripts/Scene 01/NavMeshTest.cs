@@ -157,7 +157,6 @@ public class NavMeshTest : MonoBehaviour
 			}
 				
 		}
-		Debug.Log(ambianceControl.t);
 
 		if (ambianceControl.t > 0.5f)
 		{
@@ -640,11 +639,17 @@ public class NavMeshTest : MonoBehaviour
 
 	private void GoToDen()
 	{
+		anim.SetBool("isFleeing",true);
+		anim.SetBool ("isWalking" ,false);
+		anim.SetBool("isEating",false);
+		
 		if(routeCounter < 4)
 		{
 			
 			if(!m_AudioSource.isPlaying)
+			{
 				PlayFootStepAudio();
+			}
 
 			bool atDen = false;
 			NavMeshHit hit;
@@ -664,8 +669,18 @@ public class NavMeshTest : MonoBehaviour
 		else
 		{
 			if(distanceToPlayer < 10)
+			{
 				PlayVOLine(11);
+
+				if(VOplayed[11] && !m_AudioSource_Mollie.isPlaying)
+				{
+					PlayVOLine(12);
+				}
+
+			}
 			//Make Nav Disappear here (Hes reached the burrow)
+			Debug.Log(gameObject.transform.GetChild(1).name);
+			gameObject.transform.GetChild(1).gameObject.SetActive(false);
 		}
 	}
 }
