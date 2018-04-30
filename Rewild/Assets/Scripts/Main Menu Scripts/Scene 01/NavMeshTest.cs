@@ -38,8 +38,7 @@ public class NavMeshTest : MonoBehaviour
 		CURIOUS,
 		EATING,
 		GROWL,
-		WANDER,
-		GOTODEN
+		WANDER
 	}
 
 	Transform AiDestination;
@@ -244,15 +243,11 @@ public class NavMeshTest : MonoBehaviour
 				Debug.Log("STATE MACHINE = WANDER");
 				wanderState();
 				break;
-
-			case STATE.GOTODEN:
-				Debug.Log("STATE MACHINE = DEN");
-				GoToDen();
-				break;
 			}
 		}
 		else
 		{
+
 			GoToDen();
 		}
 
@@ -381,9 +376,11 @@ public class NavMeshTest : MonoBehaviour
 				ambianceControl.increaseAmbianceState();
 				feedCounter++;
 
+
 				if(feedCounter == 4)
 				{
-					GoToDen();
+					anim.SetBool("isEating", false);
+					anim.SetBool("isFleeing", true);
 				}
 				else
 				{
@@ -645,9 +642,8 @@ public class NavMeshTest : MonoBehaviour
 
 	private void GoToDen()
 	{
-		anim.SetBool("isFleeing",true);
-		anim.SetBool ("isWalking" ,false);
-		anim.SetBool("isEating",false);
+
+		Debug.Log("Go To Den");
 		
 		if(routeCounter < 4)
 		{
@@ -662,14 +658,14 @@ public class NavMeshTest : MonoBehaviour
 
 			Debug.Log("Going To Den");
 			NavMesh.SamplePosition(denRoute[routeCounter].position, out hit, 2.0f, NavMesh.AllAreas);
-			SetDestination(hit.position, 6);
+			SetDestination(hit.position, 10);
 
 			if(checkDestination(hit.position))
 			{
 				routeCounter++;
 				Debug.Log("At Position");
 				NavMesh.SamplePosition(denRoute[routeCounter].position, out hit, 2.0f, NavMesh.AllAreas);
-				SetDestination(hit.position, 6);
+				SetDestination(hit.position, 10);
 			}
 		}
 		else
