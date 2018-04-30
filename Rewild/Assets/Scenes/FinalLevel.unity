@@ -2405,7 +2405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Transformation: {fileID: 2100000, guid: 3ad9323d57dd8e24a8ef82ce35e529de, type: 2}
-  EffectStrength: 0
+  EffectStrength: 1.05
   RateOfChange: 0.0416
 --- !u!114 &341692153
 MonoBehaviour:
@@ -2414,7 +2414,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 341692148}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96b80cd8ea42c0d4c8ce32c5d748c830, type: 3}
   m_Name: 
