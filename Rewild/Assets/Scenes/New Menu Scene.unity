@@ -3277,17 +3277,24 @@ MonoBehaviour:
   m_FootstepSounds:
   - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
   - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
+  m_IntroLines: []
+  m_CrucialVoiceLines: []
+  m_FillerVoiceLines: []
+  m_TwigSound: {fileID: 0}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+  rumbleStrength: 0
+  VOCounter: 6
   CameraParent: {fileID: 24782359}
   VRCamera: {fileID: 24782360}
   handLeft: {fileID: 796520528}
   handRight: {fileID: 138822602}
+  nav: {fileID: 0}
+  distanceToPlayerFPS: 0
   handMovement: 0
   isAnimal: 0
   isTranslating: 0
   cameraPanSpeed: 1
   scentCamera: {fileID: 0}
-  mollieSoundtrack: {fileID: 1101642823}
   humanMode: {fileID: 24500006, guid: c122813662b331b49a5d30573e28859b, type: 2}
   animalMode: {fileID: 245928058790370466, guid: c122813662b331b49a5d30573e28859b,
     type: 2}
@@ -5310,7 +5317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: 5
-  sceneToLoad: test Scene
+  sceneToLoad: FinalLevel
 --- !u!224 &799418285
 RectTransform:
   m_ObjectHideFlags: 0
