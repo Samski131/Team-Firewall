@@ -3281,6 +3281,7 @@ MonoBehaviour:
   m_CrucialVoiceLines: []
   m_FillerVoiceLines: []
   m_TwigSound: {fileID: 0}
+  m_TransformationFX: {fileID: 0}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
   rumbleStrength: 0
   VOCounter: 6

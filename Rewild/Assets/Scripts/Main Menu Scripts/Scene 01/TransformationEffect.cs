@@ -7,15 +7,16 @@ public class TransformationEffect : MonoBehaviour {
 
     private FirstPersonController otherScript;
     public Material Transformation;
-    private bool StartTransformation;
+	private bool triggerTransformation;
 	public float EffectStrength;
     [Range(0.00f, 0.09f)]
     public float RateOfChange;
 
+
     private void Start()
     {
 		
-        StartTransformation = false;
+		triggerTransformation = false;
 		// set the value at zero for the begining.
 		otherScript = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
 
@@ -25,20 +26,20 @@ public class TransformationEffect : MonoBehaviour {
 
     private void Update()
     {
-        StartTransformation= otherScript.startTransformation;
+		triggerTransformation = otherScript.triggerTransformation;
 
-        if (StartTransformation)
+
+
+		if (otherScript.isTransforming)
         {
 			// Trigger the change in height and the enabling of the fox power/vision
-			otherScript.triggerTransformation = true;
 			if (EffectStrength<0.1f)
             {
 				EffectStrength += RateOfChange * Time.deltaTime;
 				Transformation.SetFloat("_EffectStrength", EffectStrength);
             }
         }
-       
-        if(!StartTransformation)
+		else
         {
 			if (EffectStrength>0.0f )
             {

@@ -27,6 +27,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		[SerializeField] public AudioClip[] m_FillerVoiceLines;  
 
 		[SerializeField] private AudioClip m_TwigSound;   
+		[SerializeField] private AudioClip m_TransformationFX;   
 		[SerializeField] private AudioClip m_LandSound;     
 
 		private AudioSource m_AudioSource_sfx;
@@ -61,17 +62,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public bool isAnimal = false;
         public bool isTranslating = false;
+		public bool isTransforming = false;
 
-        public float cameraPanSpeed;
+		public float timeSinceLastTransformation = 0.0f;
+
 		public Camera scentCamera;
         public AudioMixerSnapshot humanMode; // changes the states on the audio mixer depending the state of the player , fox or human.
         public AudioMixerSnapshot animalMode;
         [Range(0, 8)]
         public int transitionTimeInSec; // controls the rate of change between the 2 soundtracks.
-        public bool startTransformation;
+       // public bool startTransformation;
         public bool foxVision;
         public bool triggerTransformation = false;
-		private bool foxPowerGained = false;
     
         public void SetTranslatingToTrue()
         {
@@ -82,7 +84,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Start()
         {
             foxVision = false;
-            startTransformation = false;
+            //startTransformation = false;
            
             m_CharacterController = GetComponent<CharacterController>();
 
@@ -98,16 +100,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             handLeft.SetActive(true);
             handRight.SetActive(true);
 
-
             lastRightHandPosition = handRight.transform.position;
             lastLeftHandPosition = handLeft.transform.position;
 
-
             scentCamera.enabled = false; //Disable the scent cam initially as player starts as a human
 
-            //Little bit of a cheat hack here, the Cameras starting position does not start at the anchor, so a very very quick transform happens
-            isTranslating = true;
-            isAnimal = false;
             
         }
         
@@ -117,7 +114,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             RotateView();
 			distanceToPlayerFPS = (nav.transform.position - transform.position).magnitude;
 		
-
+			timeSinceLastTransformation += 0.1f;
 			if(VOCounter < 7)
 			{
 				IntroDialogue();
@@ -151,47 +148,67 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
 
-            if ((Input.GetButtonDown("Transform 1") && Input.GetButtonDown("Transform 2")))// && foxPowerGained) || triggerTransformation)
+			if ((Input.GetButtonDown("Transform 1") && Input.GetButtonDown("Transform 2"))  || triggerTransformation || Input.GetButton("V Transform"))
             {
-				foxPowerGained = true;
-				Debug.Log("SAM CAN PRESS BUTTONS");
-                if (isTranslating == false)
-                {
-                    Debug.Log("Switching Forms (V key press or Right Trigger)");
+				//if(!(m_AudioSource_sfx.clip == m_TransformationFX))
+				//{
+				//	m_AudioSource_sfx.Stop();
+				//	Debug.Log("Stopped");
+				//}
+				if(timeSinceLastTransformation > 1.0f)
+				{
+                	if (isTranslating == false)
+	                {
+	                    Debug.Log("Switching Forms (V key press or Right Trigger)");
 
-                    if (isAnimal == true)
-                    { // switching to human
-                        isAnimal = false; // switches to human
-						scentCamera.enabled = false;
-                        startTransformation = true;
-                        triggerTransformation = false;
-                        Invoke("SetTranslatingToTrue", 3.0f);
-                    }
-                    else if (isAnimal == false)
-                    { // switching to animal
-                        isAnimal = true; // switches to animal
-						scentCamera.enabled = true;
-                        startTransformation = true;
-                        triggerTransformation = false;
-                        Invoke("SetTranslatingToTrue", 3.0f);
-                    }
+	                    if (isAnimal == true)
+	                    { // switching to human
+	                        isAnimal = false; // switches to human
+							scentCamera.enabled = false;
+	                        triggerTransformation = false;
+							isTransforming = true;
+							Invoke("SetTranslatingToTrue", 3.0f);
+	                    }
+	                    else
+	                    { // switching to animal
+	                        isAnimal = true; // switches to animal
+							scentCamera.enabled = true;
+							triggerTransformation = false;
+							isTransforming = true;
+							Invoke("SetTranslatingToTrue", 3.0f);
+	                    }
 
-                }
+
+						Debug.Log("TRANSFORMED");
+						Debug.Log("isAnimal: " + isAnimal);
+						Debug.Log("triggerTransformation: " + triggerTransformation);
+						Debug.Log("isTransforming: " + isTransforming);
+
+						timeSinceLastTransformation = 0.0f;
+
+	                }
+				}
                
             }
 
             if ((isTranslating) && (isAnimal == true)) //if transforming TO animal
-            {
+			{
+				//if(!m_AudioSource_sfx.isPlaying)
+				//{
+				//	m_AudioSource_sfx.clip = m_TransformationFX;
+				//	m_AudioSource_sfx.Play();
+				//}
 
-                CameraParent.transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
-
-                Debug.Log("Toggle Transformation");
-                if (CameraParent.transform.localPosition.y < 0.25f)
+				if(CameraParent.transform.localPosition.y > 0.25f)
+				{	
+					CameraParent.transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
+				}
+				else
                 { //If Translation has finished and now in Animal mode
                     isTranslating = false;
-                    startTransformation = false;
                     foxVision = true;
-                    triggerTransformation = false;
+					triggerTransformation = false;
+					isTransforming = false;
 
                     handLeft.SetActive(false);
                     handRight.SetActive(false);
@@ -207,14 +224,23 @@ namespace UnityStandardAssets.Characters.FirstPerson
             else if ((isTranslating) && (isAnimal == false)) // if transforming TO human
             {
 
-                CameraParent.transform.Translate(new Vector3(0.0f, 0.05f, 0.0f));
+				//if(!m_AudioSource_sfx.isPlaying)
+				//{
+				//	m_AudioSource_sfx.clip = m_TransformationFX;
+				//	Debug.Log("Playing TransfromatioN SFX");
+				//	m_AudioSource_sfx.Play();
+				//
 
-                if (CameraParent.transform.localPosition.y > 1.25f)
+				if(CameraParent.transform.localPosition.y <  1.25f)
+				{	
+               		CameraParent.transform.Translate(new Vector3(0.0f, 0.05f, 0.0f));
+				}
+				else
                 { //If Translation has finished and now in Mollie mode
                     isTranslating = false;
-                    startTransformation = false;
                     foxVision = false;
-                    triggerTransformation = false;
+					triggerTransformation = false;
+					isTransforming = false;
 
                     handLeft.SetActive(true);
                     handRight.SetActive(true);
@@ -322,7 +348,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			if(!m_AudioSource_vo.isPlaying)
 			{
 				VOTimeStart = Time.fixedTime;
-				Debug.Log("VO");
 				m_AudioSource_vo.PlayOneShot(m_IntroLines[VOCounter]);
 				VOCounter++;
 			}

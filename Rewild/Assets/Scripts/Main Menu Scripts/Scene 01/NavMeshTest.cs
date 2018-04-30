@@ -38,7 +38,8 @@ public class NavMeshTest : MonoBehaviour
 		CURIOUS,
 		EATING,
 		GROWL,
-		WANDER
+		WANDER,
+		GOTODEN
 	}
 
 	Transform AiDestination;
@@ -242,6 +243,11 @@ public class NavMeshTest : MonoBehaviour
 			case STATE.WANDER:
 				Debug.Log("STATE MACHINE = WANDER");
 				wanderState();
+				break;
+
+			case STATE.GOTODEN:
+				Debug.Log("STATE MACHINE = DEN");
+				GoToDen();
 				break;
 			}
 		}
@@ -502,7 +508,7 @@ public class NavMeshTest : MonoBehaviour
 			}
 
 			//Set the destination and remove the flag to enter this statement
-			SetDestination(AiDestination.position, 7);
+			SetDestination(AiDestination.position, 10);
 			flag = false;
 		}
 		else

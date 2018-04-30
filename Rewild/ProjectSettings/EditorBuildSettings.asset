@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/test Scene.unity
     guid: 83b06c8055cb13342b8018e05d63116a
   - enabled: 1
-    path: Assets/Scenes/New Menu Scene.unity
-    guid: d633a2f56b3d31b43ac08917d60a522a
-  - enabled: 1
     path: Assets/Scenes/FinalLevel.unity
     guid: 8e2b8a74f4940d542b244ce201a382d6
+  - enabled: 1
+    path: Assets/Scenes/New Menu Scene.unity
+    guid: d633a2f56b3d31b43ac08917d60a522a

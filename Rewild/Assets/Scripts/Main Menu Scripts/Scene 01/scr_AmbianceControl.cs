@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.ImageEffects;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class scr_AmbianceControl : MonoBehaviour {
 
@@ -43,9 +44,12 @@ public class scr_AmbianceControl : MonoBehaviour {
     public float transitionSpeed ;//0.05
     public float t = 0.0f;
 	public GameObject LogColliderObject;
+	public GameObject torch;
+
+	private FirstPersonController playerScript;
 
 	private bool flag = false;
-
+	private bool TransformFlag = false;
 
 	private AudioSource musicEmitter;
 
@@ -59,10 +63,8 @@ public class scr_AmbianceControl : MonoBehaviour {
         dirLight = GameObject.FindGameObjectWithTag("DirLight").GetComponent<Light>();
 		musicEmitter = GetComponent<AudioSource>();
 		LogColliderObject = GameObject.FindGameObjectWithTag("Log Wall");
-
+		playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
 	
-
-
 
         //setup initial values using the isolation values
         state = STATE.Isolation;
@@ -88,6 +90,11 @@ public class scr_AmbianceControl : MonoBehaviour {
             increaseAmbianceState();
         }
 
+		if(state == STATE.SecondInteraction)
+		{
+			torch.SetActive(false);
+		}
+
 		if(state == STATE.ThirdInteraction)
 		{
 			if( t > 0.5f)
@@ -99,6 +106,13 @@ public class scr_AmbianceControl : MonoBehaviour {
 					flag = true;
 				}
 				LogColliderObject.SetActive(false);
+			}
+
+			if(!TransformFlag)
+			{
+				playerScript.triggerTransformation = true;
+				Debug.Log("Triggered");
+				TransformFlag = true;
 			}
 		}
 		else
@@ -139,12 +153,10 @@ public class scr_AmbianceControl : MonoBehaviour {
         if (state != STATE.Fox)
         {
             state++;
-            t = 0;
+			t = 0;
+
         }
-        else
-        {
-            Debug.Log("Player already in Fox state");
-        }
+
     }
 
 
