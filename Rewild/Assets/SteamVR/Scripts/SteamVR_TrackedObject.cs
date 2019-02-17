@@ -70,6 +70,7 @@ public class SteamVR_TrackedObject : MonoBehaviour
 		}
 	}
 
+
 	SteamVR_Events.Action newPosesAction;
 
 	SteamVR_TrackedObject()

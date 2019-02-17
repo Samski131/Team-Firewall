@@ -19,9 +19,22 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private float m_GravityMultiplier;
         [SerializeField] private MouseLook m_MouseLook;
         [SerializeField] private float m_StepInterval;
-        [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
-        [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
+
+        [SerializeField] private AudioClip[] m_FootstepSounds;
+		[SerializeField] private AudioClip[] m_IntroLines;
+		[SerializeField] public AudioClip[] m_CrucialVoiceLines;  
+		[SerializeField] public AudioClip[] m_FillerVoiceLines;  
+
+		[SerializeField] private AudioClip m_TwigSound;   
+		[SerializeField] private AudioClip m_TransformationFX;   
+		[SerializeField] private AudioClip m_LandSound;     
+
+		private AudioSource m_AudioSource_sfx;
+		private AudioSource m_AudioSource_vo;
+		private float VOTimeCurrent = 0.0f;
+		private float VOTimeStart = 0.0f;
+		public float rumbleStrength = 0.0f;
 
         private Camera m_Camera;
         private float m_YRotation;
@@ -33,13 +46,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Vector3 m_OriginalCameraPosition;
         private float m_StepCycle;
         private float m_NextStep;
-        private AudioSource m_AudioSource;
 
-
+		public int VOCounter = 6;
         public GameObject CameraParent;
         public Transform VRCamera;
         public GameObject handLeft;
         public GameObject handRight;
+
+		public GameObject nav;
+		public float distanceToPlayerFPS; 
 
         public float handMovement = 0.0f;
         private Vector3 lastRightHandPosition;
@@ -47,18 +62,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public bool isAnimal = false;
         public bool isTranslating = false;
+		public bool isTransforming = false;
 
-        public float cameraPanSpeed;
+		public float timeSinceLastTransformation = 0.0f;
+
 		public Camera scentCamera;
-		public GameObject mollieSoundtrack;
         public AudioMixerSnapshot humanMode; // changes the states on the audio mixer depending the state of the player , fox or human.
         public AudioMixerSnapshot animalMode;
         [Range(0, 8)]
         public int transitionTimeInSec; // controls the rate of change between the 2 soundtracks.
-        public bool startTransformation;
+       // public bool startTransformation;
         public bool foxVision;
         public bool triggerTransformation = false;
-		private Transform test;
     
         public void SetTranslatingToTrue()
         {
@@ -69,17 +84,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Start()
         {
             foxVision = false;
-            startTransformation = false;
-            mollieSoundtrack.SetActive(true);
+            //startTransformation = false;
            
             m_CharacterController = GetComponent<CharacterController>();
-			test = this.transform;
 
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
             m_StepCycle = 0.0f;
             m_NextStep = m_StepCycle/2f;
-            m_AudioSource = GetComponent<AudioSource>();
+            m_AudioSource_sfx = GetComponents<AudioSource>()[0];
+			m_AudioSource_vo = GetComponents<AudioSource>()[1];
+
 			m_MouseLook.Init(transform , m_Camera.transform);
 
             handLeft.SetActive(true);
@@ -88,12 +103,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             lastRightHandPosition = handRight.transform.position;
             lastLeftHandPosition = handLeft.transform.position;
 
-
             scentCamera.enabled = false; //Disable the scent cam initially as player starts as a human
 
-            //Little bit of a cheat hack here, the Cameras starting position does not start at the anchor, so a very very quick transform happens
-            isTranslating = true;
-            isAnimal = false;
             
         }
         
@@ -101,6 +112,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Update()
 		{
             RotateView();
+			distanceToPlayerFPS = (nav.transform.position - transform.position).magnitude;
+		
+			timeSinceLastTransformation += 0.1f;
+			if(VOCounter < 7)
+			{
+				IntroDialogue();
+			}
+
 
 			//THis code allows the camera to go much closer to the ground, however it does break the hill climbing stuff, Maybe store the "true" height as another variable? Or move the CameraParent rather than the Player
 			//Vector3 temp = transform.position;
@@ -128,46 +147,68 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
-                        
-			if ((Input.GetButtonDown("Transform 1") && Input.GetButtonDown("Transform 2")) || triggerTransformation)
+
+			if ((Input.GetButtonDown("Transform 1") && Input.GetButtonDown("Transform 2"))  || triggerTransformation || Input.GetButton("V Transform"))
             {
-                if (isTranslating == false)
-                {
-                    Debug.Log("Switching Forms (V key press or Right Trigger)");
+				//if(!(m_AudioSource_sfx.clip == m_TransformationFX))
+				//{
+				//	m_AudioSource_sfx.Stop();
+				//	Debug.Log("Stopped");
+				//}
+				if(timeSinceLastTransformation > 1.0f)
+				{
+                	if (isTranslating == false)
+	                {
+	                    Debug.Log("Switching Forms (V key press or Right Trigger)");
 
-                    if (isAnimal == true)
-                    { // switching to human
-                        isAnimal = false; // switches to human
-						scentCamera.enabled = false;
-                        startTransformation = true;
-                        triggerTransformation = false;
-                        Invoke("SetTranslatingToTrue", 3.0f);
-                    }
-                    else if (isAnimal == false)
-                    { // switching to animal
-                        isAnimal = true; // switches to animal
-						scentCamera.enabled = true;
-                        startTransformation = true;
-                        triggerTransformation = false;
-                        Invoke("SetTranslatingToTrue", 3.0f);
-                    }
+	                    if (isAnimal == true)
+	                    { // switching to human
+	                        isAnimal = false; // switches to human
+							scentCamera.enabled = false;
+	                        triggerTransformation = false;
+							isTransforming = true;
+							Invoke("SetTranslatingToTrue", 3.0f);
+	                    }
+	                    else
+	                    { // switching to animal
+	                        isAnimal = true; // switches to animal
+							scentCamera.enabled = true;
+							triggerTransformation = false;
+							isTransforming = true;
+							Invoke("SetTranslatingToTrue", 3.0f);
+	                    }
 
-                }
+
+						Debug.Log("TRANSFORMED");
+						Debug.Log("isAnimal: " + isAnimal);
+						Debug.Log("triggerTransformation: " + triggerTransformation);
+						Debug.Log("isTransforming: " + isTransforming);
+
+						timeSinceLastTransformation = 0.0f;
+
+	                }
+				}
                
             }
 
             if ((isTranslating) && (isAnimal == true)) //if transforming TO animal
-            {
+			{
+				//if(!m_AudioSource_sfx.isPlaying)
+				//{
+				//	m_AudioSource_sfx.clip = m_TransformationFX;
+				//	m_AudioSource_sfx.Play();
+				//}
 
-                CameraParent.transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
-
-                Debug.Log("Toggle Transformation");
-                if (CameraParent.transform.localPosition.y < 0.25f)
+				if(CameraParent.transform.localPosition.y > 0.25f)
+				{	
+					CameraParent.transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
+				}
+				else
                 { //If Translation has finished and now in Animal mode
                     isTranslating = false;
-                    startTransformation = false;
                     foxVision = true;
-                    triggerTransformation = false;
+					triggerTransformation = false;
+					isTransforming = false;
 
                     handLeft.SetActive(false);
                     handRight.SetActive(false);
@@ -183,14 +224,23 @@ namespace UnityStandardAssets.Characters.FirstPerson
             else if ((isTranslating) && (isAnimal == false)) // if transforming TO human
             {
 
-                CameraParent.transform.Translate(new Vector3(0.0f, 0.05f, 0.0f));
+				//if(!m_AudioSource_sfx.isPlaying)
+				//{
+				//	m_AudioSource_sfx.clip = m_TransformationFX;
+				//	Debug.Log("Playing TransfromatioN SFX");
+				//	m_AudioSource_sfx.Play();
+				//
 
-                if (CameraParent.transform.localPosition.y > 1.25f)
+				if(CameraParent.transform.localPosition.y <  1.25f)
+				{	
+               		CameraParent.transform.Translate(new Vector3(0.0f, 0.05f, 0.0f));
+				}
+				else
                 { //If Translation has finished and now in Mollie mode
                     isTranslating = false;
-                    startTransformation = false;
                     foxVision = false;
-                    triggerTransformation = false;
+					triggerTransformation = false;
+					isTransforming = false;
 
                     handLeft.SetActive(true);
                     handRight.SetActive(true);
@@ -212,8 +262,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         
         private void PlayLandingSound()
         {
-            m_AudioSource.clip = m_LandSound;
-            m_AudioSource.Play();
+            m_AudioSource_sfx.clip = m_LandSound;
+			m_AudioSource_sfx.Play();
             m_NextStep = m_StepCycle + .5f;
         }
         
@@ -285,12 +335,36 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // pick & play a random footstep sound from the array,
             // excluding sound at index 0
             int n = Random.Range(1, m_FootstepSounds.Length);
-            m_AudioSource.clip = m_FootstepSounds[n];
-            m_AudioSource.PlayOneShot(m_AudioSource.clip);
+			m_AudioSource_sfx.clip = m_FootstepSounds[n];
+			m_AudioSource_sfx.PlayOneShot(m_AudioSource_sfx.clip);
             // move picked sound to index 0 so it's not picked next time
             m_FootstepSounds[n] = m_FootstepSounds[0];
-            m_FootstepSounds[0] = m_AudioSource.clip;
+			m_FootstepSounds[0] = m_AudioSource_sfx.clip;
         }
+
+		private void IntroDialogue()
+		{
+
+			if(!m_AudioSource_vo.isPlaying)
+			{
+				VOTimeStart = Time.fixedTime;
+				m_AudioSource_vo.PlayOneShot(m_IntroLines[VOCounter]);
+				VOCounter++;
+			}
+
+			if(VOCounter == 7)
+			{
+				if((Time.fixedTime - VOTimeStart) > 10.5f)
+				{
+						
+						m_AudioSource_sfx.PlayOneShot(m_TwigSound);
+						VOTimeStart = 99.000f;
+				}
+
+			}
+		}
+
+	
         
         private void GetInput(out float speed)
         {

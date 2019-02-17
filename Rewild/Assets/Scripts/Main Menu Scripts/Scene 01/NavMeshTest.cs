@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine;
 using UnityEngine.AI;
-using FMOD.Studio;
 
 public class NavMeshTest : MonoBehaviour
 {
@@ -18,16 +17,13 @@ public class NavMeshTest : MonoBehaviour
 	[SerializeField]
 	Transform destination4;
 
+	[SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
+	[SerializeField] private AudioClip m_Bark;
+	[SerializeField] private AudioClip m_Eating;
 
-	[FMODUnity.EventRef]
-	public string BarkingSoundEffect;
+	[SerializeField] private Transform[] denRoute;
 
-	[FMODUnity.EventRef]
-	public string EatingSoundEffect;
-
-	[FMODUnity.EventRef]
-	public string FoxWalkSoundEffect;
-	private float walkSoundTime =0.0f;
+	private float walkSoundTime = 0.0f;
 
 	scr_AmbianceControl ambianceControl;
 	NavMeshAgent navMeshAgent;
@@ -42,19 +38,23 @@ public class NavMeshTest : MonoBehaviour
 		CURIOUS,
 		EATING,
 		GROWL,
-		WANDER
+		WANDER,
+        DEN
 	}
 
 	Transform AiDestination;
 	public Vector3 target;
-	private bool moving = false;
+	public bool moving = false;
 	private int state = 1;
 	private bool triggered;
 	private int framesSinceTriggered;
 
+	private AudioSource m_AudioSource;
+	private AudioSource m_AudioSource_Mollie;
+
 	public float DistanceToDestination;
 
-	public Vector3 lastPosition;
+	private Vector3 lastPosition;
 	private SphereCollider colldier;
 	public GameObject food;
 	public float handMovement = 0.0f;
@@ -64,17 +64,23 @@ public class NavMeshTest : MonoBehaviour
 	private float noticeDistance = 8.0f;
 	private float growlDistance  = 5.0f;
 	private float frameCounter = 0.0f;
-
+	public int feedCounter = 0;
+	public int routeCounter = 0;
 
 	private GameObject player;
 	public STATE currentState;
 
-	public bool flag = true;
-	public AudioClip growlSound; //barking for the moment.
+	private bool flag = true;
+	private AudioClip growlSound; //barking for the moment.
 	private float eatTime;
 
 	public float distanceToPlayer;
 	public float distanceToFood;
+
+
+	private bool[] VOplayed;
+    
+
 
 	void Start ()
 	{
@@ -83,10 +89,16 @@ public class NavMeshTest : MonoBehaviour
 		colldier = this.GetComponent<SphereCollider>();
 		ambianceControl = GameObject.FindGameObjectWithTag("GameController").GetComponent<scr_AmbianceControl>();
 		player = GameObject.FindGameObjectWithTag("Player");
-		//audioSource = GetComponent<AudioSource>();
+		m_AudioSource_Mollie = player.GetComponents<AudioSource>()[1];
+
 		anim = GetComponentInChildren<Animator>();
 		food = null;
+		VOplayed = new bool[13];
 
+		for(int i = 0; i < 13; i++)
+		{
+			VOplayed[i] = false;
+		}
 
 		distanceToPlayer = (this.transform.position - player.transform.position).magnitude;
 		if(food != null)
@@ -102,7 +114,6 @@ public class NavMeshTest : MonoBehaviour
 
 		AiDestination = destination;
 		SetDestination(AiDestination.position, 5);
-		state = 2;
 
 
 		currentState = STATE.FLEEING;
@@ -113,6 +124,8 @@ public class NavMeshTest : MonoBehaviour
 			Debug.Log("No Nav Mesh Agent");
 		}
 
+		m_AudioSource = GetComponent<AudioSource>();
+
 	}
 
 
@@ -121,79 +134,126 @@ public class NavMeshTest : MonoBehaviour
 		framesSinceTriggered++;
 		//anim.SetInteger("State", (int)currentState);
 		//update the animator
-		food = GameObject.FindGameObjectWithTag("Food");
+
+		if(distanceToPlayer < 20)
+		{
+
+			if(!VOplayed[0])
+				PlayVOLine(0);
+
+			if(!m_AudioSource_Mollie.isPlaying)
+			{
+				PlayVOLine(1);
+
+				if(VOplayed[4] && triggered && currentState == STATE.FLEEING)
+				{
+					PlayVOLine(5);
+				}
+
+				triggered = false;
+			}
+				
+		}
+
+		if (ambianceControl.t > 0.5f)
+		{
+			if(feedCounter == 1)
+				PlayVOLine(7);
+
+			if(feedCounter == 2)
+				PlayVOLine(9);
+		}
+
 		handMovement = player.GetComponent<FirstPersonController>().handMovement;
 		distanceToPlayer = (this.transform.position - player.transform.position).magnitude;
-		if(food != null)
-		{
-			distanceToFood = (this.transform.position - food.transform.position).magnitude;
-		}
-		else
-		{
-			distanceToFood = 9999990.0f;
-		}
 
-		frameCounter++;
+        //Check if the fox is currently moving around
+        if (this.transform.position == lastPosition)
+        {
+            moving = false;
+        }
+        else
+        {
+            moving = true;
+            lastPosition = this.transform.position;
+            framesSinceTriggered = 0;
+        }
 
-		//Check if the fox is currently moving around
-		if (this.transform.position == lastPosition)
-		{
-			moving = false;
-		}
-		else
-		{
-			moving = true;
-			lastPosition = this.transform.position;
-			framesSinceTriggered = 0;
-		}
+        // If the fox is moving, calculate the del
+        if (moving)
+        {
+            anim.SetBool("isWalking", true);
+            if (Time.time >= walkSoundTime)
+            {
+                walkSoundTime += 0.2f;
+            }
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+        }
 
-		if (moving)
+
+        if (feedCounter < 3)
 		{
-			anim.SetBool("isWalking", true);
-			if (Time.time >= walkSoundTime)
+			
+			food = GameObject.FindGameObjectWithTag("Food");
+			if(food != null)
 			{
-				FMODUnity.RuntimeManager.PlayOneShot(FoxWalkSoundEffect);
-				walkSoundTime += 0.2f;
+				distanceToFood = (this.transform.position - food.transform.position).magnitude;
 			}
+			else
+			{
+				distanceToFood = 9999990.0f;
+			}
+
+			frameCounter++;
+
+			
+			//MASTER STATE MACHINE
+			switch (currentState)
+			{
+
+			case STATE.CURIOUS:
+				Debug.Log("STATE MACHINE = CURIOUS");
+				curiousState();
+				break;
+
+			case STATE.EATING:
+				Debug.Log("STATE MACHINE = EATING");
+				eatingState();
+				break;
+
+			case STATE.FLEEING:
+				Debug.Log("STATE MACHINE = FLEEING");
+				runningState();
+				break;
+
+			case STATE.IDLE:
+				Debug.Log("STATE MACHINE = IDLE");
+				idleState();
+				break;
+
+			case STATE.GROWL:
+				Debug.Log("STATE MACHINE = GROWL");
+				growlState();
+				break;
+
+			case STATE.WANDER:
+				Debug.Log("STATE MACHINE = WANDER");
+				wanderState();
+				break;
+
+            case STATE.DEN:
+                Debug.Log("STATE MACHINE = DEN");
+                GoToDen();
+                break;
+            }
 		}
 		else
 		{
-			anim.SetBool("isWalking", false);
-		}
 
-		//MASTER STATE MACHINE
-		switch (currentState)
-		{
-
-		case STATE.CURIOUS:
-			Debug.Log("STATE MACHINE = CURIOUS");
-			curiousState();
-			break;
-
-		case STATE.EATING:
-			Debug.Log("STATE MACHINE = EATING");
-			eatingState();
-			break;
-
-		case STATE.FLEEING:
-			Debug.Log("STATE MACHINE = FLEEING");
-			runningState();
-			break;
-
-		case STATE.IDLE:
-			Debug.Log("STATE MACHINE = IDLE");
-			idleState();
-			break;
-
-		case STATE.GROWL:
-			Debug.Log("STATE MACHINE = GROWL");
-			growlState();
-			break;
-
-		case STATE.WANDER:
-			Debug.Log("STATE MACHINE = WANDER");
-			wanderState();
-			break;
+			GoToDen();
 		}
 
 	}
@@ -201,6 +261,16 @@ public class NavMeshTest : MonoBehaviour
 	private void curiousState()
 	{
 		Transform target;
+
+		PlayVOLine(3);
+
+		if(feedCounter == 1)
+		{
+			PlayVOLine(8);
+		}
+
+		if(!m_AudioSource.isPlaying)
+			PlayFootStepAudio();
 
 		if(food != null)
 		{
@@ -218,12 +288,16 @@ public class NavMeshTest : MonoBehaviour
 
 			if (distanceToPlayer < noticeDistance)
 			{
+
 				if (handMovement > limit)
 				{
 					//The player has moved their hand too much and the fox must flee
 					Debug.Log("CURIOUS: FLEEING because Hands moved too quick");
 					anim.SetBool("isCurious", false);
 					anim.SetBool("isFleeing", true);
+					triggered = true;
+
+
 					currentState = STATE.FLEEING;
 				}
 			}
@@ -232,8 +306,8 @@ public class NavMeshTest : MonoBehaviour
 			{
 				//This is for if the fox is close enought to the food
 				Debug.Log("CURIOUS: Actually moving to EATING state");
-				anim.SetBool("isCurious", false);
 				anim.SetBool("isEating", true);
+				anim.SetBool("isCurious", false);
 
 				eatTime = Time.time + 4.0f; //eat animation is 4 seconds long
 				currentState = STATE.EATING;
@@ -263,7 +337,6 @@ public class NavMeshTest : MonoBehaviour
 		if(food == null)
 		{
 			currentState = STATE.CURIOUS;
-
 		}
 		Transform target;
 		target = food.transform;
@@ -287,15 +360,30 @@ public class NavMeshTest : MonoBehaviour
 
 		if (distanceToFood < 2.0f)
 		{
+			PlayVOLine(6);
+
+			if(feedCounter == 2)
+			{
+				PlayVOLine(10);
+			}
+
+
+			if(!m_AudioSource.isPlaying)
+				m_AudioSource.PlayOneShot(m_Eating);
+			
 			if(Time.time > eatTime)
 			{
 				Debug.Log("EATING: The fox is eating the food, changed to FLEEING");
-				FMODUnity.RuntimeManager.PlayOneShot(EatingSoundEffect);
+
 				Destroy(food);
 				anim.SetBool("isEating", false);
 				anim.SetBool("isFleeing", true);
 				ambianceControl.increaseAmbianceState();
+				feedCounter++;
+
+                
 				currentState = STATE.FLEEING; //move to fleeing state once eating is finished.
+
 			}
 			else
 			{
@@ -321,12 +409,20 @@ public class NavMeshTest : MonoBehaviour
 	private void growlState()
 	{
 
+		PlayVOLine(2);
+
+		if(VOplayed[2] && !m_AudioSource_Mollie.isPlaying)
+		{
+			PlayVOLine(4);
+		}
+
 		//If not barking && player does not have food
 		//Bark
+		if(!m_AudioSource.isPlaying)
+			m_AudioSource.PlayOneShot(m_Bark);
 	
 		if(frameCounter > 120.0f)
 		{
-			FMODUnity.RuntimeManager.PlayOneShot(BarkingSoundEffect);
 			frameCounter = 0.0f;
 		}
 
@@ -344,6 +440,9 @@ public class NavMeshTest : MonoBehaviour
 			//Run Away if the Player gets too close without there being food
 			anim.SetBool("isGrowling", false);
 			anim.SetBool("isFleeing", true);
+
+			triggered = true;
+
 			currentState = STATE.FLEEING;
 		}
 
@@ -373,8 +472,12 @@ public class NavMeshTest : MonoBehaviour
 	{
 		Debug.Log("Entering the RUNNING state Function");
 
+
+		if(!m_AudioSource.isPlaying)
+			PlayFootStepAudio();
+
 		SetDestination(AiDestination.position, 7);
-		if(flag)
+		if(flag && currentState != STATE.DEN)
 		{
 			Debug.Log("RUNNING: State is changing");
 			//Move Nav onto the next waypoint
@@ -399,12 +502,16 @@ public class NavMeshTest : MonoBehaviour
 			}
 
 			//Set the destination and remove the flag to enter this statement
-			SetDestination(AiDestination.position, 7);
+			SetDestination(AiDestination.position, 10);
 			flag = false;
 		}
 		else
 		{
-			if(checkDestination(AiDestination.position) == true)
+            if(currentState == STATE.DEN)
+            {
+                GoToDen();
+            }
+            else if(checkDestination(AiDestination.position) == true)
 			{
 				Debug.Log("RUNNING: Reached the Destination");
 				anim.SetBool("isFleeing", false);
@@ -413,8 +520,6 @@ public class NavMeshTest : MonoBehaviour
 				flag = true;
 			}
 		}
-
-
 	}
 
 	private void idleState()
@@ -445,8 +550,8 @@ public class NavMeshTest : MonoBehaviour
 			NavMeshHit hit;
 			if (NavMesh.SamplePosition(wanderDestination.position, out hit, 2.0f, NavMesh.AllAreas))
 			{
-				SetDestination(hit.position, 6);
 				framesSinceTriggered = 0;
+				SetDestination(hit.position, 6);
 			}
 		}
 	}
@@ -454,14 +559,17 @@ public class NavMeshTest : MonoBehaviour
 	private void wanderState()
 	{
 		//Debug.Log("This is Wander State");
+		if(!m_AudioSource.isPlaying)
+			PlayFootStepAudio();
+
 		if (navMeshAgent.remainingDistance < 0.1)
 		{
 			anim.SetBool("isWalking", false);
 			currentState = STATE.IDLE;
+
 		}
 
 	}
-
 
 	private bool checkDestination(Vector3 destination)
 	{
@@ -497,5 +605,85 @@ public class NavMeshTest : MonoBehaviour
 	private bool AnimatorIsPlaying(string statename)
 	{
 		return AnimatorIsPlaying() && anim.GetCurrentAnimatorStateInfo(0).IsName(statename);
+	}
+
+	private void PlayFootStepAudio()
+	{
+		// pick & play a random footstep sound from the array,
+		// excluding sound at index 0
+		int n = Random.Range(1, m_FootstepSounds.Length);
+		m_AudioSource.clip = m_FootstepSounds[n];
+		m_AudioSource.volume = (25/distanceToPlayer);
+		m_AudioSource.PlayOneShot(m_AudioSource.clip);
+		// move picked sound to index 0 so it's not picked next time
+		m_FootstepSounds[n] = m_FootstepSounds[0];
+		m_FootstepSounds[0] = m_AudioSource.clip;
+	}
+
+	public void PlayVOLine(int VOElementeNumber)
+	{
+		if(!VOplayed[VOElementeNumber])
+		{
+			if (m_AudioSource_Mollie.isPlaying)
+			{
+					m_AudioSource_Mollie.Stop();
+			}
+
+			m_AudioSource_Mollie.PlayOneShot(player.GetComponent<FirstPersonController>().m_CrucialVoiceLines[VOElementeNumber]);
+
+			VOplayed[VOElementeNumber] = true;
+		}
+
+		player.GetComponent<FirstPersonController>().VOCounter = 99;
+	}
+
+	private void GoToDen()
+	{
+
+        anim.SetBool("isFleeing", true);
+        anim.SetBool("isDen", true);
+        anim.SetBool("isEating", false);
+        anim.SetBool("isWalking", false);
+        anim.SetBool("isGrowling", false);
+        anim.SetBool("isCurious", false);
+
+
+        if (routeCounter < 4)
+		{
+			
+			if(!m_AudioSource.isPlaying)
+			{
+				PlayFootStepAudio();
+			}
+            
+			NavMeshHit hit;
+            
+			NavMesh.SamplePosition(denRoute[routeCounter].position, out hit, 2.0f, NavMesh.AllAreas);
+			SetDestination(hit.position, 10);
+
+			if(checkDestination(hit.position))
+			{
+				routeCounter++;
+				Debug.Log("At Position");
+				NavMesh.SamplePosition(denRoute[routeCounter].position, out hit, 2.0f, NavMesh.AllAreas);
+				SetDestination(hit.position, 10);
+			}
+		}
+		else
+		{
+			if(distanceToPlayer < 10)
+			{
+				PlayVOLine(11);
+
+				if(VOplayed[11] && !m_AudioSource_Mollie.isPlaying)
+				{
+					PlayVOLine(12);
+				}
+
+			}
+			//Make Nav Disappear here (Hes reached the burrow)
+			Debug.Log(gameObject.transform.GetChild(1).name);
+			gameObject.transform.GetChild(1).gameObject.SetActive(false);
+		}
 	}
 }

@@ -38,7 +38,6 @@ public class FoxVision : MonoBehaviour {
         {
             savedIterations = (int) Mathf.Lerp(savedIterations, iterations, 1);
             savedDecreasedResolution = (int)Mathf.Lerp(savedDecreasedResolution, decreasedResolution, 1);
-            Debug.Log("animal is true");
         }
         else
         {            
